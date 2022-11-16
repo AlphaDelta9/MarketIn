@@ -16,6 +16,8 @@ class CreateProjectHeadersTable extends Migration
         Schema::create('project_headers', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
+            $table->string('title');
+            $table->foreignId('user_id');
         });
     }
 
