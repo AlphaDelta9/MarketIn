@@ -43,7 +43,7 @@ class UserController extends Controller
             'password' => ['required','confirmed']
         ]);
         User::create([
-            'name' => $request->email,
+            'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password)
         ]);

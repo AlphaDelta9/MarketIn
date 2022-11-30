@@ -8,4 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 class ProjectDetail extends Model
 {
     use HasFactory;
+
+    protected $fillable = ['project_header_id', 'user_id'];
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function user()
+    {
+        return $this->belongsTo('User');
+    }
 }

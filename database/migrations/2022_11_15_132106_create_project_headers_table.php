@@ -17,7 +17,7 @@ class CreateProjectHeadersTable extends Migration
             $table->id();
             $table->timestamps();
             $table->string('title');
-            $table->foreignId('user_id');
+            $table->foreignId('user_id')->constrained();
         });
     }
 

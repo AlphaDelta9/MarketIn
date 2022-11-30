@@ -23,3 +23,6 @@ Route::post('/register', [UserController::class, 'store']);
 Route::get('/login', [UserController::class, 'index']);
 Route::post('/login', [UserController::class, 'login']);
 Route::get('/logout', [UserController::class, 'logout']);
+Route::get('/index', function () {
+    return view('index');
+});
