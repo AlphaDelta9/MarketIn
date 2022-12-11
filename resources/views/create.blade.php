@@ -1,9 +1,7 @@
-<form action="/login" method="post">
+<form action="/create" method="post">
     @csrf
-    <input type="email" name="email" id="">
-    <input type="password" name="password" id="">
-    <input type="radio" name="remember" id="">
-    <input type="submit" value="Login">
+    <input type="text" name="title" id="">
+    <input type="submit" value="Create">
 </form>
 @if ($errors->any())
     <div class="alert alert-danger">
