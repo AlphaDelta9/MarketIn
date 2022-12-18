@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
+    // return redirect('login', 302, [], true);
 });
 
 Route::get('/register', 'UserController@create');
@@ -26,4 +27,5 @@ Route::get('/logout', 'UserController@logout');
 Route::get('/index', 'ProjectHeaderController@index');
 Route::get('/create', 'ProjectHeaderController@create');
 Route::post('/create', 'ProjectHeaderController@store');
-Route::get('/show/{projectHeader}', 'UserController@show');
+Route::get('/show/{projectHeader}', 'ProjectHeaderController@show');
+Route::post('/assign/{projectHeader}', 'ProjectDetailController@store');

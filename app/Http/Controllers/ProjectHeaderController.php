@@ -42,7 +42,7 @@ class ProjectHeaderController extends Controller
             'title' => $request->title,
             'user_id' => $request->user()->id
         ]);
-        return redirect('index');
+        return redirect('index', 302, [], true);
     }
 
     /**
@@ -53,7 +53,7 @@ class ProjectHeaderController extends Controller
      */
     public function show(ProjectHeader $projectHeader)
     {
-        //
+        return view('show', ['project'=>$projectHeader]);
     }
 
     /**

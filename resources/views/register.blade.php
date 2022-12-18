@@ -1,9 +1,9 @@
 <form action="/register" method="post">
     @csrf
-    <input type="text" name="name" id="">
-    <input type="email" name="email" id="">
-    <input type="password" name="password" id="">
-    <input type="password" name="password_confirmation" id="">
+    <input type="text" name="name" id="" placeholder="Name">
+    <input type="email" name="email" id="" placeholder="Email">
+    <input type="password" name="password" id="" placeholder="Password">
+    <input type="password" name="password_confirmation" id="" placeholder="Password">
     <input type="submit" value="Register">
 </form>
 @if ($errors->any())

@@ -1,4 +1,6 @@
 {{auth()->user()}}
 @foreach ($list as $header)
-    {{$header->title}}
+    <a href={{secure_url('show/'.$header->id)}}>
+        {{$header->title}}
+    </a>
 @endforeach

@@ -1,7 +1,7 @@
 <form action="/login" method="post">
     @csrf
-    <input type="email" name="email" id="">
-    <input type="password" name="password" id="">
+    <input type="email" name="email" id="" placeholder="Email">
+    <input type="password" name="password" id="" placeholder="Password">
     <input type="radio" name="remember" id="">
     <input type="submit" value="Login">
 </form>

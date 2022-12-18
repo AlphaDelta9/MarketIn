@@ -47,7 +47,7 @@ class UserController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password)
         ]);
-        return redirect('login');
+        return redirect('login', 302, [], true);
     }
 
     /**
@@ -105,7 +105,7 @@ class UserController extends Controller
         )) {
             $request->session()->regenerate();
 
-            return redirect('index');
+            return redirect('index', 302, [], true);
         }
         return back()->withErrors([
 
@@ -117,6 +117,6 @@ class UserController extends Controller
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-        return redirect('login');
+        return redirect('login', 302, [], true);
     }
 }
