@@ -47,7 +47,7 @@ class User extends Authenticatable
      */
     public function projectDetails()
     {
-        return $this->hasMany('ProjectDetail');
+        return $this->hasMany('App\Models\ProjectDetail');
     }
 
     /**
@@ -55,6 +55,6 @@ class User extends Authenticatable
      */
     public function projectHeaders()
     {
-        return $this->hasMany('ProjectHeader');
+        return $this->hasMany('App\Models\ProjectHeader');
     }
 }
