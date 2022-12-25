@@ -18,6 +18,8 @@ class CreateProjectHeadersTable extends Migration
             $table->timestamps();
             $table->string('title');
             $table->foreignId('user_id')->constrained();
+            $table->string('city_name');
+            $table->foreign('city_name')->references('name')->on('cities');
         });
     }
 
@@ -28,6 +30,7 @@ class CreateProjectHeadersTable extends Migration
      */
     public function down()
     {
+        Schema::dropForeign(['user_id,city_name']);
         Schema::dropIfExists('project_headers');
     }
 }
