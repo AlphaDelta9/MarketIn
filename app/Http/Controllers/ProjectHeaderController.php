@@ -14,7 +14,7 @@ class ProjectHeaderController extends Controller
      */
     public function index()
     {
-        //
+        return view('index', ['list'=>ProjectHeader::all()]);
     }
 
     /**
@@ -24,7 +24,7 @@ class ProjectHeaderController extends Controller
      */
     public function create()
     {
-        //
+        return view('create');
     }
 
     /**
@@ -35,7 +35,14 @@ class ProjectHeaderController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'title' => ['required'],
+        ]);
+        ProjectHeader::create([
+            'title' => $request->title,
+            'user_id' => $request->user()->id
+        ]);
+        return redirect('index', 302, [], true);
     }
 
     /**
@@ -46,7 +53,7 @@ class ProjectHeaderController extends Controller
      */
     public function show(ProjectHeader $projectHeader)
     {
-        //
+        return view('show', ['project'=>$projectHeader]);
     }
 
     /**

@@ -16,6 +16,8 @@ class CreateProjectDetailsTable extends Migration
         Schema::create('project_details', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
+            $table->foreignId('project_header_id')->constrained();
+            $table->foreignId('user_id')->constrained();
         });
     }
 

@@ -35,7 +35,11 @@ class ProjectDetailController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        ProjectDetail::create([
+            'project_header_id' => $request->projectHeader,
+            'user_id' => $request->user()->id
+        ]);
+        return redirect('show/'.$request->projectHeader, 302, [], true);
     }
 
     /**
