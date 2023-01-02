@@ -1,10 +1,10 @@
-<form action="/register" method="post">
+<form action="{{secure_url("profile/$user->id")}}" method="post">
     @csrf
-    <input type="text" name="name" id="" placeholder="Name">
-    <input type="email" name="email" id="" placeholder="Email">
+    <input type="text" name="name" id="" placeholder="Name" value="{{old('name',$user->name)}}">
+    <input type="email" name="email" id="" placeholder="Email" value="{{old('email',$user->email)}}">
     <input type="password" name="password" id="" placeholder="Password">
     <input type="password" name="password_confirmation" id="" placeholder="Confirm Password">
-    <input type="submit" value="Register">
+    <input type="submit" value="Save">
 </form>
 @if ($errors->any())
     <div class="alert alert-danger">

@@ -17,6 +17,7 @@ class CreateProjectHeadersTable extends Migration
             $table->id();
             $table->timestamps();
             $table->string('title');
+            $table->text('description');
             $table->foreignId('user_id')->constrained();
             $table->string('city_name');
             $table->foreign('city_name')->references('name')->on('cities');

@@ -36,10 +36,10 @@ class ProjectDetailController extends Controller
     public function store(Request $request)
     {
         ProjectDetail::create([
-            'project_header_id' => $request->projectHeader,
+            'project_header_id' => $request->id,
             'user_id' => $request->user()->id
         ]);
-        return redirect('show/'.$request->projectHeader, 302, [], true);
+        return redirect('show/'.$request->id, 302, [], true);
     }
 
     /**
@@ -50,7 +50,7 @@ class ProjectDetailController extends Controller
      */
     public function show(ProjectDetail $projectDetail)
     {
-        //
+        return view('detail', ['user'=>$projectDetail->user]);
     }
 
     /**
