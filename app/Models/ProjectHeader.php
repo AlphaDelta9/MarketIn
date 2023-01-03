@@ -28,7 +28,7 @@ class ProjectHeader extends Model
     /**
      * @var array
      */
-    protected $fillable = ['user_id', 'created_at', 'updated_at', 'title'];
+    protected $fillable = ['user_id', 'created_at', 'updated_at', 'title','city_name'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

@@ -1,11 +1,11 @@
 @extends('layout')
 @section('content')
 
-<form action="/create" method="post">
+<form action="{{secure_url("edit/$project->id")}}" method="post">
     @csrf
-    <input type="text" name="title" id="">
-    <input type="text" name="city" id="" list="city">
-    <input type="submit" value="Create">
+    <input type="text" name="title" id="" value="{{old('title',$project->title)}}">
+    <input type="text" name="city" id="" list="city" value="{{old('city',$project->city_name)}}">
+    <input type="submit" value="Update">
 </form>
 <datalist id="city">
     @foreach ($city as $name)
