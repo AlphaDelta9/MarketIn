@@ -58,7 +58,8 @@ class ProjectHeaderController extends Controller
      */
     public function show(ProjectHeader $projectHeader)
     {
-        return view('show', ['project'=>$projectHeader]);
+        return view('show', ['project'=>$projectHeader,'detail'=>auth()->user()
+        ->projectDetails->find($projectHeader->id)]);
     }
 
     /**

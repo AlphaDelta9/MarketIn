@@ -2,8 +2,18 @@
 @section('content')
 {{$project->title}}
 {{$project->city_name}}
-<form action="{{secure_url("assign/$project->id")}}" method="post">
+@isset($detail)
+<form action="{{secure_url("project/$project->id")}}" method="post">
     @csrf
-    <input type="submit" value="Submit">
+    @method('PATCH')
+    <input type="submit" value="Cancel">
 </form>
+@endisset
+
+@empty($detail)
+<form action="{{secure_url("project/$project->id")}}" method="post">
+    @csrf
+    <input type="submit" value="Assign">
+</form>
+@endempty
 @endsection

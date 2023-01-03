@@ -1,5 +1,6 @@
 <form action="{{secure_url("profile/$user->id")}}" method="post">
     @csrf
+    @method('PUT')
     <input type="text" name="name" id="" placeholder="Name" value="{{old('name',$user->name)}}">
     <input type="email" name="email" id="" placeholder="Email" value="{{old('email',$user->email)}}">
     <input type="password" name="password" id="" placeholder="Password">
