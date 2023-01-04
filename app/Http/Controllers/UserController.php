@@ -69,7 +69,7 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        //
+        return view('profile', ['user'=>$user]);
     }
 
     /**
@@ -81,7 +81,18 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        //
+        $request->validate([
+            'name' => ['required'],
+            'email' => ['required','email'],
+            'password' => ['nullable','confirmed']
+        ]);
+        $user->name=$request->name;
+        $user->email=$request->email;
+        if (filled($request->password)) {
+            $user->password=Hash::make($request->password);
+        }
+        $user->save();
+        return redirect("profile/$user->id", 302, [], true);
     }
 
     /**

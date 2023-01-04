@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\City;
 use App\Models\ProjectHeader;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class ProjectHeaderController extends Controller
 {
@@ -24,7 +26,7 @@ class ProjectHeaderController extends Controller
      */
     public function create()
     {
-        return view('create');
+        return view('create', ['city'=>City::all()]);
     }
 
     /**
@@ -35,12 +37,15 @@ class ProjectHeaderController extends Controller
      */
     public function store(Request $request)
     {
+        $request->city = Str::title($request->city);
         $request->validate([
             'title' => ['required'],
+            'city' => ['required', 'exists:cities,name'],
         ]);
         ProjectHeader::create([
             'title' => $request->title,
-            'user_id' => $request->user()->id
+            'user_id' => $request->user()->id,
+            'city_name' => $request->city
         ]);
         return redirect('index', 302, [], true);
     }
@@ -64,7 +69,7 @@ class ProjectHeaderController extends Controller
      */
     public function edit(ProjectHeader $projectHeader)
     {
-        //
+        return view('update', ['project'=>$projectHeader,'city'=>City::all()]);
     }
 
     /**
@@ -76,7 +81,15 @@ class ProjectHeaderController extends Controller
      */
     public function update(Request $request, ProjectHeader $projectHeader)
     {
-        //
+        $request->city = Str::title($request->city);
+        $request->validate([
+            'title' => ['required'],
+            'city' => ['required', 'exists:cities,name'],
+        ]);
+        $projectHeader->title=$request->title;
+        $projectHeader->city_name=$request->city;
+        $projectHeader->save();
+        return redirect("edit/$projectHeader->id", 302, [], true);
     }
 
     /**
