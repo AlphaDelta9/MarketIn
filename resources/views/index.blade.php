@@ -8,7 +8,7 @@
     <button type="submit"><a href="{{secure_url("logout")}}">Logout</a></button>
 @endauth
 @foreach ($list as $header)
-    <a href={{secure_url("project/$header->id")}}>
+    <a href={{secure_url("project/".$header->id)}}>
         {{$header->title}}
     </a>
 @endforeach

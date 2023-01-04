@@ -27,6 +27,7 @@ Route::post('/login', [UserController::class,'login']);
 Route::get('/logout', [UserController::class,'logout']);
 Route::get('/profile/{user}', [UserController::class,'edit']);
 Route::put('/profile/{user}', [UserController::class,'update']);
+Route::get('/history/{user}/{type}', [UserController::class,'show']);
 
 Route::get('/index', [ProjectHeaderController::class,'index']);
 Route::get('/create', [ProjectHeaderController::class,'create']);

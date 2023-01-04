@@ -1,4 +1,4 @@
-<form action="{{secure_url("profile/$user->id")}}" method="post">
+<form action="{{secure_url("profile/".$user->id)}}" method="post">
     @csrf
     @method('PUT')
     <input type="text" name="name" id="" placeholder="Name" value="{{old('name',$user->name)}}">

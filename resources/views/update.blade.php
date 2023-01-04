@@ -1,7 +1,7 @@
 @extends('layout')
 @section('content')
 
-<form action="{{secure_url("edit/$project->id")}}" method="put">
+<form action="{{secure_url("edit/".$project->id)}}" method="put">
     @csrf
     @method('PUT')
     <input type="text" name="title" id="" value="{{old('title',$project->title)}}">
