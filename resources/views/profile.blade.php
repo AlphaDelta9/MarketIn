@@ -1,3 +1,5 @@
+@extends('layout')
+@section('content')
 <form action="{{secure_url("profile/".$user->id)}}" method="post">
     @csrf
     @method('PUT')
@@ -16,3 +18,4 @@
         </ul>
     </div>
 @endif
+@endsection
