@@ -58,7 +58,11 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        //
+        if (request('type') == 'project') {
+            return view('history', ['logP'=>$user->projectHeaders]);
+        } elseif (request('type') == 'assign') {
+            return view('history', ['logA'=>$user->projectDetails]);
+        }
     }
 
     /**

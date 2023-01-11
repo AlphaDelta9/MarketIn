@@ -3,8 +3,9 @@
 
 <form action="/create" method="post">
     @csrf
-    <input type="text" name="title" id="">
-    <input type="text" name="city" id="" list="city">
+    <input type="text" name="title" id="" value="{{old('title')}}">
+    <textarea name="description" id="">{{old('description')}}</textarea>
+    <input type="text" name="city" id="" list="city" value="{{old('city')}}">
     <input type="submit" value="Create">
 </form>
 <datalist id="city">

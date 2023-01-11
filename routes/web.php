@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\ProjectDetailController;
+use App\Http\Controllers\ProjectHeaderController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,19 +20,20 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/register', 'UserController@create');
-Route::post('/register', 'UserController@store');
-Route::get('/login', 'UserController@index');
-Route::post('/login', 'UserController@login');
-Route::get('/logout', 'UserController@logout');
-Route::get('/profile/{user}', 'UserController@edit');
-Route::post('/profile/{user}', 'UserController@update');
+Route::get('/register', [UserController::class,'create']);
+Route::post('/register', [UserController::class,'store']);
+Route::get('/login', [UserController::class,'index']);
+Route::post('/login', [UserController::class,'login']);
+Route::get('/logout', [UserController::class,'logout']);
+Route::get('/profile/{user}', [UserController::class,'edit']);
+Route::put('/profile/{user}', [UserController::class,'update']);
+Route::get('/history/{user}/{type}', [UserController::class,'show']);
 
-Route::get('/index', 'ProjectHeaderController@index');
-Route::get('/create', 'ProjectHeaderController@create');
-Route::post('/create', 'ProjectHeaderController@store');
-Route::get('/project/{projectHeader}', 'ProjectHeaderController@show');
-Route::post('/project/{id}', 'ProjectDetailController@store');
-Route::get('/project/{id}/{projectDetail}', 'ProjectDetailController@show');
-Route::get('/edit/{projectHeader}', 'ProjectHeaderController@edit');
-Route::post('/edit/{projectHeader}', 'ProjectHeaderController@update');
+Route::get('/index', [ProjectHeaderController::class,'index']);
+Route::get('/create', [ProjectHeaderController::class,'create']);
+Route::post('/create', [ProjectHeaderController::class,'store']);
+Route::get('/project/{projectHeader}', [ProjectHeaderController::class,'show']);
+Route::post('/project/{id}', [ProjectDetailController::class,'store']);
+Route::get('/project/{id}/{projectDetail}', [ProjectDetailController::class,'show']);
+Route::get('/edit/{projectHeader}', [ProjectHeaderController::class,'edit']);
+Route::put('/edit/{projectHeader}', [ProjectHeaderController::class,'update']);

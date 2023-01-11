@@ -40,10 +40,12 @@ class ProjectHeaderController extends Controller
         $request->city = Str::title($request->city);
         $request->validate([
             'title' => ['required'],
+            'description' => ['required'],
             'city' => ['required', 'exists:cities,name'],
         ]);
         ProjectHeader::create([
             'title' => $request->title,
+            'description' => $request->description,
             'user_id' => $request->user()->id,
             'city_name' => $request->city
         ]);
