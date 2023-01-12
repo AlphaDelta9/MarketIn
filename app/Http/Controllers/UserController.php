@@ -16,7 +16,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        return view('login');
+        return view('auth.login');
     }
 
     /**
@@ -26,7 +26,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('register');
+        return view('auth.register');
     }
 
     /**
@@ -40,12 +40,14 @@ class UserController extends Controller
         $request->validate([
             'name' => ['required'],
             'email' => ['required','email'],
-            'password' => ['required','confirmed']
+            'password' => ['required','confirmed'],
+            'role_id' => ['required']
         ]);
         User::create([
             'name' => $request->name,
             'email' => $request->email,
-            'password' => Hash::make($request->password)
+            'password' => Hash::make($request->password),
+            'role' => $request->role_id
         ]);
         return redirect('login', 302, [], true);
     }
@@ -73,7 +75,7 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        return view('profile', ['user'=>$user]);
+        return view('front.profile', ['user'=>Auth::user()]);
     }
 
     /**
@@ -120,7 +122,7 @@ class UserController extends Controller
         )) {
             $request->session()->regenerate();
 
-            return redirect('index', 302, [], true);
+            return redirect('/', 302, [], true);
         }
         return back()->withErrors([
 
@@ -132,6 +134,6 @@ class UserController extends Controller
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-        return redirect('login', 302, [], true);
+        return redirect('/', 302, [], true);
     }
 }

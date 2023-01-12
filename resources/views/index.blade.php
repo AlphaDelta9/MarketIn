@@ -5,5 +5,5 @@
         {{$header->title}}
     </a>
 @endforeach
-
+{{$list->links()}}
 @endsection

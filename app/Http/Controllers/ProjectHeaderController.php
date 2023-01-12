@@ -16,7 +16,7 @@ class ProjectHeaderController extends Controller
      */
     public function index()
     {
-        return view('index', ['list'=>ProjectHeader::all()]);
+        return view('index', ['list'=>ProjectHeader::paginate(6)]);
     }
 
     /**
@@ -26,7 +26,7 @@ class ProjectHeaderController extends Controller
      */
     public function create()
     {
-        return view('create', ['city'=>City::all()]);
+        return view('front.create', ['cities'=>City::all()]);
     }
 
     /**
@@ -49,7 +49,7 @@ class ProjectHeaderController extends Controller
             'user_id' => $request->user()->id,
             'city_name' => $request->city
         ]);
-        return redirect('index', 302, [], true);
+        return redirect('/', 302, [], true);
     }
 
     /**
@@ -60,7 +60,7 @@ class ProjectHeaderController extends Controller
      */
     public function show(ProjectHeader $projectHeader)
     {
-        return view('show', ['project'=>$projectHeader]);
+        return view('front.detail', ['project'=>$projectHeader]);
     }
 
     /**

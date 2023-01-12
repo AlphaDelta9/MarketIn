@@ -18,7 +18,9 @@ class CreateProjectDetailsTable extends Migration
             $table->timestamps();
             $table->foreignId('project_header_id')->constrained();
             $table->foreignId('user_id')->constrained();
-            $table->integer('status');
+            $table->softDeletes();
+            $table->timestamp('accepted_at')->nullable();
+            $table->timestamp('rejected_at')->nullable();
         });
     }
 
