@@ -1,61 +1,69 @@
 <?php
 
+/**
+ * Created by Reliese Model.
+ */
+
 namespace App\Models;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as AuthUser;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
-class User extends Authenticatable
+/**
+ * Class User
+ *
+ * @property int $id
+ * @property string $name
+ * @property string $email
+ * @property string $password
+ * @property bool $role
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
+ *
+ * @property Collection|LoginToken[] $login_tokens
+ * @property Collection|ProjectDetail[] $project_details
+ * @property Collection|ProjectHeader[] $project_headers
+ *
+ * @package App\Models
+ */
+class User extends AuthUser
 {
     use HasApiTokens, HasFactory, Notifiable;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
-    protected $fillable = [
-        'name',
-        'email',
-        'password',
-        'role',
-    ];
+	protected $table = 'users';
 
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var array<int, string>
-     */
-    protected $hidden = [
-        'password',
-        'remember_token',
-    ];
+	protected $casts = [
+		'role' => 'bool'
+	];
 
-    /**
-     * The attributes that should be cast.
-     *
-     * @var array<string, string>
-     */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-    ];
+	protected $hidden = [
+		'password'
+	];
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function projectDetails()
-    {
-        return $this->hasMany('App\Models\ProjectDetail');
-    }
+	protected $fillable = [
+		'name',
+		'email',
+		'password',
+		'role'
+	];
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function projectHeaders()
-    {
-        return $this->hasMany('App\Models\ProjectHeader');
-    }
+	public function login_tokens()
+	{
+		return $this->hasMany(LoginToken::class);
+	}
+
+	public function project_details()
+	{
+		return $this->hasMany(ProjectDetail::class);
+	}
+
+	public function project_headers()
+	{
+		return $this->hasMany(ProjectHeader::class);
+	}
 }

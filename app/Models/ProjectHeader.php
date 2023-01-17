@@ -1,48 +1,68 @@
 <?php
 
+/**
+ * Created by Reliese Model.
+ */
+
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
- * @property integer $id
- * @property integer $user_id
- * @property string $created_at
- * @property string $updated_at
+ * Class ProjectHeader
+ * 
+ * @property int $id
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
  * @property string $title
+ * @property string $description
+ * @property int $user_id
+ * @property string $city_name
+ * @property string|null $deleted_at
+ * @property Carbon|null $finished_at
+ * 
+ * @property City $city
  * @property User $user
- * @property ProjectDetail[] $projectDetails
+ * @property Collection|ProjectDetail[] $project_details
+ *
+ * @package App\Models
  */
 class ProjectHeader extends Model
 {
-    use HasFactory;
+	use SoftDeletes;
+	protected $table = 'project_headers';
 
-    /**
-     * The "type" of the auto-incrementing ID.
-     *
-     * @var string
-     */
-    protected $keyType = 'integer';
+	protected $casts = [
+		'user_id' => 'int'
+	];
 
-    /**
-     * @var array
-     */
-    protected $fillable = ['user_id', 'created_at', 'updated_at', 'title','description','city_name'];
+	protected $dates = [
+		'finished_at'
+	];
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function user()
-    {
-        return $this->belongsTo('App\Models\User');
-    }
+	protected $fillable = [
+		'title',
+		'description',
+		'user_id',
+		'city_name',
+		'finished_at'
+	];
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function projectDetails()
-    {
-        return $this->hasMany('App\Models\ProjectDetail');
-    }
+	public function city()
+	{
+		return $this->belongsTo(City::class, 'city_name');
+	}
+
+	public function user()
+	{
+		return $this->belongsTo(User::class);
+	}
+
+	public function project_details()
+	{
+		return $this->hasMany(ProjectDetail::class);
+	}
 }

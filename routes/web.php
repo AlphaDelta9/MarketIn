@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomepageController;
+use App\Http\Controllers\ProjectDetailController;
 use App\Http\Controllers\ProjectHeaderController;
 use App\Http\Controllers\QuizController;
 use App\Http\Controllers\ShopByBenefitController;
@@ -94,6 +95,8 @@ Route::get('/history/{user}', [UserController::class,'show']);
 Route::get('/create', [ProjectHeaderController::class,'create']);
 Route::post('/create', [ProjectHeaderController::class,'store']);
 Route::get('/project/{projectHeader}', [ProjectHeaderController::class,'show']);
+Route::post('/project/{id}', [ProjectDetailController::class,'store']);
+Route::patch('/project/{id}', [ProjectDetailController::class,'destroy']);
 Route::get('/edit/{projectHeader}', [ProjectHeaderController::class,'edit']);
 Route::put('/edit/{projectHeader}', [ProjectHeaderController::class,'update']);
 

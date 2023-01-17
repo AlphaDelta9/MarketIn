@@ -60,7 +60,7 @@ class ProjectHeaderController extends Controller
      */
     public function show(ProjectHeader $projectHeader)
     {
-        return view('front.detail', ['project'=>$projectHeader]);
+        return view('front.detail', ['project'=>$projectHeader,'cities'=>City::all()]);
     }
 
     /**
@@ -71,7 +71,7 @@ class ProjectHeaderController extends Controller
      */
     public function edit(ProjectHeader $projectHeader)
     {
-        return view('update', ['project'=>$projectHeader,'city'=>City::all()]);
+        return view('front.update', ['project'=>$projectHeader,'cities'=>City::all()]);
     }
 
     /**
@@ -86,9 +86,11 @@ class ProjectHeaderController extends Controller
         $request->city = Str::title($request->city);
         $request->validate([
             'title' => ['required'],
+            'description' => ['required'],
             'city' => ['required', 'exists:cities,name'],
         ]);
         $projectHeader->title=$request->title;
+        $projectHeader->description=$request->description;
         $projectHeader->city_name=$request->city;
         $projectHeader->save();
         return redirect("edit/$projectHeader->id", 302, [], true);

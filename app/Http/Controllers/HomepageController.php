@@ -15,9 +15,9 @@ class HomepageController extends Controller
         if (Auth::check()) {
             $user = Auth::user();
             if ($user->role) {
-                return view('front.homepage', ['active'=>$user->projectHeaders->random($user->projectHeaders->count()>3 ? 3 : 0),'projects'=>ProjectHeader::inRandomOrder('id')->simplePaginate(3)]);
+                return view('front.homepage', ['active'=>$user->project_headers->random($user->project_headers->count()>3 ? 3 : 0),'projects'=>ProjectHeader::inRandomOrder('id')->simplePaginate(3)]);
             }else {
-                return view('front.homepage', ['active'=>$user->projectDetails->random($user->projectHeaders->count()>3 ? 3 : 0),'projects'=>ProjectHeader::inRandomOrder('id')->simplePaginate(3)]);
+                return view('front.homepage', ['active'=>$user->project_headers->random($user->project_headers->count()>3 ? 3 : 0),'projects'=>ProjectHeader::inRandomOrder('id')->simplePaginate(3)]);
             }
         }else {
             return view('front.homepage', ['projects'=>ProjectHeader::inRandomOrder('id')->simplePaginate(6)]);

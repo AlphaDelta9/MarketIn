@@ -7,9 +7,6 @@
 @extends('front.layouts.navbar')
 
 @section('content')
-    @php
-        $user = getUser();
-    @endphp
 
     <section class="py-20">
         <div class="container">
@@ -45,7 +42,10 @@
                     <div class="mt-8 text-right">
                         <a href="{{ url('/edit/'.$project->id) }}" class="btn btn-primary">Edit</a>
                     </div>
-                @elseif (blank(auth()->user()->projectDetails->find($project->id)))
+                    @foreach ($project->project_details as $detail)
+                        {{$detail->user}}
+                    @endforeach
+                @elseif (blank(auth()->user()->project_details->where('project_header_id',$project->id)))
                 <form action="{{url("project/".$project->id)}}" method="post">
                     @csrf
                     <input type="submit" class="btn btn-primary" value="Assign">
