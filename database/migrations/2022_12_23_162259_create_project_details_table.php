@@ -31,7 +31,6 @@ class CreateProjectDetailsTable extends Migration
      */
     public function down()
     {
-        Schema::dropForeign(['user_id,project_header_id']);
         Schema::dropIfExists('project_details');
     }
 }

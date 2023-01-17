@@ -21,17 +21,16 @@ class DatabaseSeeder extends Seeder
                 'name' => $faker->unique()->city(),
             ]);
         }
-        \App\Models\User::insert([
+        \App\Models\User::create([
                 'name' => $faker->name(),
                 'email' => 'email@email.email',
                 'role' => 1,
                 'password' => Hash::make('password'),
         ]);
         for ($i=0; $i < 12; $i++) {
-            \App\Models\ProjectHeader::insert([
+            \App\Models\ProjectHeader::create([
                 'title' => $faker->sentence(),
                 'description' => $faker->paragraph(),
-                'category' => '',
                 'user_id' => 1,
                 'city_name' => \App\Models\City::inRandomOrder()->first()->name,
             ]);

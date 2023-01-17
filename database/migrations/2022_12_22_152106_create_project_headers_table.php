@@ -35,7 +35,6 @@ class CreateProjectHeadersTable extends Migration
      */
     public function down()
     {
-        Schema::dropForeign(['user_id,city_name']);
         Schema::dropIfExists('project_headers');
     }
 }
