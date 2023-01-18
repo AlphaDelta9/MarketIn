@@ -45,17 +45,19 @@
                     @foreach ($project->project_details as $detail)
                         {{$detail->user}}
                     @endforeach
-                @elseif (blank(auth()->user()->project_details->where('project_header_id',$project->id)))
-                <form action="{{url("project/".$project->id)}}" method="post">
-                    @csrf
-                    <input type="submit" class="btn btn-primary" value="Assign">
-                </form>
-                @else
-                <form action="{{url("project/".$project->id)}}" method="post">
-                    @csrf
-                    @method('PATCH')
-                    <input type="submit" class="btn btn-primary" value="Cancel">
-                </form>
+                @elseif (!auth()->user()->role)
+                    @if (blank(auth()->user()->project_details->where('project_header_id',$project->id)))
+                    <form action="{{url("project/".$project->id)}}" method="post">
+                        @csrf
+                        <input type="submit" class="btn btn-primary" value="Assign">
+                    </form>
+                    @else
+                    <form action="{{url("project/".auth()->user()->project_details->where('project_header_id',$project->id)->first()->id)}}" method="post">
+                        @csrf
+                        @method('PATCH')
+                        <input type="submit" class="btn btn-primary" value="Cancel">
+                    </form>
+                    @endif
                 @endif
                 @endauth
             </div>

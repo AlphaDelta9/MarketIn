@@ -49,7 +49,7 @@ class UserController extends Controller
             'password' => Hash::make($request->password),
             'role' => $request->role_id
         ]);
-        return redirect('login', 302, [], true);
+        return redirect('login');
     }
 
     /**
@@ -98,7 +98,7 @@ class UserController extends Controller
             $user->password=Hash::make($request->password);
         }
         $user->save();
-        return redirect("profile/$user->id", 302, [], true);
+        return redirect("profile/$user->id");
     }
 
     /**
@@ -122,7 +122,7 @@ class UserController extends Controller
         )) {
             $request->session()->regenerate();
 
-            return redirect('/', 302, [], true);
+            return redirect('/');
         }
         return back()->withErrors([
 
@@ -134,6 +134,6 @@ class UserController extends Controller
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-        return redirect('/', 302, [], true);
+        return redirect('/');
     }
 }

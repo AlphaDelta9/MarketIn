@@ -39,7 +39,7 @@ class ProjectDetailController extends Controller
             'project_header_id' => $request->id,
             'user_id' => $request->user()->id
         ]);
-        return redirect('show/'.$request->id, 302, [], true);
+        return redirect('show/'.$request->id);
     }
 
     /**
@@ -84,6 +84,7 @@ class ProjectDetailController extends Controller
      */
     public function destroy(ProjectDetail $projectDetail)
     {
-        //
+        $projectDetail->delete();
+        return redirect('project/'.$projectDetail->project_header_id);
     }
 }

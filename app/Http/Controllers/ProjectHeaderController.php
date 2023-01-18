@@ -49,7 +49,7 @@ class ProjectHeaderController extends Controller
             'user_id' => $request->user()->id,
             'city_name' => $request->city
         ]);
-        return redirect('/', 302, [], true);
+        return redirect('/');
     }
 
     /**
@@ -93,7 +93,7 @@ class ProjectHeaderController extends Controller
         $projectHeader->description=$request->description;
         $projectHeader->city_name=$request->city;
         $projectHeader->save();
-        return redirect("edit/$projectHeader->id", 302, [], true);
+        return redirect("edit/$projectHeader->id");
     }
 
     /**

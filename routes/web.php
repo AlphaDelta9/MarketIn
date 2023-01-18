@@ -96,7 +96,7 @@ Route::get('/create', [ProjectHeaderController::class,'create']);
 Route::post('/create', [ProjectHeaderController::class,'store']);
 Route::get('/project/{projectHeader}', [ProjectHeaderController::class,'show']);
 Route::post('/project/{id}', [ProjectDetailController::class,'store']);
-Route::patch('/project/{id}', [ProjectDetailController::class,'destroy']);
+Route::patch('/project/{projectDetail}', [ProjectDetailController::class,'destroy']);
 Route::get('/edit/{projectHeader}', [ProjectHeaderController::class,'edit']);
 Route::put('/edit/{projectHeader}', [ProjectHeaderController::class,'update']);
 
