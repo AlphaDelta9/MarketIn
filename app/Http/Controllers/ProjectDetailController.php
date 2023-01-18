@@ -84,6 +84,7 @@ class ProjectDetailController extends Controller
      */
     public function destroy(ProjectDetail $projectDetail)
     {
-        //
+        $projectDetail->delete();
+        return redirect('project/'.$projectDetail->project_header_id, 302, [], true);
     }
 }

@@ -57,11 +57,11 @@
 			<img src="/assets/images/homepage/ornament-9.png?v={{env('APP_VER')}}" alt="">
 		</div>
 		<div class="container">
-            <div class="text-3xl mb-4">Proyek Rekomendasi</div>
+            <div class="text-3xl mb-4">Proyek Sekarang</div>
             <div class="grid grid-cols-3 gap-5">
                 @forelse($active as $item)
                     <div>
-                        @include('cards.project-card', ['project' => $item])
+                        @include('cards.project-card', ['project' => auth()->user()->role ? $item : $item->project_header])
                     </div>
                 @empty
                     <div class="flex-1 font-bold pr-2" style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap"> No projects</div>

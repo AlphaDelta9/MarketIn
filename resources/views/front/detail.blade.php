@@ -51,7 +51,7 @@
                     <input type="submit" class="btn btn-primary" value="Assign">
                 </form>
                 @else
-                <form action="{{url("project/".$project->id)}}" method="post">
+                <form action="{{url("project/".auth()->user()->project_details->where('project_header_id',$project->id)->first()->id)}}" method="post">
                     @csrf
                     @method('PATCH')
                     <input type="submit" class="btn btn-primary" value="Cancel">
