@@ -47,8 +47,8 @@
                             {{-- @foreach($roles as $role) --}}
                                 {{-- <option value="{{ $role->id }}" @if(old('role_id') == $role->id) selected @endif>{{ $role->name }}</option> --}}
                             {{-- @endforeach --}}
-                                <option value="0" @if(old('role') == '0') selected @endif>Pengguna</option>
-                                <option value="1" @if(old('role') == '1') selected @endif>Penyedia</option>
+                                <option value="0" @if(old('role') == '0') selected @endif>Penyedia</option>
+                                <option value="1" @if(old('role') == '1') selected @endif>Pengguna</option>
                         </select>
                         @error('role_id')
                         <div class="text-danger text-sm mt-1">{{ $message }}</div>

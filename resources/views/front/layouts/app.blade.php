@@ -3,7 +3,7 @@
 
 <head>
 	@include('layouts.meta')
-    <title>@yield('title') | Botanical Essentials</title>
+    <title>@yield('title') | {{env('APP_NAME')}}</title>
     <meta content="@yield('title') | Botanical Essentials" property="og:title">
     <meta content="@yield('description')" name="description">
     <meta content="@yield('description')" property="og:description">
@@ -250,7 +250,7 @@
 		<div class="container">
 			<div class="columns is-variable is-8">
 				<div class="column is-4">
-					<div class="">
+					{{-- <div class="">
 						<div class="top mb-4">
 							<div class="field">
 								<div class="has-icons-right">
@@ -300,7 +300,7 @@
     							</a>
 							@endif
 						</div>
-					</div>
+					</div> --}}
 				</div>
 				<div class="column is-8">
 					<div class="columns is-multiline is-mobile">

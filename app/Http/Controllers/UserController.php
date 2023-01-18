@@ -60,10 +60,10 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        if (request('type') == 'project') {
-            return view('history', ['logP'=>$user->projectHeaders]);
-        } elseif (request('type') == 'assign') {
-            return view('history', ['logA'=>$user->projectDetails]);
+        if (Auth::user()->role) {
+            return view('front.history', ['projects'=>Auth::user()->project_headers()->withTrashed()->paginate(6)]);
+        } else {
+            return view('front.history', ['projects'=>Auth::user()->project_details()->withTrashed()->paginate(6)]);
         }
     }
 
@@ -98,7 +98,7 @@ class UserController extends Controller
             $user->password=Hash::make($request->password);
         }
         $user->save();
-        return redirect("profile/$user->id");
+        return redirect("profile");
     }
 
     /**

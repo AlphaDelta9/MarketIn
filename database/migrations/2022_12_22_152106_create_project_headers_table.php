@@ -19,8 +19,8 @@ class CreateProjectHeadersTable extends Migration
             $table->string('title');
             $table->text('description');
             $table->foreignId('user_id')->constrained();
-            // $table->string('type');
-            // $table->string('category');
+            $table->string('type_name');
+            $table->foreign('type_name')->references('name')->on('types');
             $table->string('city_name');
             $table->foreign('city_name')->references('name')->on('cities');
             $table->softDeletes();

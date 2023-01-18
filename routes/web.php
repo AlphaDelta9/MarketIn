@@ -91,7 +91,7 @@ Route::post('/login', [UserController::class,'login']);
 Route::get('/logout', [UserController::class,'logout']);
 Route::get('/profile/{user?}', [UserController::class,'edit']);
 Route::put('/profile/{user?}', [UserController::class,'update']);
-Route::get('/history/{user}', [UserController::class,'show']);
+Route::get('/history/{user?}', [UserController::class,'show']);
 Route::get('/create', [ProjectHeaderController::class,'create']);
 Route::post('/create', [ProjectHeaderController::class,'store']);
 Route::get('/project/{projectHeader}', [ProjectHeaderController::class,'show']);

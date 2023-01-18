@@ -57,11 +57,17 @@
 			<img src="/assets/images/homepage/ornament-9.png?v={{env('APP_VER')}}" alt="">
 		</div>
 		<div class="container">
+            @if(!auth()->user()->role)
             <div class="text-3xl mb-4">Proyek Sekarang</div>
+            @endif
             <div class="grid grid-cols-3 gap-5">
                 @forelse($active as $item)
                     <div>
-                        @include('cards.project-card', ['project' => auth()->user()->role ? $item : $item->project_header])
+                        @if(auth()->user()->role)
+                        {{$item->name}}
+                        @elseif(!$item->project_header->finished_at)
+                        @include('cards.project-card', ['project' => $item->project_header])
+                        @endif
                     </div>
                 @empty
                     <div class="flex-1 font-bold pr-2" style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap"> No projects</div>
@@ -74,11 +80,13 @@
 		<div class="container">
             <div class="text-3xl mb-4">Proyek Rekomendasi</div>
             <div class="grid grid-cols-3 gap-5">
-                @foreach($projects as $project)
+                @forelse($projects as $project)
                     <div>
                         @include('cards.project-card', ['project' => $project])
                     </div>
-                @endforeach
+                @empty
+                    <div class="flex-1 font-bold pr-2" style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap"> No projects</div>
+                @endforelse
             </div>
             {{$projects->links()}}
 		</div>

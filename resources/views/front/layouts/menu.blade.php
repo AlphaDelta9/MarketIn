@@ -1,7 +1,8 @@
 <div class="container">
     <div class="navbar-brand is-flex-touch">
         <a class="navbar-item" href="/">
-            <img src="/assets/images/logo.png">
+            {{-- <img src="/assets/images/logo.png"> --}}
+            {{env('APP_NAME')}}
         </a>
         <div class="is-hidden-desktop is-flex-touch">
             {{-- <div class="icon-mobile icon-navbar">
@@ -31,34 +32,36 @@
         <ul class="flex justify-end">
         @guest
         <li>
-            <a href="{{ url('login') }}" class="navbar-item @if(url()->current() == url('login') )is-active @endif">
+            <a href="{{ url('login') }}" class="block py-8 px-10 @if(url()->current() == url('login') )text-primary @endif">
                 Login
             </a>
         </li>
 
         <li>
-            <a href="{{ url('register') }}" class="navbar-item @if(url()->current() == url('register') )is-active @endif">
+            <a href="{{ url('register') }}" class="block py-8 px-10 @if(url()->current() == url('register') )text-primary @endif">
                 Register
             </a>
         </li>
         @endguest
         @auth
         @if (auth()->user()->role)
-        <a href="{{ url('create') }}" class="navbar-item @if(url()->current() == url('history') )is-active @endif">
+        <a href="{{ url('create') }}" class="block py-8 px-10 @if(url()->current() == url('create') )text-primary @endif">
             Create
         </a>
         @endif
-        <a href="{{ url('history') }}" class="navbar-item @if(url()->current() == url('history') )is-active @endif">
+        <a href="{{ url('history') }}" class="block py-8 px-10 @if(url()->current() == url('history') )text-primary @endif">
             History
         </a>
 
-        <a href="{{ url('profile') }}" class="navbar-item @if( url()->current() == url('profile') )is-active @endif">
+        <a href="{{ url('profile') }}" class="block py-8 px-10 @if( url()->current() == url('profile') )text-primary @endif">
             Profile
         </a>
 
-        <a href="{{url('logout')}}" class="navbar-item @if(url()->current() == url('logout') )is-active @endif">
+        <a href="{{url('logout')}}" class="block py-8 px-10 @if(url()->current() == url('logout') )text-primary @endif">
             Logout
         </a>
+
+        <div class="block py-8 px-10">{{auth()->user()->role ? "Pengguna" : "Penyedia"}}</div>
         @endauth
         </ul>
         <!-- <div class="navbar-item icon-navbar is-hidden-touch">

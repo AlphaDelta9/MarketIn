@@ -24,21 +24,34 @@ class DatabaseSeeder extends Seeder
         \App\Models\User::create([
                 'name' => $faker->name(),
                 'email' => 'email@email.email',
-                'role' => 1,
+                'profile' => $faker->text(),
+                'role' => true,
                 'password' => Hash::make('email'),
         ]);
         \App\Models\User::create([
                 'name' => $faker->name(),
                 'email' => 'test@test.test',
-                'role' => 2,
+                'profile' => $faker->text(),
+                'role' => false,
                 'password' => Hash::make('test'),
         ]);
+        \App\Models\Type::create(['name' => 'Logo', 'icon' => 'fas fa-draw-polygon']);
+        \App\Models\Type::create(['name' => 'Narasi', 'icon' => 'fas fa-pencil-alt']);
+        \App\Models\Type::create(['name' => 'Banner', 'icon' => 'fas fa-drafting-compass']);
+        \App\Models\Type::create(['name' => 'Poster', 'icon' => 'fas fa-quidditch']);
         for ($i=0; $i < 12; $i++) {
             \App\Models\ProjectHeader::create([
                 'title' => $faker->sentence(),
-                'description' => $faker->paragraph(),
-                'user_id' => $faker->numberBetween(1, 2),
+                'description' => $faker->paragraph(6),
+                'type_name' => \App\Models\Type::inRandomOrder()->first()->name,
+                'user_id' => 1,
                 'city_name' => \App\Models\City::inRandomOrder()->first()->name,
+            ]);
+        }
+        for ($i=0; $i < 3; $i++) {
+            \App\Models\ProjectDetail::create([
+                'project_header_id' => $faker->numberBetween(1, 12),
+                'user_id' => 2,
             ]);
         }
     }

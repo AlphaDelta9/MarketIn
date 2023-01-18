@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class Type
- * 
+ *
  * @property int $id
  * @property string $name
  * @property string $icon
@@ -23,6 +23,9 @@ use Illuminate\Database\Eloquent\Model;
 class Type extends Model
 {
 	protected $table = 'types';
+
+	public $incrementing = false;
+	public $timestamps = false;
 
 	protected $fillable = [
 		'name',

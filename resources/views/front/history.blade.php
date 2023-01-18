@@ -6,49 +6,55 @@
 
     <section class="py-20">
         <div class="container">
-            <div id="content-profile">
-                <div class="tab-title">Profil</div>
 
-                <form action="{{url("profile/".$user->id)}}" method="POST">
-                    @csrf
-                    @method('PUT')
-                    @if(session('message'))
-                        <div class="bg-danger-light border-2 border-danger text-danger py-3 px-4 rounded-lg mb-4">{{ session('message') }}</div>
-                    @endif
-                    <div class="space-y-5 mb-6">
-                        <div>
-                            <label for="name" class="block text-sm text-gray-500 mb-2">Nama Lengkap</label>
-                            <input type="text" id="name" name="name" value="{{old('name',$user->name)}}" class="w-full py-2 px-3 border-b border-gray-400 focus:border-primary focus:outline-none transition">
-                            @error('name')
-                            <div class="text-danger text-sm mt-1">{{ $message }}</div>
-                            @enderror
-                        </div>
-                        <div>
-                            <label for="email" class="block text-sm text-gray-500 mb-2">Email</label>
-                            <input type="text" id="email" name="email" value="{{old('email',$user->email)}}" class="w-full py-2 px-3 border-b border-gray-400 focus:border-primary focus:outline-none transition">
-                            @error('email')
-                            <div class="text-danger text-sm mt-1">{{ $message }}</div>
-                            @enderror
-                        </div>
-                        <div>
-                            <label for="password" class="block text-sm text-gray-500 mb-2">Password</label>
-                            <input type="password" id="password" name="password" class="w-full py-2 px-3 border-b border-gray-400 focus:border-primary focus:outline-none transition">
-                            @error('password')
-                            <div class="text-danger text-sm mt-1">{{ $message }}</div>
-                            @enderror
-                        </div>
-                        <div>
-                            <label for="password_confirmation" class="block text-sm text-gray-500 mb-2">Konfirmasi Password</label>
-                            <input type="password" id="password_confirmation" name="password_confirmation" class="w-full py-2 px-3 border-b border-gray-400 focus:border-primary focus:outline-none transition">
-                            @error('password_confirmation')
-                            <div class="text-danger text-sm mt-1">{{ $message }}</div>
-                            @enderror
-                        </div>
-                    </div>
-                    <button class="py-2 px-6 bg-primary text-white border border-primary hover:bg-white hover:text-primary rounded-lg transition block ml-auto">Save</button>
-                </form>
-            </div>
+            <div class="tab-title mb-4">Proyek</div>
 
+            <table class="table">
+                <thead>
+                <tr>
+                    <td>Nama Proyek</td>
+                    {{-- <td>Jenis Usaha</td> --}}
+                    <td>Lokasi</td>
+                    <td>Status</td>
+                </tr>
+                </thead>
+
+                <tbody>
+                @foreach($projects as $project)
+                    <tr>
+                        <td><a href="{{ url('project/'.(auth()->user()->role ? $project->id : $project->project_header->id)) }}" class="text-primary hover:text-primary-dark">{{ auth()->user()->role ? $project->title : $project->project_header->title }}</a></td>
+                        {{-- <td>{{ $project['type'] }}</td> --}}
+                        <td>{{ auth()->user()->role ? $project->city_name : $project->project_header->city_name }}</td>
+                        @if (auth()->user()->role)
+                        @if ($project->deleted_at)
+                        <td class="text-danger font-bold">Cancel</td>
+                        @elseif ($project->finished_at)
+                        <td class="text-success font-bold">Done</td>
+                        @else
+                        <td class="text-warning font-bold">Active</td>
+                        @endif
+                        @else
+                        @if ($project->deleted_at)
+                        <td class="text-danger font-bold">Cancel</td>
+                        @elseif ($project->accepted_at)
+                        <td class="text-success font-bold">Accepted</td>
+                        @elseif ($project->rejected_at)
+                        <td class="text-danger font-bold">Rejected</td>
+                        @else
+                        <td class="text-warning font-bold">Pending</td>
+                        @endif
+                        @endif
+                    </tr>
+                    {{-- <tr>
+                        <td><a href="{{ route('page.project.detail', ['id' => 1]) }}" class="text-primary hover:text-primary-dark">{{ $project['name'] }}</a></td>
+                        <td>{{ $project['type'] }}</td>
+                        <td>{{ convertCurrency($project['budget']) }}</td>
+                        <td></td>
+                    </tr> --}}
+                @endforeach
+                </tbody>
+            </table>
+            {{$projects->links()}}
         </div>
 
         <div id="rate-modal" class="absolute top-0 left-0 w-full h-full bg-black/30 transition scale-0">

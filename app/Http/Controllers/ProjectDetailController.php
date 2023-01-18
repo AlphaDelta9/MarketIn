@@ -39,7 +39,7 @@ class ProjectDetailController extends Controller
             'project_header_id' => $request->id,
             'user_id' => $request->user()->id
         ]);
-        return redirect('show/'.$request->id);
+        return redirect('project/'.$request->id);
     }
 
     /**

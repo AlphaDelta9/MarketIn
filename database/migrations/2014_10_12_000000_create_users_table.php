@@ -20,6 +20,7 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->boolean('role');
             // $table->foreignId('user_role_id')->constrained();
+            $table->text('profile');
             $table->rememberToken();
             $table->timestamps();
         });
