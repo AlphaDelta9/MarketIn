@@ -1,48 +1,61 @@
 <?php
 
+/**
+ * Created by Reliese Model.
+ */
+
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
- * @property integer $id
- * @property integer $project_header_id
- * @property integer $user_id
- * @property string $created_at
- * @property string $updated_at
+ * Class ProjectDetail
+ * 
+ * @property int $id
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
+ * @property int $project_header_id
+ * @property int $user_id
+ * @property string|null $deleted_at
+ * @property Carbon|null $accepted_at
+ * @property Carbon|null $rejected_at
+ * 
+ * @property ProjectHeader $project_header
  * @property User $user
- * @property ProjectHeader $projectHeader
+ *
+ * @package App\Models
  */
 class ProjectDetail extends Model
 {
-    use HasFactory;
+	use SoftDeletes;
+	protected $table = 'project_details';
 
-    /**
-     * The "type" of the auto-incrementing ID.
-     *
-     * @var string
-     */
-    protected $keyType = 'integer';
+	protected $casts = [
+		'project_header_id' => 'int',
+		'user_id' => 'int'
+	];
 
-    /**
-     * @var array
-     */
-    protected $fillable = ['project_header_id', 'user_id', 'created_at', 'updated_at'];
+	protected $dates = [
+		'accepted_at',
+		'rejected_at'
+	];
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function user()
-    {
-        return $this->belongsTo('App\Models\User');
-    }
+	protected $fillable = [
+		'project_header_id',
+		'user_id',
+		'accepted_at',
+		'rejected_at'
+	];
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function projectHeader()
-    {
-        return $this->belongsTo('App\Models\ProjectHeader');
-    }
+	public function project_header()
+	{
+		return $this->belongsTo(ProjectHeader::class);
+	}
+
+	public function user()
+	{
+		return $this->belongsTo(User::class);
+	}
 }

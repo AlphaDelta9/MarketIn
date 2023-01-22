@@ -18,7 +18,11 @@ class CreateProjectDetailsTable extends Migration
             $table->timestamps();
             $table->foreignId('project_header_id')->constrained();
             $table->foreignId('user_id')->constrained();
-            $table->integer('status');
+            $table->softDeletes();
+            $table->timestamp('accepted_at')->nullable();
+            $table->timestamp('rejected_at')->nullable();
+            $table->binary('upload')->nullable();
+            $table->timestamp('completed')->nullable();
         });
     }
 
@@ -29,7 +33,6 @@ class CreateProjectDetailsTable extends Migration
      */
     public function down()
     {
-        Schema::dropForeign(['user_id,project_header_id']);
         Schema::dropIfExists('project_details');
     }
 }

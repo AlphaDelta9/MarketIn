@@ -16,7 +16,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        return view('login');
+        return view('auth.login');
     }
 
     /**
@@ -26,7 +26,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('register');
+        return view('auth.register');
     }
 
     /**
@@ -39,15 +39,18 @@ class UserController extends Controller
     {
         $request->validate([
             'name' => ['required'],
-            'email' => ['required','email'],
-            'password' => ['required','confirmed']
+            'email' => ['required','email','unique:users'],
+            'password' => ['required','confirmed'],
+            'profile' => ['required']
         ]);
         User::create([
             'name' => $request->name,
             'email' => $request->email,
-            'password' => Hash::make($request->password)
+            'password' => Hash::make($request->password),
+            'profile' => $request->profile,
+            'role' => $request->role_id
         ]);
-        return redirect('login', 302, [], true);
+        return redirect('login');
     }
 
     /**
@@ -58,10 +61,10 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        if (request('type') == 'project') {
-            return view('history', ['logP'=>$user->projectHeaders]);
-        } elseif (request('type') == 'assign') {
-            return view('history', ['logA'=>$user->projectDetails]);
+        if (Auth::user()->role) {
+            return view('front.history', ['projects'=>Auth::user()->project_headers()->withTrashed()->paginate(6)]);
+        } else {
+            return view('front.history', ['projects'=>Auth::user()->project_details()->withTrashed()->paginate(6)]);
         }
     }
 
@@ -73,7 +76,7 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        return view('profile', ['user'=>$user]);
+        return view('front.profile', ['user'=>Auth::user()]);
     }
 
     /**
@@ -87,16 +90,18 @@ class UserController extends Controller
     {
         $request->validate([
             'name' => ['required'],
-            'email' => ['required','email'],
-            'password' => ['nullable','confirmed']
+            'email' => ['required','email','unique:users'],
+            'password' => ['nullable','confirmed'],
+            'profile' => ['required']
         ]);
         $user->name=$request->name;
         $user->email=$request->email;
         if (filled($request->password)) {
             $user->password=Hash::make($request->password);
         }
+        $user->profile=$request->profile;
         $user->save();
-        return redirect("profile/$user->id", 302, [], true);
+        return redirect("profile");
     }
 
     /**
@@ -120,7 +125,7 @@ class UserController extends Controller
         )) {
             $request->session()->regenerate();
 
-            return redirect('index', 302, [], true);
+            return redirect('/');
         }
         return back()->withErrors([
 
@@ -132,6 +137,6 @@ class UserController extends Controller
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-        return redirect('login', 302, [], true);
+        return redirect('/');
     }
 }

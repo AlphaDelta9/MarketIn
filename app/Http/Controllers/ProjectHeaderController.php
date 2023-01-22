@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\City;
 use App\Models\ProjectHeader;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Str;
 
 class ProjectHeaderController extends Controller
@@ -16,7 +17,7 @@ class ProjectHeaderController extends Controller
      */
     public function index()
     {
-        return view('index', ['list'=>ProjectHeader::all()]);
+        return view('index', ['list'=>ProjectHeader::paginate(6)]);
     }
 
     /**
@@ -26,7 +27,7 @@ class ProjectHeaderController extends Controller
      */
     public function create()
     {
-        return view('create', ['city'=>City::all()]);
+        return view('front.create', ['cities'=>City::all()]);
     }
 
     /**
@@ -42,14 +43,15 @@ class ProjectHeaderController extends Controller
             'title' => ['required'],
             'description' => ['required'],
             'city' => ['required', 'exists:cities,name'],
-        ]);
+        ]);;
+        return redirect('project/'.
         ProjectHeader::create([
             'title' => $request->title,
             'description' => $request->description,
             'user_id' => $request->user()->id,
+            'type_name' => $request->type,
             'city_name' => $request->city
-        ]);
-        return redirect('index', 302, [], true);
+        ])->id);
     }
 
     /**
@@ -60,7 +62,7 @@ class ProjectHeaderController extends Controller
      */
     public function show(ProjectHeader $projectHeader)
     {
-        return view('show', ['project'=>$projectHeader]);
+        return view('front.detail', ['project'=>$projectHeader,'cities'=>City::all()]);
     }
 
     /**
@@ -71,7 +73,7 @@ class ProjectHeaderController extends Controller
      */
     public function edit(ProjectHeader $projectHeader)
     {
-        return view('update', ['project'=>$projectHeader,'city'=>City::all()]);
+        return view('front.update', ['project'=>$projectHeader,'cities'=>City::all()]);
     }
 
     /**
@@ -86,12 +88,22 @@ class ProjectHeaderController extends Controller
         $request->city = Str::title($request->city);
         $request->validate([
             'title' => ['required'],
+            'description' => ['required'],
             'city' => ['required', 'exists:cities,name'],
         ]);
         $projectHeader->title=$request->title;
+        $projectHeader->description=$request->description;
         $projectHeader->city_name=$request->city;
+        if($request->at>0) $projectHeader->updated_at = Carbon::now();
+        elseif($request->at<0) $projectHeader->deleted_at = Carbon::now();
+        if(!$request->at){
+            $detailController = new ProjectDetailController();
+            foreach($projectHeader->project_details as $detail){
+                $detailController->destroy($detail);
+            }
+        }
         $projectHeader->save();
-        return redirect("edit/$projectHeader->id", 302, [], true);
+        return redirect("edit/$projectHeader->id");
     }
 
     /**

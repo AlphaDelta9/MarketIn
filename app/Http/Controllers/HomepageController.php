@@ -1,0 +1,36 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Journal;
+use App\Models\ProjectHeader;
+use App\Models\Type;
+use App\Models\User;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Auth;
+
+class HomepageController extends Controller
+{
+    public function index(){
+        if (Auth::check()) {
+            $user = Auth::user();
+            if ($user->role) {
+                return view('front.homepage', ['active'=>Type::all(),
+                    'projects'=>$user->project_headers()->whereNull(['deleted_at','finished_at'])->paginate(6)]);
+            }else {
+                return view('front.homepage', ['active'=>$user->project_details()->whereNull('rejected_at')->paginate(6)
+                ->reject(function ($value){
+                    return $value->project_header->finished_at;
+                }),
+                'projects'=>ProjectHeader::inRandomOrder(ProjectHeader::count())->simplePaginate(6)]);
+            }
+        }else {
+            return view('front.homepage', ['projects'=>ProjectHeader::inRandomOrder(ProjectHeader::count())
+            ->simplePaginate(6)]);
+        }
+    }
+
+
+}
