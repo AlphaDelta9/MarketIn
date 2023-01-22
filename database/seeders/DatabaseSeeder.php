@@ -22,18 +22,18 @@ class DatabaseSeeder extends Seeder
             ]);
         }
         \App\Models\User::create([
-                'name' => $faker->name(),
-                'email' => 'email@email.email',
-                'profile' => $faker->text(),
+                'name' => 'pengguna',
+                'email' => 'pengguna@pengguna.pengguna',
+                'profile' => $faker->name(),
                 'role' => true,
-                'password' => Hash::make('email'),
+                'password' => Hash::make('pengguna@pengguna.pengguna'),
         ]);
         \App\Models\User::create([
-                'name' => $faker->name(),
-                'email' => 'test@test.test',
-                'profile' => $faker->text(),
+                'name' => 'penyedia',
+                'email' => 'penyedia@penyedia.penyedia',
+                'profile' => $faker->name(),
                 'role' => false,
-                'password' => Hash::make('test'),
+                'password' => Hash::make('penyedia@penyedia.penyedia'),
         ]);
         \App\Models\Type::create(['name' => 'Logo', 'icon' => 'fas fa-draw-polygon']);
         \App\Models\Type::create(['name' => 'Narasi', 'icon' => 'fas fa-pencil-alt']);

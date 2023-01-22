@@ -60,11 +60,14 @@
             @if(!auth()->user()->role)
             <div class="text-3xl mb-4">Proyek Sekarang</div>
             @endif
-            <div class="grid grid-cols-3 gap-5">
+            <div class="grid grid-cols-2 gap-5">
                 @forelse($active as $item)
-                    <div>
+                    <div class="flex space-x-3">
                         @if(auth()->user()->role)
-                        {{$item->name}}
+                        <a href="{{ url('/create/'.$item->name) }}" class="w-40 rounded-lg border border-gray-200 px-3 py-3 text-center group">
+                            <i class="{{ $item->icon }} text-primary/50 group-hover:text-primary transition" style="font-size: 60px;"></i>
+                            <div class="mt-2 group-hover:text-primary transition">{{ $item->name }}</div>
+                        </a>
                         @elseif(!$item->project_header->finished_at)
                         @include('cards.project-card', ['project' => $item->project_header])
                         @endif
@@ -78,7 +81,11 @@
 
 	<section class="bg-section section homepage-heroes">
 		<div class="container">
+            @if(auth()->user()->role)
+            <div class="text-3xl mb-4">Proyek Sekarang</div>
+            @else
             <div class="text-3xl mb-4">Proyek Rekomendasi</div>
+            @endif
             <div class="grid grid-cols-3 gap-5">
                 @forelse($projects as $project)
                     <div>

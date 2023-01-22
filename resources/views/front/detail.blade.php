@@ -16,7 +16,7 @@
                         <img src="{{ asset('images/project/'.$project['image']) }}" alt="" class="w-full h-full object-cover object-center">
                     </div>
                     <div>
-                        <div class="text-2xl font-bold mb-4">{{ $project->title }}</div>
+                        <div class="text-2xl font-bold mb-4">{{ $project->title }} - {{$project->type_name}}</div>
                         <div class="border-t border-gray-300 space-y-2 pt-6">
 {{--                            <div class="flex">--}}
 {{--                                <div class="flex-1 font-bold pr-2">Usaha</div>--}}
@@ -39,12 +39,28 @@
                 </div>
                 @auth
                 @if($project->user()->is(auth()->user()))
+                    @if (!$project->finished_at && !$project->deleted_at)
                     <div class="mt-8 text-right">
                         <a href="{{ url('/edit/'.$project->id) }}" class="btn btn-primary">Edit</a>
                     </div>
+                    @endif
+                    @if (!$project->trashed())
                     @foreach ($project->project_details as $detail)
                         {{$detail->user}}
+                        @if (!$detail->accepted_at && !$detail->rejected_at)
+                        <form action="{{url("accept/".$detail->id)}}" method="post">
+                            @csrf
+                            @method('put')
+                            <input type="submit" class="btn btn-primary" value="Accept">
+                        </form>
+                        <form action="{{url("reject/".$detail->id)}}" method="post">
+                            @csrf
+                            @method('patch')
+                            <input type="submit" class="btn btn-primary" value="Reject">
+                        </form>
+                        @endif
                     @endforeach
+                    @endif
                 @elseif (!auth()->user()->role)
                     @if (blank(auth()->user()->project_details->where('project_header_id',$project->id)))
                     <form action="{{url("project/".$project->id)}}" method="post">

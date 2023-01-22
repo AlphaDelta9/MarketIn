@@ -44,6 +44,14 @@
                             <div class="text-danger text-sm mt-1">{{ $message }}</div>
                             @enderror
                         </div>
+                        <div>
+                            <label for="profile" class="block text-sm text-gray-400 mb-2">Profile</label>
+                            <textarea id="profile" name="profile" rows="10"
+                            class="w-full py-2 px-3 border-b border-gray-400 focus:border-primary focus:outline-none transition">{{ old('profile') }}</textarea>
+                            @error('profile')
+                            <div class="text-danger text-sm mt-1">{{ $message }}</div>
+                            @enderror
+                        </div>
                     </div>
                     <button class="py-2 px-6 bg-primary text-white border border-primary hover:bg-white hover:text-primary rounded-lg transition block ml-auto">Save</button>
                 </form>

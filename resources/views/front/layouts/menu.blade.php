@@ -30,6 +30,9 @@
 
     <div id="navbarBasicExample" class="flex items-center justify-between">
         <ul class="flex justify-end">
+            <a href="{{ url('home') }}" class="block py-8 px-10 @if(url()->current() == url('home') )text-primary @endif">
+                Home
+            </a>
         @guest
         <li>
             <a href="{{ url('login') }}" class="block py-8 px-10 @if(url()->current() == url('login') )text-primary @endif">
@@ -44,11 +47,6 @@
         </li>
         @endguest
         @auth
-        @if (auth()->user()->role)
-        <a href="{{ url('create') }}" class="block py-8 px-10 @if(url()->current() == url('create') )text-primary @endif">
-            Create
-        </a>
-        @endif
         <a href="{{ url('history') }}" class="block py-8 px-10 @if(url()->current() == url('history') )text-primary @endif">
             History
         </a>

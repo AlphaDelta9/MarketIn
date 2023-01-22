@@ -39,14 +39,15 @@ class UserController extends Controller
     {
         $request->validate([
             'name' => ['required'],
-            'email' => ['required','email'],
+            'email' => ['required','email','unique:users'],
             'password' => ['required','confirmed'],
-            'role_id' => ['required']
+            'profile' => ['required']
         ]);
         User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'profile' => $request->profile,
             'role' => $request->role_id
         ]);
         return redirect('login');
@@ -89,14 +90,16 @@ class UserController extends Controller
     {
         $request->validate([
             'name' => ['required'],
-            'email' => ['required','email'],
-            'password' => ['nullable','confirmed']
+            'email' => ['required','email','unique:users'],
+            'password' => ['nullable','confirmed'],
+            'profile' => ['required']
         ]);
         $user->name=$request->name;
         $user->email=$request->email;
         if (filled($request->password)) {
             $user->password=Hash::make($request->password);
         }
+        $user->profile=$request->profile;
         $user->save();
         return redirect("profile");
     }

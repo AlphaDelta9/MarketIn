@@ -12,7 +12,7 @@
             <div class="px-80">
                 <div class="text-2xl font-bold mb-7">Buat Proyek</div>
 
-                <form action="{{ url('/create') }}" method="POST">
+                <form action="{{ url()->current() }}" method="POST">
                     @csrf
                     <div class="space-y-5 mb-6">
                         <div>
@@ -51,7 +51,7 @@
                             <label for="description" class="block text-sm text-gray-400 mb-2">Deskripsi</label>
                             <textarea id="description" name="description" rows="10"
                                       class="w-full py-2 px-5 bg-gray-100 rounded-lg">{{ old('description') }}</textarea>
-                            @error('name')
+                            @error('description')
                             <div class="text-danger text-sm mt-1">{{ $message }}</div>
                             @enderror
                         </div>

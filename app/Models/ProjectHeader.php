@@ -20,11 +20,13 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property string $title
  * @property string $description
  * @property int $user_id
+ * @property string $type_name
  * @property string $city_name
  * @property string|null $deleted_at
  * @property Carbon|null $finished_at
  * 
  * @property City $city
+ * @property Type $type
  * @property User $user
  * @property Collection|ProjectDetail[] $project_details
  *
@@ -47,6 +49,7 @@ class ProjectHeader extends Model
 		'title',
 		'description',
 		'user_id',
+		'type_name',
 		'city_name',
 		'finished_at'
 	];
@@ -54,6 +57,11 @@ class ProjectHeader extends Model
 	public function city()
 	{
 		return $this->belongsTo(City::class, 'city_name');
+	}
+
+	public function type()
+	{
+		return $this->belongsTo(Type::class, 'type_name');
 	}
 
 	public function user()

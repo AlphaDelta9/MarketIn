@@ -92,11 +92,13 @@ Route::get('/logout', [UserController::class,'logout']);
 Route::get('/profile/{user?}', [UserController::class,'edit']);
 Route::put('/profile/{user?}', [UserController::class,'update']);
 Route::get('/history/{user?}', [UserController::class,'show']);
-Route::get('/create', [ProjectHeaderController::class,'create']);
-Route::post('/create', [ProjectHeaderController::class,'store']);
-Route::get('/project/{projectHeader}', [ProjectHeaderController::class,'show']);
-Route::post('/project/{id}', [ProjectDetailController::class,'store']);
-Route::patch('/project/{projectDetail}', [ProjectDetailController::class,'destroy']);
+Route::get('/create/{type}', [ProjectHeaderController::class,'create']);
+Route::post('/create/{type}', [ProjectHeaderController::class,'store']);
+Route::get('/project/{projectHeader}', [ProjectHeaderController::class,'show'])->withTrashed();
+Route::patch('/project/{id}', [ProjectDetailController::class,'store']);
+Route::delete('/project/{projectDetail}', [ProjectDetailController::class,'destroy']);
+Route::put('/accept/{projectDetail}', [ProjectDetailController::class,'update']);
+Route::patch('/reject/{projectDetail}', [ProjectDetailController::class,'update']);
 Route::get('/edit/{projectHeader}', [ProjectHeaderController::class,'edit']);
 Route::put('/edit/{projectHeader}', [ProjectHeaderController::class,'update']);
 

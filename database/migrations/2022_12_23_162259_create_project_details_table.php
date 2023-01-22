@@ -21,6 +21,8 @@ class CreateProjectDetailsTable extends Migration
             $table->softDeletes();
             $table->timestamp('accepted_at')->nullable();
             $table->timestamp('rejected_at')->nullable();
+            $table->binary('upload')->nullable();
+            $table->timestamp('completed')->nullable();
         });
     }
 

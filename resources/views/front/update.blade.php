@@ -17,14 +17,14 @@
                     @method('PUT')
                     <div class="space-y-5 mb-6">
                         <div>
-                            <label for="title" class="block text-sm text-gray-400 mb-2">Nama Project</label>
+                            <label for="title" class="block text-sm text-gray-500 mb-2">Nama Project</label>
                             <input type="text" id="title" name="title" class="w-full py-2 px-5 bg-gray-100 rounded-lg" value="{{ old('title',$project->title) }}">
                             @error('title')
                             <div class="text-danger text-sm mt-1">{{ $message }}</div>
                             @enderror
                         </div>
                         <div>
-                            <label for="city" class="block text-sm text-gray-400 mb-2">Kota</label>
+                            <label for="city" class="block text-sm text-gray-500 mb-2">Kota</label>
                             <input type="text" name="city" class="w-full py-2 px-5 bg-gray-100 rounded-lg" id=""
                             list="city" value="{{old('city',$project->city_name)}}">
                             <datalist id="city">
@@ -37,7 +37,7 @@
                             @enderror
                         </div>
                         {{-- <div>
-                            <label for="category" class="block text-sm text-gray-400 mb-2">Kategori Usaha</label>
+                            <label for="category" class="block text-sm text-gray-500 mb-2">Kategori Usaha</label>
                             <select id="category" name="category" class="w-full py-2 px-5 bg-gray-100 rounded-lg">
                                 <option value="">Pilih Kategori Usaha</option>
                                 @foreach($categories as $category)
@@ -49,15 +49,26 @@
                             @enderror
                         </div> --}}
                         <div>
-                            <label for="description" class="block text-sm text-gray-400 mb-2">Deskripsi</label>
+                            <label for="description" class="block text-sm text-gray-500 mb-2">Deskripsi</label>
                             <textarea id="description" name="description" rows="10"
                                       class="w-full py-2 px-5 bg-gray-100 rounded-lg">{{ old('description',$project->description) }}</textarea>
                             @error('name')
                             <div class="text-danger text-sm mt-1">{{ $message }}</div>
                             @enderror
                         </div>
+                        <div>
+                            <label for="at" class="block text-sm text-gray-500 mb-2">Peran</label>
+                            <select id="at" name="at" class="w-full py-2 px-5 bg-gray-100 rounded-lg">
+                                <option value="-1">Cancel</option>
+                                    <option value="0" selected>Active</option>
+                                    <option value="1">Finish</option>
+                            </select>
+                            @error('at')
+                            <div class="text-danger text-sm mt-1">{{ $message }}</div>
+                            @enderror
+                        </div>
                     </div>
-                    <button class="btn btn-primary block ml-auto">Submit</button>
+                    <button class="btn btn-primary block ml-auto">Update</button>
                 </form>
             </div>
         </div>

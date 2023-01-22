@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\ProjectDetail;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 
 class ProjectDetailController extends Controller
 {
@@ -73,7 +74,15 @@ class ProjectDetailController extends Controller
      */
     public function update(Request $request, ProjectDetail $projectDetail)
     {
-        //
+        if($request->isMethod('put')){
+            $projectDetail->accepted_at = Carbon::now();
+            $projectDetail->save();
+            return redirect('project/'.$projectDetail->project_header_id);
+        }else{
+            $projectDetail->rejected_at = Carbon::now();
+            $projectDetail->save();
+            return $this->destroy($projectDetail);
+        }
     }
 
     /**

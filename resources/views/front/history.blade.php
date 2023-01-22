@@ -35,11 +35,13 @@
                         @endif
                         @else
                         @if ($project->deleted_at)
+                        @if ($project->rejected_at)
+                        <td class="text-danger font-bold">Rejected</td>
+                        @else
                         <td class="text-danger font-bold">Cancel</td>
+                        @endif
                         @elseif ($project->accepted_at)
                         <td class="text-success font-bold">Accepted</td>
-                        @elseif ($project->rejected_at)
-                        <td class="text-danger font-bold">Rejected</td>
                         @else
                         <td class="text-warning font-bold">Pending</td>
                         @endif

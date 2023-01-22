@@ -8,11 +8,8 @@ namespace App\Models;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\User as AuthUser;
-use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
 
 /**
  * Class User
@@ -22,6 +19,8 @@ use Laravel\Sanctum\HasApiTokens;
  * @property string $email
  * @property string $password
  * @property bool $role
+ * @property string $profile
+ * @property string|null $remember_token
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  *
@@ -33,8 +32,6 @@ use Laravel\Sanctum\HasApiTokens;
  */
 class User extends AuthUser
 {
-    use HasApiTokens, HasFactory, Notifiable;
-
 	protected $table = 'users';
 
 	protected $casts = [
@@ -42,14 +39,17 @@ class User extends AuthUser
 	];
 
 	protected $hidden = [
-		'password'
+		'password',
+		'remember_token'
 	];
 
 	protected $fillable = [
 		'name',
 		'email',
 		'password',
-		'role'
+		'role',
+		'profile',
+		'remember_token'
 	];
 
 	public function login_tokens()

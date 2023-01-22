@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\City;
 use App\Models\ProjectHeader;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Str;
 
 class ProjectHeaderController extends Controller
@@ -42,14 +43,15 @@ class ProjectHeaderController extends Controller
             'title' => ['required'],
             'description' => ['required'],
             'city' => ['required', 'exists:cities,name'],
-        ]);
+        ]);;
+        return redirect('project/'.
         ProjectHeader::create([
             'title' => $request->title,
             'description' => $request->description,
             'user_id' => $request->user()->id,
+            'type_name' => $request->type,
             'city_name' => $request->city
-        ]);
-        return redirect('/');
+        ])->id);
     }
 
     /**
@@ -92,6 +94,14 @@ class ProjectHeaderController extends Controller
         $projectHeader->title=$request->title;
         $projectHeader->description=$request->description;
         $projectHeader->city_name=$request->city;
+        if($request->at>0) $projectHeader->updated_at = Carbon::now();
+        elseif($request->at<0) $projectHeader->deleted_at = Carbon::now();
+        if(!$request->at){
+            $detailController = new ProjectDetailController();
+            foreach($projectHeader->project_details as $detail){
+                $detailController->destroy($detail);
+            }
+        }
         $projectHeader->save();
         return redirect("edit/$projectHeader->id");
     }

@@ -41,7 +41,7 @@
                         @enderror
                     </div>
                     <div>
-                        <label for="role_id" class="block text-sm text-gray-500 mb-2">Peran</label>
+                        <label for="role_id" class="block text-sm text-gray-500 mb-2">Peran#Deprecated</label>
                         <select id="role_id" name="role_id" class="w-full py-2 px-3 border-b border-gray-400 focus:border-primary focus:outline-none transition">
                             <option value="">Pilih Peran</option>
                             {{-- @foreach($roles as $role) --}}
@@ -51,6 +51,14 @@
                                 <option value="1" @if(old('role') == '1') selected @endif>Pengguna</option>
                         </select>
                         @error('role_id')
+                        <div class="text-danger text-sm mt-1">{{ $message }}</div>
+                        @enderror
+                    </div>
+                    <div>
+                        <label for="profile" class="block text-sm text-gray-400 mb-2">Profile</label>
+                        <textarea id="profile" name="profile" rows="10"
+                        class="w-full py-2 px-3 border-b border-gray-400 focus:border-primary focus:outline-none transition">{{ old('profile') }}</textarea>
+                        @error('profile')
                         <div class="text-danger text-sm mt-1">{{ $message }}</div>
                         @enderror
                     </div>
