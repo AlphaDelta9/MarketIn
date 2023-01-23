@@ -20,6 +20,7 @@ use Illuminate\Foundation\Auth\User as AuthUser;
  * @property string $password
  * @property bool $role
  * @property string $profile
+ * @property string|null $picture
  * @property string|null $remember_token
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
@@ -49,6 +50,7 @@ class User extends AuthUser
 		'password',
 		'role',
 		'profile',
+		'picture',
 		'remember_token'
 	];
 

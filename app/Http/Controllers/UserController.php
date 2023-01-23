@@ -48,6 +48,7 @@ class UserController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'profile' => $request->profile,
+            'picture' => base64_encode(file_get_contents($request->file('picture'))),
             'role' => $request->role_id
         ]);
         return redirect('login');
