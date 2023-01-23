@@ -140,9 +140,4 @@ class UserController extends Controller
         $request->session()->regenerateToken();
         return redirect('/');
     }
-
-    public function picture(User $user)
-    {
-        return response(base64_decode($user->picture),200,['Content-Type' => $user->mime,]);
-    }
 }
