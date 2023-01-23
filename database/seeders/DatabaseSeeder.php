@@ -27,6 +27,8 @@ class DatabaseSeeder extends Seeder
                 'profile' => $faker->name(),
                 'role' => true,
                 'password' => Hash::make('pengguna@pengguna.pengguna'),
+                'picture' => '',
+                'mime' => ''
         ]);
         \App\Models\User::create([
                 'name' => 'penyedia',
@@ -34,6 +36,8 @@ class DatabaseSeeder extends Seeder
                 'profile' => $faker->name(),
                 'role' => false,
                 'password' => Hash::make('penyedia@penyedia.penyedia'),
+                'picture' => '',
+                'mime' => ''
         ]);
         \App\Models\Type::create(['name' => 'Logo', 'icon' => 'fas fa-draw-polygon']);
         \App\Models\Type::create(['name' => 'Narasi', 'icon' => 'fas fa-pencil-alt']);

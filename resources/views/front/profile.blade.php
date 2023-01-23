@@ -9,7 +9,7 @@
             <div id="content-profile">
                 <div class="tab-title">Profil</div>
 
-                <form action="{{url("profile/".$user->id)}}" method="POST">
+                <form action="{{url("profile/".$user->id)}}" method="POST" enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
                     @if(session('message'))
@@ -45,9 +45,8 @@
                             @enderror
                         </div>
                         <div>
-                            <a href="{{url($user->id.'/picture')}}">Download</a>
                             <label for="picture" class="block text-sm text-gray-500 mb-2">Picture</label>
-                            <img src="data:image/*;base64,{{$user->picture}}" alt="Picture" srcset="">
+                            <img src="data:{{$user->mime}};base64,{{$user->picture}}" alt="Picture" srcset="">
                             <input type="file" id="picture" name="picture" accept="image/*" class="w-full py-2 px-3 border-b border-gray-400 focus:border-primary focus:outline-none transition">
                             @error('picture')
                             <div class="text-danger text-sm mt-1">{{ $message }}</div>
@@ -56,7 +55,7 @@
                         <div>
                             <label for="profile" class="block text-sm text-gray-400 mb-2">Profile</label>
                             <textarea id="profile" name="profile" rows="10"
-                            class="w-full py-2 px-3 border-b border-gray-400 focus:border-primary focus:outline-none transition">{{ old('profile') }}</textarea>
+                            class="w-full py-2 px-3 border-b border-gray-400 focus:border-primary focus:outline-none transition">{{ old('profile',$user->profile) }}</textarea>
                             @error('profile')
                             <div class="text-danger text-sm mt-1">{{ $message }}</div>
                             @enderror

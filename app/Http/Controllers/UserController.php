@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rule;
 
 class UserController extends Controller
 {
@@ -49,6 +50,7 @@ class UserController extends Controller
             'password' => Hash::make($request->password),
             'profile' => $request->profile,
             'picture' => base64_encode(file_get_contents($request->file('picture'))),
+            'mime' => $request->file('picture')->getMimeType(),
             'role' => $request->role_id
         ]);
         return redirect('login');
@@ -91,14 +93,19 @@ class UserController extends Controller
     {
         $request->validate([
             'name' => ['required'],
-            'email' => ['required','email','unique:users'],
+            'email' => ['required','email',Rule::unique('users')->ignore($user->id)],
             'password' => ['nullable','confirmed'],
-            'profile' => ['required']
+            'profile' => ['required'],
+            'picture' => ['nullable','mimetypes:image/*']
         ]);
         $user->name=$request->name;
         $user->email=$request->email;
         if (filled($request->password)) {
             $user->password=Hash::make($request->password);
+        }
+        if (filled($request->picture)) {
+            $user->picture=base64_encode(file_get_contents($request->file('picture')));
+            $user->mime = $request->file('picture')->getMimeType();
         }
         $user->profile=$request->profile;
         $user->save();
@@ -140,4 +147,5 @@ class UserController extends Controller
         $request->session()->regenerateToken();
         return redirect('/');
     }
+
 }

@@ -96,4 +96,9 @@ class ProjectDetailController extends Controller
         $projectDetail->delete();
         return redirect('project/'.$projectDetail->project_header_id);
     }
+
+    public function file(ProjectDetail $projectDetail)
+    {
+        return response(base64_decode($projectDetail->upload), 200, ['Content-Type' => $projectDetail->mime,]);
+    }
 }

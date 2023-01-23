@@ -51,6 +51,7 @@ class User extends AuthUser
 		'role',
 		'profile',
 		'picture',
+        'mime',
 		'remember_token'
 	];
 
