@@ -92,7 +92,6 @@ Route::get('/logout', [UserController::class,'logout']);
 Route::get('/profile/{user?}', [UserController::class,'edit']);
 Route::put('/profile/{user?}', [UserController::class,'update']);
 Route::get('/history/{user?}', [UserController::class,'show']);
-Route::get('/{user}/picture', [UserController::class,'picture']);
 Route::get('/create/{type}', [ProjectHeaderController::class,'create']);
 Route::post('/create/{type}', [ProjectHeaderController::class,'store']);
 Route::get('/project/{projectHeader}', [ProjectHeaderController::class,'show'])->withTrashed();
