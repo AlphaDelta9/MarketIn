@@ -48,6 +48,7 @@ class UserController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'profile' => $request->profile,
+            'picture' => base64_encode(file_get_contents($request->file('picture'))),
             'role' => $request->role_id
         ]);
         return redirect('login');
@@ -138,5 +139,10 @@ class UserController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
         return redirect('/');
+    }
+
+    public function picture(User $user)
+    {
+        return response(base64_decode($user->picture),200,['Content-Type' => $user->mime,]);
     }
 }

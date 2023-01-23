@@ -21,6 +21,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property string|null $deleted_at
  * @property Carbon|null $accepted_at
  * @property Carbon|null $rejected_at
+ * @property string|null $upload
+ * @property Carbon|null $completed_at
  * 
  * @property ProjectHeader $project_header
  * @property User $user
@@ -39,14 +41,17 @@ class ProjectDetail extends Model
 
 	protected $dates = [
 		'accepted_at',
-		'rejected_at'
+		'rejected_at',
+		'completed_at'
 	];
 
 	protected $fillable = [
 		'project_header_id',
 		'user_id',
 		'accepted_at',
-		'rejected_at'
+		'rejected_at',
+		'upload',
+		'completed_at'
 	];
 
 	public function project_header()
