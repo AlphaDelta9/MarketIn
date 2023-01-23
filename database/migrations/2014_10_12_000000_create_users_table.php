@@ -24,6 +24,7 @@ class CreateUsersTable extends Migration
             $table->binary('picture');
             $table->rememberToken();
             $table->timestamps();
+            $table->text('address');
         });
     }
 
