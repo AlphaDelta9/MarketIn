@@ -43,6 +43,7 @@ class DatabaseSeeder extends Seeder
         \App\Models\Type::create(['name' => 'Narasi', 'icon' => 'fas fa-pencil-alt']);
         \App\Models\Type::create(['name' => 'Banner', 'icon' => 'fas fa-drafting-compass']);
         \App\Models\Type::create(['name' => 'Poster', 'icon' => 'fas fa-quidditch']);
+        $faker->addProvider(new \Mmo\Faker\PicsumProvider($faker));
         for ($i=0; $i < 12; $i++) {
             \App\Models\ProjectHeader::create([
                 'title' => $faker->sentence(),
@@ -50,6 +51,9 @@ class DatabaseSeeder extends Seeder
                 'type_name' => \App\Models\Type::inRandomOrder()->first()->name,
                 'user_id' => 1,
                 'city_name' => \App\Models\City::inRandomOrder()->first()->name,
+                'picture' => base64_encode(file_get_contents($faker->picsum(null))),
+                'mime' => 'image/jpeg',
+                'work' => $faker->dateTimeBetween('now', '+2 week'),
             ]);
         }
         for ($i=0; $i < 3; $i++) {

@@ -43,6 +43,8 @@ class ProjectHeaderController extends Controller
             'title' => ['required'],
             'description' => ['required'],
             'city' => ['required', 'exists:cities,name'],
+            'picture' => ['nullable','mimetypes:image/*','max:512'],
+            'work' => ['required','date'],
         ]);;
         return redirect('project/'.
         ProjectHeader::create([
@@ -50,7 +52,10 @@ class ProjectHeaderController extends Controller
             'description' => $request->description,
             'user_id' => $request->user()->id,
             'type_name' => $request->type,
-            'city_name' => $request->city
+            'city_name' => $request->city,
+            'picture' => base64_encode(file_get_contents($request->file('picture'))),
+            'mime' => $request->file('picture')->getMimeType(),
+            'work' => $request->work,
         ])->id);
     }
 
@@ -90,10 +95,17 @@ class ProjectHeaderController extends Controller
             'title' => ['required'],
             'description' => ['required'],
             'city' => ['required', 'exists:cities,name'],
+            'picture' => ['nullable','mimetypes:image/*','max:512'],
+            'work' => ['required','date'],
         ]);
         $projectHeader->title=$request->title;
         $projectHeader->description=$request->description;
         $projectHeader->city_name=$request->city;
+        if ($request->picture) {
+            $projectHeader->picture=base64_encode(file_get_contents($request->file('picture')));
+            $projectHeader->mime = $request->file('picture')->getMimeType();
+        }
+        $projectHeader->work=$request->work;
         if($request->at>0) $projectHeader->updated_at = Carbon::now();
         elseif($request->at<0) $projectHeader->deleted_at = Carbon::now();
         if(!$request->at){
@@ -103,7 +115,7 @@ class ProjectHeaderController extends Controller
             }
         }
         $projectHeader->save();
-        return redirect("edit/$projectHeader->id");
+        return redirect("project/$projectHeader->id");
     }
 
     /**

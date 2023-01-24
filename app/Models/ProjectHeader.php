@@ -22,6 +22,9 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property int $user_id
  * @property string $type_name
  * @property string $city_name
+ * @property string|null $picture
+ * @property string|null $mime
+ * @property Carbon|null $work
  * @property string|null $deleted_at
  * @property Carbon|null $finished_at
  * 
@@ -42,6 +45,7 @@ class ProjectHeader extends Model
 	];
 
 	protected $dates = [
+		'work',
 		'finished_at'
 	];
 
@@ -51,6 +55,9 @@ class ProjectHeader extends Model
 		'user_id',
 		'type_name',
 		'city_name',
+		'picture',
+		'mime',
+		'work',
 		'finished_at'
 	];
 

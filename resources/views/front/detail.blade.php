@@ -13,7 +13,7 @@
             <div>
                 <div class="grid grid-cols-2 gap-x-7">
                     <div class="h-80 rounded-xl overflow-hidden">
-                        <img src="{{ asset('R6E_Operator_Op-page_Hibana.webp') }}" alt="" class="w-full h-full object-cover object-center">
+                        <img src="data:{{$project->mime}};base64,{{$project->picture}}" alt="" class="w-full h-full object-cover object-center">
                     </div>
                     <div>
                         <div class="text-2xl font-bold mb-4">{{ $project->title }} - {{$project->type_name}}</div>
@@ -34,7 +34,10 @@
                 </div>
                 <div class="mt-4">
                     <p class="text-gray-500">
-                        {{ $project->city_name }}
+                        Lokasi: {{ $project->city_name }}
+                    </p>
+                    <p class="text-gray-500">
+                        Batas Pengerjaan: {{ $project->work->format('Y-m-d') }}
                     </p>
                 </div>
                 @auth
