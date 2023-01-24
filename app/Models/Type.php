@@ -11,10 +11,10 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class Type
- *
+ * 
  * @property string $name
  * @property string $icon
- *
+ * 
  * @property Collection|ProjectHeader[] $project_headers
  *
  * @package App\Models

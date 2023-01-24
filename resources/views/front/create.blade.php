@@ -12,7 +12,7 @@
             <div class="px-80">
                 <div class="text-2xl font-bold mb-7">Buat Proyek</div>
 
-                <form action="{{ url()->current() }}" method="POST">
+                <form action="{{ url()->current() }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="space-y-5 mb-6">
                         <div>
@@ -52,6 +52,13 @@
                             <textarea id="description" name="description" rows="10"
                                       class="w-full py-2 px-5 bg-gray-100 rounded-lg">{{ old('description') }}</textarea>
                             @error('description')
+                            <div class="text-danger text-sm mt-1">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <div>
+                            <label for="picture" class="block text-sm text-gray-500 mb-2">Picture</label>
+                            <input type="file" id="picture" name="picture" accept="image/*" class="w-full py-2 px-3 border-b border-gray-400 focus:border-primary focus:outline-none transition">
+                            @error('picture')
                             <div class="text-danger text-sm mt-1">{{ $message }}</div>
                             @enderror
                         </div>

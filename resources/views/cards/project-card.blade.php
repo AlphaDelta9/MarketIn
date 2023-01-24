@@ -1,5 +1,5 @@
 <div class="bg-white rounded-lg border border-gray-200 relative top-0 hover:shadow-lg hover:-top-2 transition-all overflow-hidden">
-    <img src="{{ asset('images/project/' . $project['image']) }}" alt="" class="w-full h-48 object-cover object-center">
+    <img src="{{ asset('R6E_Operator_HP_Lion.webp') }}" alt="" class="w-full h-48 object-cover object-center">
     <div class="py-3 px-4">
         <a href="{{ url('/project/'.$project->id) }}" class="block transition hover:text-primary mb-2">
             {{--        <div class="text-warning font-bold mb-2">Sedang Proses</div>--}}

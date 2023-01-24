@@ -82,10 +82,11 @@ use App\Http\Controllers\UserController;
 // //    });
 // });
 
-Route::get('/', [HomepageController::class,'index']);
+Route::get('/', [HomepageController::class,'landing']);
+Route::get('/home', [HomepageController::class,'index']);
 
-Route::get('/register', [UserController::class,'create']);
-Route::post('/register', [UserController::class,'store']);
+Route::get('/register/{role?}', [UserController::class,'create']);
+Route::post('/register/{role?}', [UserController::class,'store']);
 Route::get('/login', [UserController::class,'index']);
 Route::post('/login', [UserController::class,'login']);
 Route::get('/logout', [UserController::class,'logout']);
@@ -99,12 +100,13 @@ Route::get('/project/{projectHeader}', [ProjectHeaderController::class,'show'])-
 Route::get('/edit/{projectHeader}', [ProjectHeaderController::class,'edit']);
 Route::put('/edit/{projectHeader}', [ProjectHeaderController::class,'update']);
 
-Route::patch('/project/{id}', [ProjectDetailController::class,'store']);
+Route::post('/project/{id}', [ProjectDetailController::class,'store']);
 Route::delete('/project/{projectDetail}', [ProjectDetailController::class,'destroy']);
 Route::put('/accept/{projectDetail}', [ProjectDetailController::class,'update']);
 Route::patch('/reject/{projectDetail}', [ProjectDetailController::class,'update']);
+Route::post('/upload/{projectDetail}', [ProjectDetailController::class,'update']);
 Route::get('/download/{projectDetail}/{name}', [ProjectDetailController::class,'file']);
-
+Route::get('/assign/{projectDetail}', [ProjectDetailController::class,'show']);
 Route::get('/shop', [ShopController::class, 'index'])->name('shop.all');
 
 Route::get('/shop/by-hero', [ShopController::class,'index'])->name('shop.by-hero');

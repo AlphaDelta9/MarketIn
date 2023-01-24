@@ -32,5 +32,8 @@ class HomepageController extends Controller
         }
     }
 
-
+    public function landing()
+    {
+        return(view('landing'));
+    }
 }

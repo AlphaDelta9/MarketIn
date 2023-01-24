@@ -13,17 +13,17 @@
             <div>
                 <div class="grid grid-cols-2 gap-x-7">
                     <div class="h-80 rounded-xl overflow-hidden">
-                        <img src="{{ asset('R6E_Operator_Op-page_Hibana.webp') }}" alt="" class="w-full h-full object-cover object-center">
+                        <img src="data:{{$user->mime}};base64,{{$user->picture}}" alt="" class="w-full h-full object-cover object-center">
                     </div>
                     <div>
-                        <div class="text-2xl font-bold mb-4">{{ $project->title }} - {{$project->type_name}}</div>
+                        <div class="text-2xl font-bold mb-4">{{ $user->name }}</div>
                         <div class="border-t border-gray-300 space-y-2 pt-6">
 {{--                            <div class="flex">--}}
 {{--                                <div class="flex-1 font-bold pr-2">Usaha</div>--}}
 {{--                                <div class="flex-1">Usaha Makmur Rice Bowl</div>--}}
 {{--                            </div>--}}
                             <div class="flex">
-                                <div class="font-bold mb-2">{{ $project->description }}</div>
+                                <div class="font-bold mb-2">{{ $user->profile }}</div>
                             </div>
 {{--                            <div class="flex">--}}
 {{--                                <div class="flex-1 font-bold pr-2">Total Pelamar</div>--}}
@@ -32,76 +32,6 @@
                         </div>
                     </div>
                 </div>
-                <div class="mt-4">
-                    <p class="text-gray-500">
-                        {{ $project->city_name }}
-                    </p>
-                </div>
-                @auth
-                @if($project->user()->is(auth()->user()))
-                    @if (!$project->finished_at && !$project->deleted_at)
-                    <div class="mt-8 text-right">
-                        <a href="{{ url('/edit/'.$project->id) }}" class="btn btn-primary">Edit</a>
-                    </div>
-                    @endif
-                    @if (!$project->trashed())
-                    <table class="table">
-                        <thead>
-                        <tr>
-                            <td>Nama</td>
-                            <td>Status</td>
-                            <td></td>
-                        </tr>
-                        </thead>
-
-                        <tbody>
-                            @foreach ($project->project_details as $detail)
-                            <tr>
-                                <td><a href="{{url('assign/'.$detail->id)}}">{{ $detail->user->name }}</a></td>
-                                @if ($detail->accepted_at)
-                                <td class="text-success font-bold">Accepted</td>
-                                <td>
-                                    @if ($detail->mime)
-                                    <a href="{{url('download/'.$detail->id.'/'.$project->title)}}">Download</a>
-                                    @endif
-                                </td>
-                                @else
-                                <td class="text-warning font-bold">Pending</td>
-                                <td>
-                                    @if (!$detail->accepted_at && !$detail->rejected_at)
-                                    <form action="{{url("accept/".$detail->id)}}" method="post">
-                                        @csrf
-                                        @method('put')
-                                        <input type="submit" class="btn btn-primary" value="Accept">
-                                    </form>
-                                    <form action="{{url("reject/".$detail->id)}}" method="post">
-                                        @csrf
-                                        @method('patch')
-                                        <input type="submit" class="btn btn-primary" value="Reject">
-                                    </form>
-                                    @endif
-                                </td>
-                                @endif
-                            </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                    @endif
-                @elseif (!auth()->user()->role)
-                    @if (blank(auth()->user()->project_details->where('project_header_id',$project->id)))
-                    <form action="{{url("project/".$project->id)}}" method="post">
-                        @csrf
-                        <input type="submit" class="btn btn-primary" value="Assign">
-                    </form>
-                    @else
-                    <form action="{{url("project/".auth()->user()->project_details->where('project_header_id',$project->id)->first()->id)}}" method="post">
-                        @csrf
-                        @method('PATCH')
-                        <input type="submit" class="btn btn-primary" value="Cancel">
-                    </form>
-                    @endif
-                @endif
-                @endauth
             </div>
 
 {{--            <div class="mt-10">--}}

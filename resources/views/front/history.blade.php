@@ -13,9 +13,9 @@
                 <thead>
                 <tr>
                     <td>Nama Proyek</td>
-                    {{-- <td>Jenis Usaha</td> --}}
                     <td>Lokasi</td>
                     <td>Status</td>
+                    <td></td>
                 </tr>
                 </thead>
 
@@ -46,6 +46,15 @@
                         <td class="text-warning font-bold">Pending</td>
                         @endif
                         @endif
+                        <td>
+                            @if (!auth()->user()->role && $project->accepted_at)
+                            <form action="{{url('upload/'.$project->id)}}" method="post" enctype="multipart/form-data">
+                                @csrf
+                                <input type="file" name="file">
+                                <input type="submit" class="btn btn-primary" value="Upload">
+                            </form>
+                            @endif
+                        </td>
                     </tr>
                     {{-- <tr>
                         <td><a href="{{ route('page.project.detail', ['id' => 1]) }}" class="text-primary hover:text-primary-dark">{{ $project['name'] }}</a></td>

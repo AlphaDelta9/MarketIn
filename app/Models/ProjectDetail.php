@@ -22,6 +22,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property Carbon|null $accepted_at
  * @property Carbon|null $rejected_at
  * @property string|null $upload
+ * @property string|null $mime
  * @property Carbon|null $completed_at
  * 
  * @property ProjectHeader $project_header
@@ -51,6 +52,7 @@ class ProjectDetail extends Model
 		'accepted_at',
 		'rejected_at',
 		'upload',
+		'mime',
 		'completed_at'
 	];
 

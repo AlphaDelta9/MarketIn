@@ -25,9 +25,9 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        return view('auth.register');
+        return view('auth.register', ['role'=>$request->role]);
     }
 
     /**
@@ -42,7 +42,8 @@ class UserController extends Controller
             'name' => ['required'],
             'email' => ['required','email','unique:users'],
             'password' => ['required','confirmed'],
-            'profile' => ['required']
+            'profile' => ['required'],
+            'picture' => ['required','max:512','mimetypes:image/*']
         ]);
         User::create([
             'name' => $request->name,
@@ -51,7 +52,7 @@ class UserController extends Controller
             'profile' => $request->profile,
             'picture' => base64_encode(file_get_contents($request->file('picture'))),
             'mime' => $request->file('picture')->getMimeType(),
-            'role' => $request->role_id
+            'role' => $request->role == 'pengguna'
         ]);
         return redirect('login');
     }
@@ -96,7 +97,7 @@ class UserController extends Controller
             'email' => ['required','email',Rule::unique('users')->ignore($user->id)],
             'password' => ['nullable','confirmed'],
             'profile' => ['required'],
-            'picture' => ['nullable','mimetypes:image/*']
+            'picture' => ['nullable','mimetypes:image/*','max:512']
         ]);
         $user->name=$request->name;
         $user->email=$request->email;
@@ -133,7 +134,7 @@ class UserController extends Controller
         )) {
             $request->session()->regenerate();
 
-            return redirect('/');
+            return redirect('/home');
         }
         return back()->withErrors([
 

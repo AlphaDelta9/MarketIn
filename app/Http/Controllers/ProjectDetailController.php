@@ -51,7 +51,7 @@ class ProjectDetailController extends Controller
      */
     public function show(ProjectDetail $projectDetail)
     {
-        return view('detail', ['user'=>$projectDetail->user]);
+        return view('front.assign', ['user'=>$projectDetail->user]);
     }
 
     /**
@@ -74,14 +74,22 @@ class ProjectDetailController extends Controller
      */
     public function update(Request $request, ProjectDetail $projectDetail)
     {
-        if($request->isMethod('put')){
+        if ($request->isMethod('put')){
             $projectDetail->accepted_at = Carbon::now();
             $projectDetail->save();
             return redirect('project/'.$projectDetail->project_header_id);
-        }else{
+        }elseif ($request->isMethod('patch')){
             $projectDetail->rejected_at = Carbon::now();
             $projectDetail->save();
             return $this->destroy($projectDetail);
+        }else {
+            $request->validate([
+                'file' => ['required','max:512'],
+            ]);
+            $projectDetail->mime = $request->file('file')->getMimeType();
+            $projectDetail->upload = base64_encode(file_get_contents($request->file('file')));
+            $projectDetail->save();
+            return redirect('history');
         }
     }
 
