@@ -23,7 +23,7 @@
 {{--                                <div class="flex-1">Usaha Makmur Rice Bowl</div>--}}
 {{--                            </div>--}}
                             <div class="flex">
-                                <div class="font-bold mb-2">{{ $project->description }}</div>
+                                <div class="font-bold mb-2" style="white-space: pre-line">{{ $project->description }}</div>
                             </div>
 {{--                            <div class="flex">--}}
 {{--                                <div class="flex-1 font-bold pr-2">Total Pelamar</div>--}}
@@ -67,6 +67,17 @@
                                     @if ($detail->mime)
                                     <a href="{{url('download/'.$detail->id.'/'.$project->title)}}">Download</a>
                                     @endif
+                                    @if ($detail->complete_at ){{--&& !$detail->price--}}
+                                    <form action="{{url("pay/".$detail->id)}}" method="post">
+                                        @csrf
+                                        <input type="submit" class="btn btn-primary" value="Pay">
+                                    </form>
+                                    @elseif (!$detail->complete_at && $detail->mime)
+                                    <form action="{{url("complete/".$detail->id)}}" method="post">
+                                        @csrf
+                                        <input type="submit" class="btn btn-primary" value="Done">
+                                    </form>
+                                    @endif
                                 </td>
                                 @else
                                 <td class="text-warning font-bold">Pending</td>
@@ -95,6 +106,11 @@
                     <form action="{{url("project/".$project->id)}}" method="post">
                         @csrf
                         <input type="submit" class="btn btn-primary" value="Assign">
+                    </form>
+                    @elseif (auth()->user()->project_details()->where('project_header_id',$project->id)->first()->accepted_at && $project->type_name == 'Iklan')
+                    <form action="{{url("download/".$project->id."/".$project->title)}}" method="post">
+                        @csrf
+                        <input type="submit" class="btn btn-primary" value="Download">
                     </form>
                     @else
                     <form action="{{url("project/".auth()->user()->project_details->where('project_header_id',$project->id)->first()->id)}}" method="post">

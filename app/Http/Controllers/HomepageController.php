@@ -20,10 +20,7 @@ class HomepageController extends Controller
                 return view('front.homepage', ['active'=>Type::all(),
                     'projects'=>$user->project_headers()->whereNull(['deleted_at','finished_at'])->paginate(6)]);
             }else {
-                return view('front.homepage', ['active'=>$user->project_details()->whereNull('rejected_at')->paginate(6)
-                ->reject(function ($value){
-                    return $value->project_header->finished_at;
-                }),
+                return view('front.homepage', ['active'=>$user->project_details()->whereNull('rejected_at')->whereRelation('project_header','finished_at',null)->get(),
                 'projects'=>ProjectHeader::inRandomOrder(ProjectHeader::count())->simplePaginate(6)]);
             }
         }else {

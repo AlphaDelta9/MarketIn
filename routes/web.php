@@ -99,6 +99,7 @@ Route::post('/create/{type}', [ProjectHeaderController::class,'store']);
 Route::get('/project/{projectHeader}', [ProjectHeaderController::class,'show'])->withTrashed();
 Route::get('/edit/{projectHeader}', [ProjectHeaderController::class,'edit']);
 Route::put('/edit/{projectHeader}', [ProjectHeaderController::class,'update']);
+Route::post('/download/{projectHeader}/{name}', [ProjectHeaderController::class,'file']);
 
 Route::post('/project/{id}', [ProjectDetailController::class,'store']);
 Route::delete('/project/{projectDetail}', [ProjectDetailController::class,'destroy']);
@@ -107,8 +108,8 @@ Route::patch('/reject/{projectDetail}', [ProjectDetailController::class,'update'
 Route::post('/upload/{projectDetail}', [ProjectDetailController::class,'update']);
 Route::get('/download/{projectDetail}/{name}', [ProjectDetailController::class,'file']);
 Route::get('/assign/{projectDetail}', [ProjectDetailController::class,'show']);
-Route::get('/shop', [ShopController::class, 'index'])->name('shop.all');
 
+Route::get('/shop', [ShopController::class, 'index'])->name('shop.all');
 Route::get('/shop/by-hero', [ShopController::class,'index'])->name('shop.by-hero');
 Route::get('/shop/by-hero/{hero}', [ShopController::class,'show'])->name('shop.by-hero.hero');
 

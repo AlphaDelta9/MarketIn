@@ -25,6 +25,8 @@ class CreateProjectHeadersTable extends Migration
             $table->foreign('city_name')->references('name')->on('cities');
             $table->longText('picture');
             $table->string('mime');
+            $table->longText('asset')->nullable();
+            $table->string('type')->nullable();
             $table->date('work');
             $table->softDeletes();
             $table->timestamp('finished_at')->nullable();

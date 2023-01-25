@@ -47,7 +47,7 @@
                         @endif
                         @endif
                         <td>
-                            @if (!auth()->user()->role && $project->accepted_at)
+                            @if (!auth()->user()->role && $project->accepted_at && $project->project_header->type_name != 'Iklan')
                             <form action="{{url('upload/'.$project->id)}}" method="post" enctype="multipart/form-data">
                                 @csrf
                                 <input type="file" name="file">

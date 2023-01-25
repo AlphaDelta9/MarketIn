@@ -55,6 +55,8 @@ class ProjectHeaderController extends Controller
             'city_name' => $request->city,
             'picture' => base64_encode(file_get_contents($request->file('picture'))),
             'mime' => $request->file('picture')->getMimeType(),
+            'asset' => $request->type=='Iklan' ? base64_encode(file_get_contents($request->file('asset'))) : '',
+            'type' => $request->type=='Iklan' ? $request->file('asset')->getMimeType() : '',
             'work' => $request->work,
         ])->id);
     }
@@ -105,6 +107,10 @@ class ProjectHeaderController extends Controller
             $projectHeader->picture=base64_encode(file_get_contents($request->file('picture')));
             $projectHeader->mime = $request->file('picture')->getMimeType();
         }
+        if ($request->asset) {
+            $projectHeader->asset = base64_encode(file_get_contents($request->file('asset')));
+            $projectHeader->type = $request->file('asset')->getMimeType();
+        }
         $projectHeader->work=$request->work;
         if($request->at>0) $projectHeader->updated_at = Carbon::now();
         elseif($request->at<0) $projectHeader->deleted_at = Carbon::now();
@@ -127,5 +133,10 @@ class ProjectHeaderController extends Controller
     public function destroy(ProjectHeader $projectHeader)
     {
         //
+    }
+
+    public function file(ProjectHeader $projectHeader)
+    {
+        return response(base64_decode($projectHeader->asset), 200, ['Content-Type' => $projectHeader->type,]);
     }
 }

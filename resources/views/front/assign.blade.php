@@ -23,7 +23,7 @@
 {{--                                <div class="flex-1">Usaha Makmur Rice Bowl</div>--}}
 {{--                            </div>--}}
                             <div class="flex">
-                                <div class="font-bold mb-2">{{ $user->profile }}</div>
+                                <div class="font-bold mb-2" style="white-space: pre-line">{{ $user->profile }}</div>
                             </div>
 {{--                            <div class="flex">--}}
 {{--                                <div class="flex-1 font-bold pr-2">Total Pelamar</div>--}}

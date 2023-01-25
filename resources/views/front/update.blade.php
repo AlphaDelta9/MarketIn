@@ -63,6 +63,15 @@
                             <div class="text-danger text-sm mt-1">{{ $message }}</div>
                             @enderror
                         </div>
+                        @if ($project->type_name == 'Iklan')
+                        <div>
+                            <label for="asset" class="block text-sm text-gray-500 mb-2">Asset</label>
+                            <input type="file" id="asset" name="asset" class="w-full py-2 px-3 border-b border-gray-400 focus:border-primary focus:outline-none transition">
+                            @error('asset')
+                            <div class="text-danger text-sm mt-1">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        @endif
                         <div>
                             <label for="work" class="block text-sm text-gray-400 mb-2">Waktu Pengerjaan</label>
                             <input type="date" id="work" name="work" class="w-full py-2 px-5 bg-gray-100 rounded-lg" value="{{ old('work',$project->work->format('Y-m-d')) }}">
