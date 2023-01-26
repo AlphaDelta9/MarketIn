@@ -28,6 +28,7 @@ class CreateProjectHeadersTable extends Migration
             $table->longText('asset')->nullable();
             $table->string('type')->nullable();
             $table->date('work');
+            $table->unsignedInteger('budget');
             $table->softDeletes();
             $table->timestamp('finished_at')->nullable();
         });

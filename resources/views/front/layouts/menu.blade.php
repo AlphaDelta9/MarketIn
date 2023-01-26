@@ -33,6 +33,9 @@
             <a href="{{ url('home') }}" class="block py-8 px-10 @if(url()->current() == url('home') )text-primary @endif">
                 Home
             </a>
+            <a href="{{ url('search') }}" class="block py-8 px-10 @if(url()->current() == url('search') )text-primary @endif">
+                Search
+            </a>
         @guest
         <li>
             <a href="{{ url('login') }}" class="block py-8 px-10 @if(url()->current() == url('login') )text-primary @endif">

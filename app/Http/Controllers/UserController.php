@@ -65,8 +65,20 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
+        request()->flash();
         if (Auth::user()->role) {
-            return view('front.history', ['projects'=>Auth::user()->project_headers()->withTrashed()->paginate(6)]);
+            switch (request()->filter) {
+                case 'Done':
+                    return view('front.history', ['projects'=>Auth::user()->project_headers()->whereNotNull('finished_at')->paginate(6)->withQueryString()]);
+                    break;
+                case 'Active':
+                    return view('front.history', ['projects'=>Auth::user()->project_headers()->whereNull('finished_at')->paginate(6)->withQueryString()]);
+                    break;
+
+                default:
+                    return view('front.history', ['projects'=>Auth::user()->project_headers()->withTrashed()->paginate(6)]);
+                    break;
+            }
         } else {
             return view('front.history', ['projects'=>Auth::user()->project_details()->withTrashed()->paginate(6)]);
         }

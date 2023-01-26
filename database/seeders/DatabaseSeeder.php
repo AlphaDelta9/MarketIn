@@ -55,6 +55,7 @@ class DatabaseSeeder extends Seeder
                 'picture' => base64_encode(file_get_contents($faker->picsum(null))),
                 'mime' => 'image/jpeg',
                 'work' => $faker->dateTimeBetween('now', '+2 week'),
+                'budget' => $faker->randomNumber(6),
             ]);
         }
         for ($i=0; $i < 3; $i++) {

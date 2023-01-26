@@ -8,7 +8,13 @@
                             <div class="flex-1 text-lg font-bold" style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap">{{ $project->title }}</div>
                         </div>
                         <div class="flex">
-                            <div class="flex-1">{{ $project->city_name }}</div>
+                            <div class="flex-1">Lokasi: {{ $project->city_name }}</div>
+                        </div>
+                        <div class="flex">
+                            <div class="flex-1">Batas Pengerjaan: {{ $project->work->format('Y-m-d') }}</div>
+                        </div>
+                        <div class="flex">
+                            <div class="flex-1">Budget: Rp. {{ $project->budget }}</div>
                         </div>
             {{--            <div class="flex">--}}
             {{--                <div class="flex-1 font-bold pr-2">Total Pelamar</div>--}}

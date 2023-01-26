@@ -6,7 +6,16 @@
 
     <section class="py-20">
         <div class="container">
-
+            @if(auth()->user()->role)
+            <form action="{{url('history')}}" method="get">
+                <select name="filter" class="w-full py-2 px-5 bg-gray-100 rounded-lg" id="">
+                    <option value=""></option>
+                    <option value="Active" @if (old('filter') == 'Active') selected @endif>Active</option>
+                    <option value="Done" @if (old('filter') == 'Done') selected @endif>Done</option>
+                </select>
+                <button type="submit">Filter</button>
+            </form>
+            @endif
             <div class="tab-title mb-4">Proyek</div>
 
             <table class="table">

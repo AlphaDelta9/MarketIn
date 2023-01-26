@@ -100,6 +100,7 @@ Route::get('/project/{projectHeader}', [ProjectHeaderController::class,'show'])-
 Route::get('/edit/{projectHeader}', [ProjectHeaderController::class,'edit']);
 Route::put('/edit/{projectHeader}', [ProjectHeaderController::class,'update']);
 Route::post('/download/{projectHeader}/{name}', [ProjectHeaderController::class,'file']);
+Route::get('/search', [ProjectHeaderController::class,'index']);
 
 Route::post('/project/{id}', [ProjectDetailController::class,'store']);
 Route::delete('/project/{projectDetail}', [ProjectDetailController::class,'destroy']);

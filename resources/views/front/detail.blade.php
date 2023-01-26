@@ -39,6 +39,9 @@
                     <p class="text-gray-500">
                         Batas Pengerjaan: {{ $project->work->format('Y-m-d') }}
                     </p>
+                    <p class="text-gray-500">
+                        Budget: Rp. {{ $project->budget }}
+                    </p>
                 </div>
                 @auth
                 @if($project->user()->is(auth()->user()))
@@ -67,7 +70,7 @@
                                     @if ($detail->mime)
                                     <a href="{{url('download/'.$detail->id.'/'.$project->title)}}">Download</a>
                                     @endif
-                                    @if ($detail->complete_at ){{--&& !$detail->price--}}
+                                    @if ($detail->complete_at && $detail->price)
                                     <form action="{{url("pay/".$detail->id)}}" method="post">
                                         @csrf
                                         <input type="submit" class="btn btn-primary" value="Pay">

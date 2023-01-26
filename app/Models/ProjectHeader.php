@@ -27,6 +27,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property string|null $asset
  * @property string|null $type
  * @property Carbon $work
+ * @property int $budget
  * @property string|null $deleted_at
  * @property Carbon|null $finished_at
  * 
@@ -42,7 +43,8 @@ class ProjectHeader extends Model
 	protected $table = 'project_headers';
 
 	protected $casts = [
-		'user_id' => 'int'
+		'user_id' => 'int',
+		'budget' => 'int'
 	];
 
 	protected $dates = [
@@ -61,6 +63,7 @@ class ProjectHeader extends Model
 		'asset',
 		'type',
 		'work',
+		'budget',
 		'finished_at'
 	];
 
