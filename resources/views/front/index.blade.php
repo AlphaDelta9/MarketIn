@@ -50,9 +50,9 @@
 
 	<section class="section" id="new-arrival">
 		<div class="container">
-            <form action="{{url('search')}}" method="get">
+            <form class="mb-4" action="{{url('search')}}" method="get">
                 <div>
-                    <label for="city" class="block text-sm text-gray-400 mb-2">Kota</label>
+                    <label for="city" class="block text-sm mb-2">Kota</label>
                     <input type="text" name="city" class="w-full py-2 px-5 bg-gray-100 rounded-lg" id=""
                     list="city" value="{{old('city')}}">
                     <datalist id="city">
@@ -65,7 +65,7 @@
                     @enderror
                 </div>
                 <div>
-                    <label for="type" class="block text-sm text-gray-400 mb-2">Jenis</label>
+                    <label for="type" class="block text-sm mb-2">Jenis</label>
                     <input type="text" name="type" class="w-full py-2 px-5 bg-gray-100 rounded-lg" id=""
                     list="type" value="{{old('type')}}">
                     <datalist id="type">
@@ -78,16 +78,16 @@
                     @enderror
                 </div>
                 <div>
-                    <label for="search" class="block text-sm text-gray-400 mb-2">Nama</label>
+                    <label for="search" class="block text-sm mb-2">Nama</label>
                     <input type="search" name="search" class="w-full py-2 px-5 bg-gray-100 rounded-lg" id=""
                     value="{{old('search')}}">
                     @error('search')
                     <div class="text-danger text-sm mt-1">{{ $message }}</div>
                     @enderror
                 </div>
-                <input type="submit" value="Search">
+                <input class="btn btn-primary block ml-auto" type="submit" value="Search">
             </form>
-            <div class="grid grid-cols-3 gap-5">
+            <div class="grid grid-cols-3 gap-5 mb-4">
                 @foreach($projects as $project)
                     <div>
                         @include('cards.project-card', ['project' => $project])

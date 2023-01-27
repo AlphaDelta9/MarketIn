@@ -13,14 +13,14 @@
                 @endif
                 <div class="space-y-5 mb-6">
                     <div>
-                        <label for="email" class="block text-sm text-gray-400 mb-2">Email</label>
+                        <label for="email" class="block text-sm mb-2">Email</label>
                         <input type="text" id="email" name="email" value="{{ old('email') }}" class="w-full py-2 px-3 border-b border-gray-400 focus:border-primary focus:outline-none transition">
                         @error('email')
                         <div class="text-danger text-sm mt-1">{{ $message }}</div>
                         @enderror
                     </div>
                     <div>
-                        <label for="password" class="block text-sm text-gray-400 mb-2">Password</label>
+                        <label for="password" class="block text-sm mb-2">Password</label>
                         <input type="password" id="password" name="password" class="w-full py-2 px-3 border-b border-gray-400 focus:border-primary focus:outline-none transition">
                         @error('password')
                         <div class="text-danger text-sm mt-1">{{ $message }}</div>

@@ -13,35 +13,35 @@
                 @endif
                 <div class="space-y-5 mb-6">
                     <div>
-                        <label for="name" class="block text-sm text-gray-500 mb-2">Nama Lengkap</label>
+                        <label for="name" class="block text-sm mb-2">Nama Lengkap</label>
                         <input type="text" id="name" name="name" value="{{ old('name') }}" class="w-full py-2 px-3 border-b border-gray-400 focus:border-primary focus:outline-none transition">
                         @error('name')
                         <div class="text-danger text-sm mt-1">{{ $message }}</div>
                         @enderror
                     </div>
                     <div>
-                        <label for="email" class="block text-sm text-gray-500 mb-2">Email</label>
+                        <label for="email" class="block text-sm mb-2">Email</label>
                         <input type="email" id="email" name="email" value="{{ old('email') }}" class="w-full py-2 px-3 border-b border-gray-400 focus:border-primary focus:outline-none transition">
                         @error('email')
                         <div class="text-danger text-sm mt-1">{{ $message }}</div>
                         @enderror
                     </div>
                     <div>
-                        <label for="password" class="block text-sm text-gray-500 mb-2">Password</label>
+                        <label for="password" class="block text-sm mb-2">Password</label>
                         <input type="password" id="password" name="password" class="w-full py-2 px-3 border-b border-gray-400 focus:border-primary focus:outline-none transition">
                         @error('password')
                         <div class="text-danger text-sm mt-1">{{ $message }}</div>
                         @enderror
                     </div>
                     <div>
-                        <label for="password_confirmation" class="block text-sm text-gray-500 mb-2">Konfirmasi Password</label>
+                        <label for="password_confirmation" class="block text-sm mb-2">Konfirmasi Password</label>
                         <input type="password" id="password_confirmation" name="password_confirmation" class="w-full py-2 px-3 border-b border-gray-400 focus:border-primary focus:outline-none transition">
                         @error('password_confirmation')
                         <div class="text-danger text-sm mt-1">{{ $message }}</div>
                         @enderror
                     </div>
                     <!--<div>
-                        <label for="role_id" class="block text-sm text-gray-500 mb-2">Peran#Deprecated</label>
+                        <label for="role_id" class="block text-sm  mb-2">Peran#Deprecated</label>
                         <select id="role_id" name="role_id" class="w-full py-2 px-3 border-b border-gray-400 focus:border-primary focus:outline-none transition">
                             <option value="">Pilih Peran</option>
                             {{-- @foreach($roles as $role) --}}
@@ -55,14 +55,14 @@
                         @enderror
                     </div>-->
                     <div>
-                        <label for="picture" class="block text-sm text-gray-500 mb-2">Picture</label>
+                        <label for="picture" class="block text-sm mb-2">Picture</label>
                         <input type="file" id="picture" name="picture" accept="image/*" class="w-full py-2 px-3 border-b border-gray-400 focus:border-primary focus:outline-none transition">
                         @error('picture')
                         <div class="text-danger text-sm mt-1">{{ $message }}</div>
                         @enderror
                     </div>
                     <div>
-                        <label for="profile" class="block text-sm text-gray-400 mb-2">Profile</label>
+                        <label for="profile" class="block text-sm mb-2">Profile</label>
                         <textarea id="profile" name="profile" rows="10"
                         class="w-full py-2 px-3 border-b border-gray-400 focus:border-primary focus:outline-none transition">{{ old('profile') }}</textarea>
                         @error('profile')

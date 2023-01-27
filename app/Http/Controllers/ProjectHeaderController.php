@@ -50,7 +50,8 @@ class ProjectHeaderController extends Controller
             'city' => ['required', 'exists:cities,name'],
             'picture' => ['nullable','mimetypes:image/*','max:512'],
             'work' => ['required','date'],
-        ]);;
+            'budget' => ['required','numeric'],
+        ]);
         return redirect('project/'.
         ProjectHeader::create([
             'title' => $request->title,
@@ -63,6 +64,7 @@ class ProjectHeaderController extends Controller
             'asset' => $request->type=='Iklan' ? base64_encode(file_get_contents($request->file('asset'))) : '',
             'type' => $request->type=='Iklan' ? $request->file('asset')->getMimeType() : '',
             'work' => $request->work,
+            'budget' => $request->budget,
         ])->id);
     }
 
@@ -104,6 +106,7 @@ class ProjectHeaderController extends Controller
             'city' => ['required', 'exists:cities,name'],
             'picture' => ['nullable','mimetypes:image/*','max:512'],
             'work' => ['required','date'],
+            'budget' => ['required','numeric'],
         ]);
         $projectHeader->title=$request->title;
         $projectHeader->description=$request->description;
@@ -117,11 +120,12 @@ class ProjectHeaderController extends Controller
             $projectHeader->type = $request->file('asset')->getMimeType();
         }
         $projectHeader->work=$request->work;
+        $projectHeader->budget=$request->budget;
         if($request->at>0) $projectHeader->updated_at = Carbon::now();
         elseif($request->at<0) $projectHeader->deleted_at = Carbon::now();
-        if(!$request->at){
+        if (!$request->at) {
             $detailController = new ProjectDetailController();
-            foreach($projectHeader->project_details as $detail){
+            foreach ($projectHeader->project_details as $detail) {
                 $detailController->destroy($detail);
             }
         }

@@ -52,7 +52,7 @@
 		<div class="container">
             <div class="text-3xl mb-4">Proyek Rekomendasi</div>
             <div class="grid grid-cols-2 gap-5">
-                <div class="py-6 px-4">
+                <div class="btn block rounded border border-primary py-6 px-4">
                     <a href="{{ url('register/penyedia') }}" class="block transition hover:text-primary mb-2">
                         {{--        <div class="text-warning font-bold mb-2">Sedang Proses</div>--}}
                                 <div class="space-y-1">
@@ -62,7 +62,7 @@
                                 </div>
                     </a>
                 </div>
-                <div class="py-6 px-4">
+                <div class="btn block rounded border border-primary py-6 px-4">
                     <a href="{{ url('register/pengguna') }}" class="block transition hover:text-primary mb-2">
                         {{--        <div class="text-warning font-bold mb-2">Sedang Proses</div>--}}
                                 <div class="space-y-1">
@@ -73,8 +73,8 @@
                     </a>
                 </div>
             </div>
-            <div class="grid grid-cols-1 gap-5">
-                <div class="py-6 px-4">
+            <div class="grid grid-cols-1 gap-5 mt-4">
+                <div class="btn block rounded border border-primary py-6 px-4">
                     <a href="{{ url('login') }}" class="block transition hover:text-primary mb-2">
                         {{--        <div class="text-warning font-bold mb-2">Sedang Proses</div>--}}
                                 <div class="space-y-1">

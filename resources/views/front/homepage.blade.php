@@ -60,7 +60,7 @@
             @if(!auth()->user()->role)
             <div class="text-3xl mb-4">Proyek Sekarang</div>
             @endif
-            <div class="grid grid-cols-2 gap-5">
+            <div class="grid grid-cols-5 gap-5 justify-items-center">
                 @forelse($active as $item)
                     <div class="flex space-x-3">
                         @if(auth()->user()->role)
@@ -95,7 +95,9 @@
                     <div class="flex-1 font-bold pr-2" style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap"> No projects</div>
                 @endforelse
             </div>
-            {{$projects->links()}}
+            <div class="text-base">
+                {{$projects->links()}}
+            </div>
 		</div>
 	</section>
 

@@ -28,6 +28,7 @@
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 
 	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lozad/dist/lozad.min.js"></script>
+	<script src="{{asset('js/tailwindcss.js')}}"></script>
 	<style>
 
 		@media (max-width: 499px){

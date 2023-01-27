@@ -82,17 +82,17 @@
                 <div class="flex items-center justify-between text-xl py-4 px-6">
                     <div>Rate <b>Melvin</b></div>
                     <div>
-                        <i class="fas fa-times text-gray-300 cursor-pointer hover:text-danger" onclick="toggleModal('rate-modal', 'scale-0')"></i>
+                        <i class="fas fa-times  cursor-pointer hover:text-danger" onclick="toggleModal('rate-modal', 'scale-0')"></i>
                     </div>
                 </div>
 
                 <div class="py-4 px-6">
                     <div id="rating" class="flex text-3xl mb-3 space-x-2 rating">
-                        <i class="fas fa-star text-gray-200 cursor-pointer"></i>
-                        <i class="fas fa-star text-gray-200 cursor-pointer"></i>
-                        <i class="fas fa-star text-gray-200 cursor-pointer"></i>
-                        <i class="fas fa-star text-gray-200 cursor-pointer"></i>
-                        <i class="fas fa-star text-gray-200 cursor-pointer"></i>
+                        <i class="fas fa-star  cursor-pointer"></i>
+                        <i class="fas fa-star  cursor-pointer"></i>
+                        <i class="fas fa-star  cursor-pointer"></i>
+                        <i class="fas fa-star  cursor-pointer"></i>
+                        <i class="fas fa-star  cursor-pointer"></i>
                     </div>
                     <textarea name="feedback" id="feedback" placeholder="Pesan/Kesan..." class="w-full border border-gray-200 p-2 rounded-lg"></textarea>
                 </div>
@@ -109,7 +109,7 @@
                 <div class="flex items-center justify-between text-xl py-4 px-6">
                     <div>Makmur Rice Bow</div>
                     <div>
-                        <i class="fas fa-times text-gray-300 cursor-pointer hover:text-danger" onclick="toggleModal('preview-modal', 'scale-0')"></i>
+                        <i class="fas fa-times  cursor-pointer hover:text-danger" onclick="toggleModal('preview-modal', 'scale-0')"></i>
                     </div>
                 </div>
 
@@ -132,7 +132,7 @@
                 <div class="flex items-center justify-between text-xl py-4 px-6">
                     <div>Makmur Rice Bow</div>
                     <div>
-                        <i class="fas fa-times text-gray-300 cursor-pointer hover:text-danger" onclick="toggleModal('upload-form-modal', 'scale-0')"></i>
+                        <i class="fas fa-times  cursor-pointer hover:text-danger" onclick="toggleModal('upload-form-modal', 'scale-0')"></i>
                     </div>
                 </div>
 
@@ -158,7 +158,7 @@
                 <div class="flex items-center justify-between text-xl py-4 px-6">
                     <div>Makmur Rice Bow</div>
                     <div>
-                        <i class="fas fa-times text-gray-300 cursor-pointer hover:text-danger" onclick="toggleModal('accept-confirmation-modal')"></i>
+                        <i class="fas fa-times  cursor-pointer hover:text-danger" onclick="toggleModal('accept-confirmation-modal')"></i>
                     </div>
                 </div>
 
@@ -178,7 +178,7 @@
                 <div class="flex items-center justify-between text-xl py-4 px-6">
                     <div>Makmur Rice Bow</div>
                     <div>
-                        <i class="fas fa-times text-gray-300 cursor-pointer hover:text-danger" onclick="toggleModal('reject-confirmation-modal')"></i>
+                        <i class="fas fa-times  cursor-pointer hover:text-danger" onclick="toggleModal('reject-confirmation-modal')"></i>
                     </div>
                 </div>
 

@@ -32,26 +32,28 @@
                         </div>
                     </div>
                 </div>
-                <div class="mt-4">
-                    <p class="text-gray-500">
-                        Lokasi: {{ $project->city_name }}
-                    </p>
-                    <p class="text-gray-500">
-                        Batas Pengerjaan: {{ $project->work->format('Y-m-d') }}
-                    </p>
-                    <p class="text-gray-500">
-                        Budget: Rp. {{ $project->budget }}
-                    </p>
-                </div>
                 @auth
                 @if($project->user()->is(auth()->user()))
+                <div class="mt-4 grid grid-cols-2">
+                    <div class="text-base">
+                        <p class="">
+                            Lokasi: {{ $project->city_name }}
+                        </p>
+                        <p class="">
+                            Batas Pengerjaan: {{ $project->work->format('Y-m-d') }}
+                        </p>
+                        <p class="">
+                            Budget: Rp. {{ $project->budget }}
+                        </p>
+                    </div>
                     @if (!$project->finished_at && !$project->deleted_at)
-                    <div class="mt-8 text-right">
+                    <div class="text-right">
                         <a href="{{ url('/edit/'.$project->id) }}" class="btn btn-primary">Edit</a>
                     </div>
+                </div>
                     @endif
                     @if (!$project->trashed())
-                    <table class="table">
+                    <table class="table mt-4">
                         <thead>
                         <tr>
                             <td>Nama</td>
@@ -61,7 +63,7 @@
                         </thead>
 
                         <tbody>
-                            @foreach ($project->project_details as $detail)
+                            @forelse ($project->project_details as $detail)
                             <tr>
                                 <td><a href="{{url('assign/'.$detail->id)}}">{{ $detail->user->name }}</a></td>
                                 @if ($detail->accepted_at)
@@ -84,7 +86,7 @@
                                 </td>
                                 @else
                                 <td class="text-warning font-bold">Pending</td>
-                                <td>
+                                <td class="">
                                     @if (!$detail->accepted_at && !$detail->rejected_at)
                                     <form action="{{url("accept/".$detail->id)}}" method="post">
                                         @csrf
@@ -100,7 +102,11 @@
                                 </td>
                                 @endif
                             </tr>
-                            @endforeach
+                            @empty
+                            <tr>
+                                <td class="flex-1 font-bold pr-2" style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap"> No users</td>
+                            </tr>
+                            @endforelse
                         </tbody>
                     </table>
                     @endif
@@ -186,7 +192,7 @@
 {{--                            <div class="flex space-x-1">--}}
 {{--                                @for($num = 1; $num <= 5; $num++)--}}
 {{--                                    <div class="relative w-5 h-5">--}}
-{{--                                        <i class="fas fa-star absolute text-gray-200"></i>--}}
+{{--                                        <i class="fas fa-star absolute "></i>--}}
 {{--                                        <i class="fas {{ $avgRating >= $num ? 'fa-star' : (ceil($avgRating) == $num ? 'fa-star-half' : 'hidden') }} absolute top-0 left-0"></i>--}}
 {{--                                    </div>--}}
 {{--                                @endfor--}}

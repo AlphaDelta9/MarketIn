@@ -11,11 +11,11 @@
     <section class="py-20">
         <div class="container">
             <div>
-                <div class="grid grid-cols-2 gap-x-7">
-                    <div class="h-80 rounded-xl overflow-hidden">
+                <div class="grid grid-cols-3 gap-x-7">
+                    <div class="h-96 rounded-xl overflow-hidden">
                         <img src="data:{{$user->mime}};base64,{{$user->picture}}" alt="" class="w-full h-full object-cover object-center">
                     </div>
-                    <div>
+                    <div class="col-span-2">
                         <div class="text-2xl font-bold mb-4">{{ $user->name }}</div>
                         <div class="border-t border-gray-300 space-y-2 pt-6">
 {{--                            <div class="flex">--}}
@@ -94,7 +94,7 @@
 {{--                            <div class="flex space-x-1">--}}
 {{--                                @for($num = 1; $num <= 5; $num++)--}}
 {{--                                    <div class="relative w-5 h-5">--}}
-{{--                                        <i class="fas fa-star absolute text-gray-200"></i>--}}
+{{--                                        <i class="fas fa-star absolute "></i>--}}
 {{--                                        <i class="fas {{ $avgRating >= $num ? 'fa-star' : (ceil($avgRating) == $num ? 'fa-star-half' : 'hidden') }} absolute top-0 left-0"></i>--}}
 {{--                                    </div>--}}
 {{--                                @endfor--}}
