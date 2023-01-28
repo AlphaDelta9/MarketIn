@@ -19,10 +19,19 @@ class ProjectHeaderController extends Controller
     public function index()
     {
         request()->flash();
-        return view('front.index', ['cities'=>City::all(),'types'=>Type::all(),
-        'projects'=>ProjectHeader::where('title', 'like', '%'.request()->search.'%')
-        ->where('city_name', 'like', '%'.request()->city.'%')
-        ->where('type_name', 'like', '%'.request()->type.'%')->paginate(6)->withQueryString()]);
+        if(auth()->user()->role){
+            return view('front.index', ['cities'=>City::all(),'types'=>Type::all(),
+            'projects'=>ProjectHeader::where('title', 'like', '%'.request()->search.'%')
+            ->where('city_name', 'like', '%'.request()->city.'%')
+            ->where('type_name', 'like', '%'.request()->type.'%')
+            ->where('user_id', auth()->id())->paginate(6)->withQueryString()]);
+        }
+        else{
+            return view('front.index', ['cities'=>City::all(),'types'=>Type::all(),
+            'projects'=>ProjectHeader::where('title', 'like', '%'.request()->search.'%')
+            ->where('city_name', 'like', '%'.request()->city.'%')
+            ->where('type_name', 'like', '%'.request()->type.'%')->paginate(6)->withQueryString()]);
+        }
     }
 
     /**

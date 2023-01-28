@@ -15,17 +15,17 @@
                 <form action="{{ url('/edit/'.$project->id) }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
-                    <div class="space-y-5 mb-6">
+                    <div class="mb-6 space-y-5">
                         <div>
-                            <label for="title" class="block text-sm mb-2">Nama Project</label>
-                            <input type="text" id="title" name="title" class="w-full py-2 px-5 bg-gray-100 rounded-lg" value="{{ old('title',$project->title) }}">
+                            <label for="title" class="block mb-2 text-base">Nama Project</label>
+                            <input type="text" id="title" name="title" class="w-full px-5 py-2 rounded-lg" value="{{ old('title',$project->title) }}">
                             @error('title')
-                            <div class="text-danger text-sm mt-1">{{ $message }}</div>
+                            <div class="mt-1 text-base text-danger">{{ $message }}</div>
                             @enderror
                         </div>
                         <div>
-                            <label for="city" class="block text-sm mb-2">Kota</label>
-                            <input type="text" name="city" class="w-full py-2 px-5 bg-gray-100 rounded-lg" id=""
+                            <label for="city" class="block mb-2 text-base">Kota</label>
+                            <input type="text" name="city" class="w-full px-5 py-2 rounded-lg" id=""
                             list="city" value="{{old('city',$project->city_name)}}">
                             <datalist id="city">
                                 @foreach($cities as $city)
@@ -33,72 +33,72 @@
                                 @endforeach
                             </datalist>
                             @error('city')
-                            <div class="text-danger text-sm mt-1">{{ $message }}</div>
+                            <div class="mt-1 text-base text-danger">{{ $message }}</div>
                             @enderror
                         </div>
                         {{-- <div>
-                            <label for="category" class="block text-sm  mb-2">Kategori Usaha</label>
-                            <select id="category" name="category" class="w-full py-2 px-5 bg-gray-100 rounded-lg">
+                            <label for="category" class="block mb-2 text-base">Kategori Usaha</label>
+                            <select id="category" name="category" class="w-full px-5 py-2 rounded-lg">
                                 <option value="">Pilih Kategori Usaha</option>
                                 @foreach($categories as $category)
                                     <option value="">{{ $category }}</option>
                                 @endforeach
                             </select>
                             @error('category')
-                            <div class="text-danger text-sm mt-1">{{ $message }}</div>
+                            <div class="mt-1 text-base text-danger">{{ $message }}</div>
                             @enderror
                         </div> --}}
                         <div>
-                            <label for="description" class="block text-sm mb-2">Deskripsi</label>
+                            <label for="description" class="block mb-2 text-base">Deskripsi</label>
                             <textarea id="description" name="description" rows="10"
-                                      class="w-full py-2 px-5 bg-gray-100 rounded-lg">{{ old('description',$project->description) }}</textarea>
+                                      class="w-full px-5 py-2 rounded-lg">{{ old('description',$project->description) }}</textarea>
                             @error('name')
-                            <div class="text-danger text-sm mt-1">{{ $message }}</div>
+                            <div class="mt-1 text-base text-danger">{{ $message }}</div>
                             @enderror
                         </div>
                         <div>
-                            <label for="picture" class="block text-sm mb-2">Picture</label>
-                            <input type="file" id="picture" name="picture" accept="image/*" class="w-full py-2 px-3 border-b border-gray-400 focus:border-primary focus:outline-none transition">
+                            <label for="picture" class="block mb-2 text-base">Picture</label>
+                            <input type="file" id="picture" name="picture" accept="image/*" class="w-full px-3 py-2 transition border-b border-gray-400 focus:border-primary focus:outline-none">
                             @error('picture')
-                            <div class="text-danger text-sm mt-1">{{ $message }}</div>
+                            <div class="mt-1 text-base text-danger">{{ $message }}</div>
                             @enderror
                         </div>
                         @if ($project->type_name == 'Iklan')
                         <div>
-                            <label for="asset" class="block text-sm mb-2">Asset</label>
-                            <input type="file" id="asset" name="asset" class="w-full py-2 px-3 border-b border-gray-400 focus:border-primary focus:outline-none transition">
+                            <label for="asset" class="block mb-2 text-base">Asset</label>
+                            <input type="file" id="asset" name="asset" class="w-full px-3 py-2 transition border-b border-gray-400 focus:border-primary focus:outline-none">
                             @error('asset')
-                            <div class="text-danger text-sm mt-1">{{ $message }}</div>
+                            <div class="mt-1 text-base text-danger">{{ $message }}</div>
                             @enderror
                         </div>
                         @endif
                         <div>
-                            <label for="work" class="block text-sm mb-2">Waktu Pengerjaan</label>
-                            <input type="date" id="work" name="work" class="w-full py-2 px-5 bg-gray-100 rounded-lg" value="{{ old('work',$project->work->format('Y-m-d')) }}">
+                            <label for="work" class="block mb-2 text-base">Waktu Pengerjaan</label>
+                            <input type="date" id="work" name="work" class="w-full px-5 py-2 rounded-lg" value="{{ old('work',$project->work->format('Y-m-d')) }}">
                             @error('work')
-                            <div class="text-danger text-sm mt-1">{{ $message }}</div>
+                            <div class="mt-1 text-base text-danger">{{ $message }}</div>
                             @enderror
                         </div>
                         <div>
-                            <label for="budget" class="block text-sm mb-2">Batas Budget</label>
-                            <input type="number" id="budget" name="budget" class="w-full py-2 px-5 bg-gray-100 rounded-lg" value="{{ old('budget',$project->budget) }}" min="0">
+                            <label for="budget" class="block mb-2 text-base">Batas Budget</label>
+                            <input type="number" id="budget" name="budget" class="w-full px-5 py-2 rounded-lg" value="{{ old('budget',$project->budget) }}" min="0">
                             @error('budget')
-                            <div class="text-danger text-sm mt-1">{{ $message }}</div>
+                            <div class="mt-1 text-base text-danger">{{ $message }}</div>
                             @enderror
                         </div>
                         <div>
-                            <label for="at" class="block text-sm mb-2">Peran</label>
-                            <select id="at" name="at" class="w-full py-2 px-5 bg-gray-100 rounded-lg">
+                            <label for="at" class="block mb-2 text-base">Status</label>
+                            <select id="at" name="at" class="w-full px-5 py-2 rounded-lg">
                                 <option value="-1">Cancel</option>
                                     <option value="0" selected>Active</option>
                                     <option value="1">Finish</option>
                             </select>
                             @error('at')
-                            <div class="text-danger text-sm mt-1">{{ $message }}</div>
+                            <div class="mt-1 text-base text-danger">{{ $message }}</div>
                             @enderror
                         </div>
                     </div>
-                    <button class="btn btn-primary block ml-auto">Update</button>
+                    <button class="block ml-auto btn btn-primary">Update</button>
                 </form>
             </div>
         </div>

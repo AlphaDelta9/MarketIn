@@ -7,7 +7,7 @@
     <section class="py-20">
         <div class="container">
             <div id="content-profile">
-                <div class="tab-title">Profil</div>
+                {{-- <div class="tab-title">Profil</div> --}}
                 <div class="grid grid-cols-2 gap-x-7">
                     <img class="h-full rounded-xl overflow-hidden" src="data:{{$user->mime}};base64,{{$user->picture}}" alt="Picture" srcset="">
                     <form action="{{url("profile/".$user->id)}}" method="POST" enctype="multipart/form-data">
@@ -18,46 +18,46 @@
                         @endif
                         <div class="space-y-5 mb-6">
                             <div>
-                                <label for="name" class="block text-sm mb-2">Nama Lengkap</label>
+                                <label for="name" class="block text-base mb-2">Nama Lengkap</label>
                                 <input type="text" id="name" name="name" value="{{old('name',$user->name)}}" class="w-full py-2 px-3 border-b border-gray-400 focus:border-primary focus:outline-none transition">
                                 @error('name')
-                                <div class="text-danger text-sm mt-1">{{ $message }}</div>
+                                <div class="text-danger text-base mt-1">{{ $message }}</div>
                                 @enderror
                             </div>
                             <div>
-                                <label for="email" class="block text-sm mb-2">Email</label>
+                                <label for="email" class="block text-base mb-2">Email</label>
                                 <input type="text" id="email" name="email" value="{{old('email',$user->email)}}" class="w-full py-2 px-3 border-b border-gray-400 focus:border-primary focus:outline-none transition">
                                 @error('email')
-                                <div class="text-danger text-sm mt-1">{{ $message }}</div>
+                                <div class="text-danger text-base mt-1">{{ $message }}</div>
                                 @enderror
                             </div>
                             <div>
-                                <label for="password" class="block text-sm mb-2">Password</label>
+                                <label for="password" class="block text-base mb-2">Password</label>
                                 <input type="password" id="password" name="password" class="w-full py-2 px-3 border-b border-gray-400 focus:border-primary focus:outline-none transition">
                                 @error('password')
-                                <div class="text-danger text-sm mt-1">{{ $message }}</div>
+                                <div class="text-danger text-base mt-1">{{ $message }}</div>
                                 @enderror
                             </div>
                             <div>
-                                <label for="password_confirmation" class="block text-sm mb-2">Konfirmasi Password</label>
+                                <label for="password_confirmation" class="block text-base mb-2">Konfirmasi Password</label>
                                 <input type="password" id="password_confirmation" name="password_confirmation" class="w-full py-2 px-3 border-b border-gray-400 focus:border-primary focus:outline-none transition">
                                 @error('password_confirmation')
-                                <div class="text-danger text-sm mt-1">{{ $message }}</div>
+                                <div class="text-danger text-base mt-1">{{ $message }}</div>
                                 @enderror
                             </div>
                             <div>
-                                <label for="picture" class="block text-sm mb-2">Picture</label>
+                                <label for="picture" class="block text-base mb-2">Picture</label>
                                 <input type="file" id="picture" name="picture" accept="image/*" class="w-full py-2 px-3 border-b border-gray-400 focus:border-primary focus:outline-none transition">
                                 @error('picture')
-                                <div class="text-danger text-sm mt-1">{{ $message }}</div>
+                                <div class="text-danger text-base mt-1">{{ $message }}</div>
                                 @enderror
                             </div>
                             <div>
-                                <label for="profile" class="block text-sm mb-2">Profile</label>
+                                <label for="profile" class="block text-base mb-2">Profile</label>
                                 <textarea id="profile" name="profile" rows="10"
                                 class="w-full py-2 px-3 border-b border-gray-400 focus:border-primary focus:outline-none transition">{{ old('profile',$user->profile) }}</textarea>
                                 @error('profile')
-                                <div class="text-danger text-sm mt-1">{{ $message }}</div>
+                                <div class="text-danger text-base mt-1">{{ $message }}</div>
                                 @enderror
                             </div>
                         </div>
@@ -128,7 +128,7 @@
                 </div>
 
                 <div class="py-4 px-6">
-                    <div class="flex text-sm">
+                    <div class="flex text-base">
                         <input type="text" id="file-name" class="w-full py-2 px-6 rounded-l-lg bg-gray-100 flex-1 text-ellipsis" readonly>
                         <label for="upload-file" class="btn btn-primary rounded-l-none rounded-r-lg flex items-center">
                             <i class="fas fa-upload mr-2"></i>Upload File

@@ -112,17 +112,17 @@
                     @endif
                 @elseif (!auth()->user()->role)
                     @if (blank(auth()->user()->project_details->where('project_header_id',$project->id)))
-                    <form action="{{url("project/".$project->id)}}" method="post">
+                    <form class="mt-4" action="{{url("project/".$project->id)}}" method="post">
                         @csrf
                         <input type="submit" class="btn btn-primary" value="Assign">
                     </form>
                     @elseif (auth()->user()->project_details()->where('project_header_id',$project->id)->first()->accepted_at && $project->type_name == 'Iklan')
-                    <form action="{{url("download/".$project->id."/".$project->title)}}" method="post">
+                    <form class="mt-4" action="{{url("download/".$project->id."/".$project->title)}}" method="post">
                         @csrf
                         <input type="submit" class="btn btn-primary" value="Download">
                     </form>
                     @else
-                    <form action="{{url("project/".auth()->user()->project_details->where('project_header_id',$project->id)->first()->id)}}" method="post">
+                    <form class="mt-4" action="{{url("project/".auth()->user()->project_details->where('project_header_id',$project->id)->first()->id)}}" method="post">
                         @csrf
                         @method('PATCH')
                         <input type="submit" class="btn btn-primary" value="Cancel">

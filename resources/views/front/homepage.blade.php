@@ -60,7 +60,7 @@
             @if(!auth()->user()->role)
             <div class="text-3xl mb-4">Proyek Sekarang</div>
             @endif
-            <div class="grid grid-cols-5 gap-5 justify-items-center">
+            <div class="grid grid-cols-{{$active->count()}} gap-5 justify-items-center">
                 @forelse($active as $item)
                     <div class="flex space-x-3">
                         @if(auth()->user()->role)

@@ -4,28 +4,6 @@
             {{-- <img src="/assets/images/logo.png"> --}}
             {{env('APP_NAME')}}
         </a>
-        <div class="is-hidden-desktop is-flex-touch">
-            {{-- <div class="icon-mobile icon-navbar">
-                <a href="">
-                    <svg class="user-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 26.66 30.37">
-                        <path
-                            d="M13.33,3A5.87,5.87,0,1,1,7.46,8.87,5.87,5.87,0,0,1,13.33,3m0-3A8.87,8.87,0,1,0,22.2,8.87,8.88,8.88,0,0,0,13.33,0Z" />
-                        <path class="a" d="M1.5,28.87a11.83,11.83,0,1,1,23.66,0Z" />
-                    </svg>
-                </a>
-                <a href="">
-                    <svg class="cart-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 23.62 31.14">
-                        <path class="a" d="M6,7.37a5.87,5.87,0,1,1,11.73,0" />
-                        <path d="M20.62,10.51V28.14H3V10.51H20.62m3-3H0V31.14H23.62V7.51Z" /></svg>
-                </a>
-            </div> --}}
-            <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false"
-                data-target="navbarBasicExample">
-                <span aria-hidden="true"></span>
-                <span aria-hidden="true"></span>
-                <span aria-hidden="true"></span>
-            </a>
-        </div>
     </div>
 
     <div id="navbarBasicExample" class="flex items-center justify-between">
@@ -36,7 +14,7 @@
             <a href="{{ url('search') }}" class="block py-8 px-10 @if(url()->current() == url('search') )text-primary @endif">
                 Search
             </a>
-        @guest
+        {{-- @guest
         <li>
             <a href="{{ url('login') }}" class="block py-8 px-10 @if(url()->current() == url('login') )text-primary @endif">
                 Login
@@ -48,7 +26,7 @@
                 Register
             </a>
         </li>
-        @endguest
+        @endguest --}}
         @auth
         <a href="{{ url('history') }}" class="block py-8 px-10 @if(url()->current() == url('history') )text-primary @endif">
             History

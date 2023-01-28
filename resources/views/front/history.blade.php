@@ -4,19 +4,20 @@
 
 @section('content')
 
-    <section class="py-20">
+    <section class="py-2">
         <div class="container">
             @if(auth()->user()->role)
-            <form action="{{url('history')}}" method="get">
-                <select name="filter" class="w-full py-2 px-5 bg-gray-100 rounded-lg" id="">
+            <form class="space-y-5" action="{{url('history')}}" method="get">
+                <label for="filter" class="block mb-2 text-sm">Status Project</label>
+                <select name="filter" class="w-full px-3 py-2 border-b border-gray-400" id="">
                     <option value=""></option>
                     <option value="Active" @if (old('filter') == 'Active') selected @endif>Active</option>
                     <option value="Done" @if (old('filter') == 'Done') selected @endif>Done</option>
                 </select>
-                <button type="submit">Filter</button>
+                <button class="block ml-auto btn btn-primary" type="submit">Filter</button>
             </form>
             @endif
-            <div class="tab-title mb-4">Proyek</div>
+            <div class="mb-4 tab-title">Proyek</div>
 
             <table class="table">
                 <thead>
@@ -36,23 +37,23 @@
                         <td>{{ auth()->user()->role ? $project->city_name : $project->project_header->city_name }}</td>
                         @if (auth()->user()->role)
                         @if ($project->deleted_at)
-                        <td class="text-danger font-bold">Cancel</td>
+                        <td class="font-bold text-danger">Cancel</td>
                         @elseif ($project->finished_at)
-                        <td class="text-success font-bold">Done</td>
+                        <td class="font-bold text-success">Done</td>
                         @else
-                        <td class="text-warning font-bold">Active</td>
+                        <td class="font-bold text-warning">Active</td>
                         @endif
                         @else
                         @if ($project->deleted_at)
                         @if ($project->rejected_at)
-                        <td class="text-danger font-bold">Rejected</td>
+                        <td class="font-bold text-danger">Rejected</td>
                         @else
-                        <td class="text-danger font-bold">Cancel</td>
+                        <td class="font-bold text-danger">Cancel</td>
                         @endif
                         @elseif ($project->accepted_at)
-                        <td class="text-success font-bold">Accepted</td>
+                        <td class="font-bold text-success">Accepted</td>
                         @else
-                        <td class="text-warning font-bold">Pending</td>
+                        <td class="font-bold text-warning">Pending</td>
                         @endif
                         @endif
                         <td>
@@ -74,121 +75,123 @@
                 @endforeach
                 </tbody>
             </table>
-            {{$projects->links()}}
+            <div class="mt-4">
+                            {{$projects->links()}}
+            </div>
         </div>
 
-        <div id="rate-modal" class="absolute top-0 left-0 w-full h-full bg-black/30 transition scale-0">
-            <div class="bg-white rounded-lg absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 divide-y divide-gray-300" style="width: 500px">
-                <div class="flex items-center justify-between text-xl py-4 px-6">
+        <div id="rate-modal" class="absolute top-0 left-0 w-full h-full transition scale-0 bg-black/30">
+            <div class="absolute transform -translate-x-1/2 -translate-y-1/2 bg-white divide-y divide-gray-300 rounded-lg top-1/2 left-1/2" style="width: 500px">
+                <div class="flex items-center justify-between px-6 py-4 text-xl">
                     <div>Rate <b>Melvin</b></div>
                     <div>
-                        <i class="fas fa-times  cursor-pointer hover:text-danger" onclick="toggleModal('rate-modal', 'scale-0')"></i>
+                        <i class="cursor-pointer fas fa-times hover:text-danger" onclick="toggleModal('rate-modal', 'scale-0')"></i>
                     </div>
                 </div>
 
-                <div class="py-4 px-6">
-                    <div id="rating" class="flex text-3xl mb-3 space-x-2 rating">
-                        <i class="fas fa-star  cursor-pointer"></i>
-                        <i class="fas fa-star  cursor-pointer"></i>
-                        <i class="fas fa-star  cursor-pointer"></i>
-                        <i class="fas fa-star  cursor-pointer"></i>
-                        <i class="fas fa-star  cursor-pointer"></i>
+                <div class="px-6 py-4">
+                    <div id="rating" class="flex mb-3 space-x-2 text-3xl rating">
+                        <i class="cursor-pointer fas fa-star"></i>
+                        <i class="cursor-pointer fas fa-star"></i>
+                        <i class="cursor-pointer fas fa-star"></i>
+                        <i class="cursor-pointer fas fa-star"></i>
+                        <i class="cursor-pointer fas fa-star"></i>
                     </div>
-                    <textarea name="feedback" id="feedback" placeholder="Pesan/Kesan..." class="w-full border border-gray-200 p-2 rounded-lg"></textarea>
+                    <textarea name="feedback" id="feedback" placeholder="Pesan/Kesan..." class="w-full p-2 border border-gray-200 rounded-lg"></textarea>
                 </div>
 
-                <div class="text-right py-4 px-6">
-                    <button class="btn btn-danger-transparent" onclick="toggleModal('rate-modal', 'scale-0')"><i class="fas fa-times mr-2"></i>Cancel</button>
-                    <button class="btn btn-success" onclick="toggleModal('rate-modal', 'scale-0')"><i class="fas fa-money-bill-wave-alt mr-2"></i>Rate</button>
+                <div class="px-6 py-4 text-right">
+                    <button class="btn btn-danger-transparent" onclick="toggleModal('rate-modal', 'scale-0')"><i class="mr-2 fas fa-times"></i>Cancel</button>
+                    <button class="btn btn-success" onclick="toggleModal('rate-modal', 'scale-0')"><i class="mr-2 fas fa-money-bill-wave-alt"></i>Rate</button>
                 </div>
             </div>
         </div>
 
-        <div id="preview-modal" class="absolute top-0 left-0 w-full h-full bg-black/30 transition scale-0">
-            <div class="bg-white rounded-lg absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 divide-y divide-gray-300" style="width: 500px">
-                <div class="flex items-center justify-between text-xl py-4 px-6">
+        <div id="preview-modal" class="absolute top-0 left-0 w-full h-full transition scale-0 bg-black/30">
+            <div class="absolute transform -translate-x-1/2 -translate-y-1/2 bg-white divide-y divide-gray-300 rounded-lg top-1/2 left-1/2" style="width: 500px">
+                <div class="flex items-center justify-between px-6 py-4 text-xl">
                     <div>Makmur Rice Bow</div>
                     <div>
-                        <i class="fas fa-times  cursor-pointer hover:text-danger" onclick="toggleModal('preview-modal', 'scale-0')"></i>
+                        <i class="cursor-pointer fas fa-times hover:text-danger" onclick="toggleModal('preview-modal', 'scale-0')"></i>
                     </div>
                 </div>
 
-                <div class="py-4 px-6">
-                    <div class="h-80 overflow-hidden">
-                        <img src="{{ asset('images/result/donald-snack.jpg') }}" alt="Preview Image" class="h-full object-cover object-center">
-                        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-5xl font-bold opacity-40 rotate-45">Market'In</div>
+                <div class="px-6 py-4">
+                    <div class="overflow-hidden h-80">
+                        <img src="{{ asset('images/result/donald-snack.jpg') }}" alt="Preview Image" class="object-cover object-center h-full">
+                        <div class="absolute text-5xl font-bold rotate-45 -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 opacity-40">Market'In</div>
                     </div>
                 </div>
 
-                <div class="text-right py-4 px-6">
-                    <button class="btn btn-danger-transparent" onclick="toggleModal('preview-modal', 'scale-0')"><i class="fas fa-times mr-2"></i>Batal</button>
-                    <button class="btn btn-success" onclick="toggleModal('preview-modal', 'scale-0')"><i class="fas fa-money-bill-wave-alt mr-2"></i>Bayar</button>
+                <div class="px-6 py-4 text-right">
+                    <button class="btn btn-danger-transparent" onclick="toggleModal('preview-modal', 'scale-0')"><i class="mr-2 fas fa-times"></i>Batal</button>
+                    <button class="btn btn-success" onclick="toggleModal('preview-modal', 'scale-0')"><i class="mr-2 fas fa-money-bill-wave-alt"></i>Bayar</button>
                 </div>
             </div>
         </div>
 
-        <div id="upload-form-modal" class="absolute top-0 left-0 w-full h-full bg-black/30 transition transform scale-0">
-            <div class="bg-white rounded-lg absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 divide-y divide-gray-300" style="width: 500px">
-                <div class="flex items-center justify-between text-xl py-4 px-6">
+        <div id="upload-form-modal" class="absolute top-0 left-0 w-full h-full transition transform scale-0 bg-black/30">
+            <div class="absolute transform -translate-x-1/2 -translate-y-1/2 bg-white divide-y divide-gray-300 rounded-lg top-1/2 left-1/2" style="width: 500px">
+                <div class="flex items-center justify-between px-6 py-4 text-xl">
                     <div>Makmur Rice Bow</div>
                     <div>
-                        <i class="fas fa-times  cursor-pointer hover:text-danger" onclick="toggleModal('upload-form-modal', 'scale-0')"></i>
+                        <i class="cursor-pointer fas fa-times hover:text-danger" onclick="toggleModal('upload-form-modal', 'scale-0')"></i>
                     </div>
                 </div>
 
-                <div class="py-4 px-6">
+                <div class="px-6 py-4">
                     <div class="flex text-sm">
-                        <input type="text" id="file-name" class="w-full py-2 px-6 rounded-l-lg bg-gray-100 flex-1 text-ellipsis" readonly>
-                        <label for="upload-file" class="btn btn-primary rounded-l-none rounded-r-lg flex items-center">
-                            <i class="fas fa-upload mr-2"></i>Upload File
+                        <input type="text" id="file-name" class="flex-1 w-full px-6 py-2 bg-gray-100 rounded-l-lg text-ellipsis" readonly>
+                        <label for="upload-file" class="flex items-center rounded-l-none rounded-r-lg btn btn-primary">
+                            <i class="mr-2 fas fa-upload"></i>Upload File
                         </label>
                     </div>
                     <input type="file" id="upload-file" class="hidden" onchange="fileChanged(this)">
                 </div>
 
-                <div class="text-right py-4 px-6">
-                    <button class="btn btn-danger-transparent" onclick="toggleModal('upload-form-modal', 'scale-0')"><i class="fas fa-times mr-2"></i>Batal</button>
-                    <button class="btn btn-success" onclick="toggleModal('upload-form-modal', 'scale-0')"><i class="fas fa-upload mr-2"></i>Kirim</button>
+                <div class="px-6 py-4 text-right">
+                    <button class="btn btn-danger-transparent" onclick="toggleModal('upload-form-modal', 'scale-0')"><i class="mr-2 fas fa-times"></i>Batal</button>
+                    <button class="btn btn-success" onclick="toggleModal('upload-form-modal', 'scale-0')"><i class="mr-2 fas fa-upload"></i>Kirim</button>
                 </div>
             </div>
         </div>
 
-        <div id="accept-confirmation-modal" class="absolute top-0 left-0 w-full h-full bg-black/30 transition transform -translate-y-full">
-            <div class="bg-white rounded-lg absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 divide-y divide-gray-300" style="width: 500px">
-                <div class="flex items-center justify-between text-xl py-4 px-6">
+        <div id="accept-confirmation-modal" class="absolute top-0 left-0 w-full h-full transition transform -translate-y-full bg-black/30">
+            <div class="absolute transform -translate-x-1/2 -translate-y-1/2 bg-white divide-y divide-gray-300 rounded-lg top-1/2 left-1/2" style="width: 500px">
+                <div class="flex items-center justify-between px-6 py-4 text-xl">
                     <div>Makmur Rice Bow</div>
                     <div>
-                        <i class="fas fa-times  cursor-pointer hover:text-danger" onclick="toggleModal('accept-confirmation-modal')"></i>
+                        <i class="cursor-pointer fas fa-times hover:text-danger" onclick="toggleModal('accept-confirmation-modal')"></i>
                     </div>
                 </div>
 
-                <div class="text-xl py-4 px-6">
+                <div class="px-6 py-4 text-xl">
                     Konfirmasi <b class="text-success">terima</b> lamaran dari <b>John</b>
                 </div>
 
-                <div class="text-right py-4 px-6">
-                    <button class="btn btn-danger-transparent" onclick="toggleModal('accept-confirmation-modal')"><i class="fas fa-times mr-2"></i>Batal</button>
-                    <button class="btn btn-success" onclick="toggleModal('accept-confirmation-modal')"><i class="fas fa-check mr-2"></i>Terima</button>
+                <div class="px-6 py-4 text-right">
+                    <button class="btn btn-danger-transparent" onclick="toggleModal('accept-confirmation-modal')"><i class="mr-2 fas fa-times"></i>Batal</button>
+                    <button class="btn btn-success" onclick="toggleModal('accept-confirmation-modal')"><i class="mr-2 fas fa-check"></i>Terima</button>
                 </div>
             </div>
         </div>
 
-        <div id="reject-confirmation-modal" class="absolute top-0 left-0 w-full h-full bg-black/30 transition transform -translate-y-full">
-            <div class="bg-white rounded-lg absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 divide-y divide-gray-300" style="width: 500px">
-                <div class="flex items-center justify-between text-xl py-4 px-6">
+        <div id="reject-confirmation-modal" class="absolute top-0 left-0 w-full h-full transition transform -translate-y-full bg-black/30">
+            <div class="absolute transform -translate-x-1/2 -translate-y-1/2 bg-white divide-y divide-gray-300 rounded-lg top-1/2 left-1/2" style="width: 500px">
+                <div class="flex items-center justify-between px-6 py-4 text-xl">
                     <div>Makmur Rice Bow</div>
                     <div>
-                        <i class="fas fa-times  cursor-pointer hover:text-danger" onclick="toggleModal('reject-confirmation-modal')"></i>
+                        <i class="cursor-pointer fas fa-times hover:text-danger" onclick="toggleModal('reject-confirmation-modal')"></i>
                     </div>
                 </div>
 
-                <div class="text-xl py-4 px-6">
+                <div class="px-6 py-4 text-xl">
                     Konfirmasi <b class="text-danger">tolak</b> lamaran dari <b>John</b>
                 </div>
 
-                <div class="text-right py-4 px-6">
-                    <button class="btn btn-danger-transparent" onclick="toggleModal('reject-confirmation-modal')"><i class="fas fa-times mr-2"></i>Batal</button>
-                    <button class="btn btn-danger" onclick="toggleModal('reject-confirmation-modal')"><i class="fas fa-check mr-2"></i>Tolak</button>
+                <div class="px-6 py-4 text-right">
+                    <button class="btn btn-danger-transparent" onclick="toggleModal('reject-confirmation-modal')"><i class="mr-2 fas fa-times"></i>Batal</button>
+                    <button class="btn btn-danger" onclick="toggleModal('reject-confirmation-modal')"><i class="mr-2 fas fa-check"></i>Tolak</button>
                 </div>
             </div>
         </div>
