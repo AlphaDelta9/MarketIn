@@ -45,15 +45,15 @@
     }
 </style>
 @endsection
-@section('content')
 @include('front.layouts.navbar')
+@section('content')
 
 	<section class="section" id="new-arrival">
 		<div class="container">
-            <form class="mb-4" action="{{url('search')}}" method="get">
+            <form class="mb-4 space-y-5" action="{{url('search')}}" method="get">
                 <div>
-                    <label for="city" class="block text-sm mb-2">Kota</label>
-                    <input type="text" name="city" class="w-full py-2 px-5 bg-gray-100 rounded-lg" id=""
+                    <label for="city" class="block mb-2 text-sm">Kota</label>
+                    <input type="text" name="city" class="w-full px-3 py-2 border-b border-gray-400" id=""
                     list="city" value="{{old('city')}}">
                     <datalist id="city">
                         @foreach($cities as $city)
@@ -61,12 +61,12 @@
                         @endforeach
                     </datalist>
                     @error('city')
-                    <div class="text-danger text-sm mt-1">{{ $message }}</div>
+                    <div class="mt-1 text-sm text-danger">{{ $message }}</div>
                     @enderror
                 </div>
                 <div>
-                    <label for="type" class="block text-sm mb-2">Jenis</label>
-                    <input type="text" name="type" class="w-full py-2 px-5 bg-gray-100 rounded-lg" id=""
+                    <label for="type" class="block mb-2 text-sm">Jenis</label>
+                    <input type="text" name="type" class="w-full px-3 py-2 border-b border-gray-400" id=""
                     list="type" value="{{old('type')}}">
                     <datalist id="type">
                         @foreach($types as $type)
@@ -74,18 +74,18 @@
                         @endforeach
                     </datalist>
                     @error('type')
-                    <div class="text-danger text-sm mt-1">{{ $message }}</div>
+                    <div class="mt-1 text-sm text-danger">{{ $message }}</div>
                     @enderror
                 </div>
                 <div>
-                    <label for="search" class="block text-sm mb-2">Nama</label>
-                    <input type="search" name="search" class="w-full py-2 px-5 bg-gray-100 rounded-lg" id=""
+                    <label for="search" class="block mb-2 text-sm">Nama</label>
+                    <input type="search" name="search" class="w-full px-3 py-2 border-b border-gray-400" id=""
                     value="{{old('search')}}">
                     @error('search')
-                    <div class="text-danger text-sm mt-1">{{ $message }}</div>
+                    <div class="mt-1 text-sm text-danger">{{ $message }}</div>
                     @enderror
                 </div>
-                <input class="btn btn-primary block ml-auto" type="submit" value="Search">
+                <input class="block ml-auto btn btn-primary" type="submit" value="Search">
             </form>
             <div class="grid grid-cols-3 gap-5 mb-4">
                 @foreach($projects as $project)
