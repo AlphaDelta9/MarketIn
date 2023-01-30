@@ -16,6 +16,16 @@
                 </select>
                 <button class="block ml-auto btn btn-primary" type="submit">Filter</button>
             </form>
+            @else
+            <form class="space-y-5" action="{{url('history')}}" method="get">
+                <label for="filter" class="block mb-2 text-sm">Status Project</label>
+                <select name="filter" class="w-full px-3 py-2 border-b border-gray-400" id="">
+                    <option value=""></option>
+                    <option value="Pending" @if (old('filter') == 'Pending') selected @endif>Pending</option>
+                    <option value="Accepted" @if (old('filter') == 'Accepted') selected @endif>Accepted</option>
+                </select>
+                <button class="block ml-auto btn btn-primary" type="submit">Filter</button>
+            </form>
             @endif
             <div class="mb-4 tab-title">Proyek</div>
 
@@ -57,12 +67,17 @@
                         @endif
                         @endif
                         <td>
-                            @if (!auth()->user()->role && $project->accepted_at && $project->project_header->type_name != 'Iklan')
-                            <form action="{{url('upload/'.$project->id)}}" method="post" enctype="multipart/form-data">
-                                @csrf
-                                <input type="file" name="file">
-                                <input type="submit" class="btn btn-primary" value="Upload">
-                            </form>
+                            @if (!auth()->user()->role)
+                                @if ($project->accepted_at && $project->project_header->type_name != 'Iklan')
+                                <form action="{{url('upload/'.$project->id)}}" method="post" enctype="multipart/form-data">
+                                    @csrf
+                                    <input type="file" name="file">
+                                    <input type="submit" class="btn btn-primary" value="Upload">
+                                    @if ($project->mime)
+                                    <a class="btn btn-primary" href="{{url('download/'.$project->id.'/'.$project->project_header->title)}}">Download</a>
+                                    @endif
+                                </form>
+                                @endif
                             @endif
                         </td>
                     </tr>

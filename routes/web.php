@@ -109,6 +109,7 @@ Route::patch('/reject/{projectDetail}', [ProjectDetailController::class,'update'
 Route::post('/upload/{projectDetail}', [ProjectDetailController::class,'update']);
 Route::get('/download/{projectDetail}/{name}', [ProjectDetailController::class,'file']);
 Route::get('/assign/{projectDetail}', [ProjectDetailController::class,'show']);
+Route::post('/complete/{projectDetail}', [ProjectDetailController::class,'finalize']);
 
 Route::get('/shop', [ShopController::class, 'index'])->name('shop.all');
 Route::get('/shop/by-hero', [ShopController::class,'index'])->name('shop.by-hero');

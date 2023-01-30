@@ -80,7 +80,18 @@ class UserController extends Controller
                     break;
             }
         } else {
-            return view('front.history', ['projects'=>Auth::user()->project_details()->withTrashed()->paginate(6)]);
+            switch (request()->filter) {
+                case 'Accepted':
+                    return view('front.history', ['projects'=>Auth::user()->project_details()->whereNotNull('accepted_at')->paginate(6)->withQueryString()]);
+                    break;
+                case 'Pending':
+                    return view('front.history', ['projects'=>Auth::user()->project_details()->whereNull('accepted_at')->paginate(6)->withQueryString()]);
+                    break;
+
+                default:
+                    return view('front.history', ['projects'=>Auth::user()->project_details()->withTrashed()->paginate(6)]);
+                    break;
+            }
         }
     }
 

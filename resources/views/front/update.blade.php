@@ -58,6 +58,7 @@
                         </div>
                         <div>
                             <label for="picture" class="block mb-2 text-base">Picture</label>
+                            <img src="data:{{$project->mime}};base64,{{$project->picture}}" alt="" class="w-full h-80 rounded-xl overflow-hidden object-cover object-center">
                             <input type="file" id="picture" name="picture" accept="image/*" class="w-full px-3 py-2 transition border-b border-gray-400 focus:border-primary focus:outline-none">
                             @error('picture')
                             <div class="mt-1 text-base text-danger">{{ $message }}</div>

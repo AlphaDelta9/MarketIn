@@ -70,14 +70,14 @@
                                 <td class="text-success font-bold">Accepted</td>
                                 <td>
                                     @if ($detail->mime)
-                                    <a href="{{url('download/'.$detail->id.'/'.$project->title)}}">Download</a>
+                                    <a class="btn btn-primary" href="{{url('download/'.$detail->id.'/'.$project->title)}}">Download</a>
                                     @endif
-                                    @if ($detail->complete_at && $detail->price)
-                                    <form action="{{url("pay/".$detail->id)}}" method="post">
+                                    @if ($detail->completed_at && !$detail->price)
+                                    <form action="{{url("pay/".$detail->id)}}" method="get">
                                         @csrf
                                         <input type="submit" class="btn btn-primary" value="Pay">
                                     </form>
-                                    @elseif (!$detail->complete_at && $detail->mime)
+                                    @elseif (!$detail->completed_at && $detail->mime)
                                     <form action="{{url("complete/".$detail->id)}}" method="post">
                                         @csrf
                                         <input type="submit" class="btn btn-primary" value="Done">
