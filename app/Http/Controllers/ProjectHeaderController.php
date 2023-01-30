@@ -19,7 +19,7 @@ class ProjectHeaderController extends Controller
     public function index()
     {
         request()->flash();
-        if(auth()->user()->role){
+        if(auth()->check() && auth()->user()->role){
             return view('front.index', ['cities'=>City::all(),'types'=>Type::all(),
             'projects'=>ProjectHeader::where('title', 'like', '%'.request()->search.'%')
             ->where('city_name', 'like', '%'.request()->city.'%')

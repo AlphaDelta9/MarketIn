@@ -121,7 +121,7 @@
                         @csrf
                         <input type="submit" class="btn btn-primary" value="Download">
                     </form>
-                    @else
+                    @elseif (!auth()->user()->project_details()->where('project_header_id',$project->id)->first()->accepted_at)
                     <form class="mt-4" action="{{url("project/".auth()->user()->project_details->where('project_header_id',$project->id)->first()->id)}}" method="post">
                         @csrf
                         @method('PATCH')

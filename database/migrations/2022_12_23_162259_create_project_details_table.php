@@ -24,7 +24,11 @@ class CreateProjectDetailsTable extends Migration
             $table->longText('upload')->nullable();
             $table->string('mime')->nullable();
             $table->timestamp('completed_at')->nullable();
+            $table->string('overview')->nullable();
             $table->unsignedInteger('price')->nullable();
+            $table->longText('receipt')->nullable();
+            $table->string('type')->nullable();
+            $table->timestamp('verified_at')->nullable();
         });
     }
 

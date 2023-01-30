@@ -15,7 +15,19 @@ class ProjectDetailController extends Controller
      */
     public function index()
     {
-        //
+        request()->flash();
+        switch (request()->filter) {
+            case 'Verified':
+                return view('front.verify', ['projects'=>ProjectDetail::whereNotNull('verified_at')->paginate(6)->withQueryString()]);
+                break;
+            case 'Pending':
+                return view('front.verify', ['projects'=>ProjectDetail::whereNull('verified_at')->paginate(6)->withQueryString()]);
+                break;
+
+            default:
+                return view('front.verify', ['projects'=>ProjectDetail::paginate(6)]);
+                break;
+        }
     }
 
     /**
@@ -79,9 +91,15 @@ class ProjectDetailController extends Controller
             $projectDetail->save();
             return redirect('project/'.$projectDetail->project_header_id);
         }elseif ($request->isMethod('patch')){
-            $projectDetail->rejected_at = Carbon::now();
+            $request->validate([
+                'price' => ['required'],
+                // 'file' => ['required','max:512'],
+            ]);
+            $projectDetail->price = $request->price;
+            // $projectDetail->receipt = base64_encode(file_get_contents($request->file('receipt')));
+            // $projectDetail->type = $request->file('receipt')->getMimeType();
             $projectDetail->save();
-            return $this->destroy($projectDetail);
+            return redirect('project/'.$projectDetail->project_header_id);
         }else {
             $request->validate([
                 'file' => ['required','max:512'],
@@ -101,6 +119,10 @@ class ProjectDetailController extends Controller
      */
     public function destroy(ProjectDetail $projectDetail)
     {
+        if (request()->isMethod('patch')){
+            $projectDetail->rejected_at = Carbon::now();
+            $projectDetail->save();
+        }
         $projectDetail->delete();
         return redirect('project/'.$projectDetail->project_header_id);
     }
@@ -118,8 +140,14 @@ class ProjectDetailController extends Controller
             $projectDetail->save();
             return redirect("project/".$projectDetail->project_header->id);
         }
-        else{
-
+        elseif($request->isMethod('patch')){
+            // $request->flash();
+            $projectDetail->verified_at = Carbon::now();
+            $projectDetail->save();
+            return back()->withInput();
+        }
+        elseif($request->_token == csrf_token()){
+            return view('front.pay', ['project'=>$projectDetail]);
         }
     }
 }

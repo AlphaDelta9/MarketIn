@@ -105,11 +105,17 @@ Route::get('/search', [ProjectHeaderController::class,'index']);
 Route::post('/project/{id}', [ProjectDetailController::class,'store']);
 Route::delete('/project/{projectDetail}', [ProjectDetailController::class,'destroy']);
 Route::put('/accept/{projectDetail}', [ProjectDetailController::class,'update']);
-Route::patch('/reject/{projectDetail}', [ProjectDetailController::class,'update']);
+Route::patch('/reject/{projectDetail}', [ProjectDetailController::class,'destroy']);
 Route::post('/upload/{projectDetail}', [ProjectDetailController::class,'update']);
-Route::get('/download/{projectDetail}/{name}', [ProjectDetailController::class,'file']);
+Route::get('/download/{projectDetail}/{name?}', [ProjectDetailController::class,'file']);
 Route::get('/assign/{projectDetail}', [ProjectDetailController::class,'show']);
 Route::post('/complete/{projectDetail}', [ProjectDetailController::class,'finalize']);
+
+Route::get('/pay/{projectDetail}', [ProjectDetailController::class,'finalize']);
+Route::patch('/pay/{projectDetail}', [ProjectDetailController::class,'update']);
+Route::get('/verify', [ProjectDetailController::class,'index']);
+Route::get('/verify/{projectDetail}/{name?}', [ProjectDetailController::class,'']);
+Route::patch('/verify/{projectDetail}', [ProjectDetailController::class,'finalize']);
 
 Route::get('/shop', [ShopController::class, 'index'])->name('shop.all');
 Route::get('/shop/by-hero', [ShopController::class,'index'])->name('shop.by-hero');

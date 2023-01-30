@@ -24,7 +24,11 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property string|null $upload
  * @property string|null $mime
  * @property Carbon|null $completed_at
+ * @property string|null $overview
  * @property int|null $price
+ * @property string|null $receipt
+ * @property string|null $type
+ * @property Carbon|null $verified_at
  * 
  * @property ProjectHeader $project_header
  * @property User $user
@@ -45,7 +49,8 @@ class ProjectDetail extends Model
 	protected $dates = [
 		'accepted_at',
 		'rejected_at',
-		'completed_at'
+		'completed_at',
+		'verified_at'
 	];
 
 	protected $fillable = [
@@ -56,7 +61,11 @@ class ProjectDetail extends Model
 		'upload',
 		'mime',
 		'completed_at',
-		'price'
+		'overview',
+		'price',
+		'receipt',
+		'type',
+		'verified_at'
 	];
 
 	public function project_header()

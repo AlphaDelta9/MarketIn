@@ -51,21 +51,21 @@
 	<section class="section" id="new-arrival">
 		<div class="container">
             <div class="grid grid-cols-2 gap-5">
-                <div class="btn block rounded border border-primary py-6 px-4 text-2xl">
-                    <a href="{{ url('register/penyedia') }}" class="block transition hover:text-primary mb-2">
-                        <div class="font-bold text-center">Register sebagai penyedia layanan</div>
-                    </a>
-                </div>
-                <div class="btn block rounded border border-primary py-6 px-4 text-2xl">
-                    <a href="{{ url('register/pengguna') }}" class="block transition hover:text-primary mb-2">
-                        <div class="font-bold text-center">Register sebagai pengguna layanan</div>
-                    </a>
-                </div>
-                <div class="btn block rounded border btn-primary py-6 px-4 col-span-2 text-2xl">
-                    <a href="{{ url('login') }}" class="block transition hover:text-primary mb-2">
-                               <div class="font-bold text-center">Login</div>
-                    </a>
-                </div>
+                <a href="{{ url('register/penyedia') }}" class="block transition hover:text-primary mb-2 font-bold text-center">
+                    <div class="btn block rounded border border-primary py-6 px-4 text-2xl">
+                    Register sebagai penyedia layanan
+                    </div>
+                </a>
+                <a href="{{ url('register/pengguna') }}" class="block transition hover:text-primary mb-2 font-bold text-center">
+                    <div class="btn block rounded border border-primary py-6 px-4 text-2xl">
+                    Register sebagai pengguna layanan
+                    </div>
+                </a>
+                <a href="{{ url('login') }}" class="col-span-2 block transition hover:text-primary mb-2">
+                    <div class="btn block rounded border btn-primary py-6 px-4 text-2xl font-bold text-center">
+                        Login
+                    </div>
+                </a>
             </div>
             {{-- <div class="grid grid-cols-1 gap-5 mt-4"> --}}
             {{-- </div> --}}
