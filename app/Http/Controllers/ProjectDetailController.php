@@ -37,7 +37,7 @@ class ProjectDetailController extends Controller
      */
     public function create()
     {
-        //
+        return view('front.complete', ['projects'=>ProjectDetail::whereRelation('project_header','type_name','Iklan')->whereNull('completed_at')->paginate(6)]);
     }
 
     /**
@@ -48,10 +48,14 @@ class ProjectDetailController extends Controller
      */
     public function store(Request $request)
     {
-        ProjectDetail::create([
+        $detail = ProjectDetail::create([
             'project_header_id' => $request->id,
             'user_id' => $request->user()->id
         ]);
+        if($detail->project_header->type_name == 'Iklan'){
+            $detail->accepted_at = Carbon::yesterday();
+            $detail->save();
+        }
         return redirect('project/'.$request->id);
     }
 
@@ -90,9 +94,9 @@ class ProjectDetailController extends Controller
     public function update(Request $request, ProjectDetail $projectDetail)
     {
         if ($request->isMethod('put')){
-            $projectDetail->accepted_at = Carbon::now();
+            $projectDetail->accepted_at = Carbon::today();
             $projectDetail->save();
-            return redirect('project/'.$projectDetail->project_header_id);
+            return back();
         }elseif ($request->isMethod('patch')){
             $request->validate([
                 'price' => ['required'],

@@ -6,91 +6,46 @@
 
     <section class="py-2">
         <div class="container">
-            @if(auth()->user()->role)
-            <form class="space-y-5" action="{{url('history')}}" method="get">
-                <label for="filter" class="block mb-2 text-sm">Status Project</label>
-                <select name="filter" class="w-full px-3 py-2 border-b border-gray-400" id="">
-                    <option value=""></option>
-                    <option value="Active" @if (old('filter') == 'Active') selected @endif>Active</option>
-                    <option value="Done" @if (old('filter') == 'Done') selected @endif>Done</option>
-                </select>
-                <button class="block ml-auto btn btn-primary" type="submit">Filter</button>
-            </form>
-            @else
-            <form class="space-y-5" action="{{url('history')}}" method="get">
+            <form class="space-y-5" action="{{url('verify')}}" method="get">
                 <label for="filter" class="block mb-2 text-sm">Status Project</label>
                 <select name="filter" class="w-full px-3 py-2 border-b border-gray-400" id="">
                     <option value=""></option>
                     <option value="Pending" @if (old('filter') == 'Pending') selected @endif>Pending</option>
-                    <option value="Accepted" @if (old('filter') == 'Accepted') selected @endif>Accepted</option>
+                    <option value="Verified" @if (old('filter') == 'Verified') selected @endif>Verified</option>
                 </select>
                 <button class="block ml-auto btn btn-primary" type="submit">Filter</button>
             </form>
-            @endif
             <div class="mb-4 tab-title">Proyek</div>
 
             <table class="table">
                 <thead>
                 <tr>
                     <td>Nama Proyek</td>
-                    <td>Lokasi</td>
-                    <td>Status</td>
+                    <td>Nama Pekerja</td>
                     <td></td>
                 </tr>
                 </thead>
-
-                <tbody>
-                @foreach($projects as $project)
-                    <tr>
-                        <td><a href="{{ url('project/'.(auth()->user()->role ? $project->id : $project->project_header->id)) }}" class="text-primary hover:text-primary-dark">{{ auth()->user()->role ? $project->title : $project->project_header->title }}</a></td>
-                        {{-- <td>{{ $project['type'] }}</td> --}}
-                        <td>{{ auth()->user()->role ? $project->city_name : $project->project_header->city_name }}</td>
-                        @if (auth()->user()->role)
-                        @if ($project->deleted_at)
-                        <td class="font-bold text-danger">Cancel</td>
-                        @elseif ($project->finished_at)
-                        <td class="font-bold text-success">Done</td>
-                        @else
-                        <td class="font-bold text-warning">Active</td>
+                @forelse ($projects as $project)
+                <tr>
+                    <td><a href="{{ url('project/'.$project->project_header->id) }}" class="text-primary hover:text-primary-dark">{{ $project->project_header->title }}</a></td>
+                    {{-- <td>{{ $project['type'] }}</td> --}}
+                    <td><a class="text-primary hover:text-primary-dark" href="{{url('assign/'.$project->id)}}">{{ $project->user->name }}</a></td>
+                    <td>
+                        {{$project->overview}}
+                        @if ($project->upload)
+                        <form action="{{url('download/'.$project->id.'/'.$project->project_header->title)}}" method="get">
+                            <input type="submit" class="btn btn-primary" value="Download">
+                        </form>
+                        <form action="{{url("complete/".$project->id)}}" method="post">
+                            @csrf
+                            <input type="submit" class="btn btn-primary" value="Done">
+                        </form>
                         @endif
-                        @else
-                        @if ($project->deleted_at)
-                        @if ($project->rejected_at)
-                        <td class="font-bold text-danger">Rejected</td>
-                        @else
-                        <td class="font-bold text-danger">Cancel</td>
-                        @endif
-                        @elseif ($project->accepted_at)
-                        <td class="font-bold text-success">Accepted</td>
-                        @else
-                        <td class="font-bold text-warning">Pending</td>
-                        @endif
-                        @endif
-                        <td>
-                            @if (!auth()->user()->role)
-                                @if ($project->accepted_at)
-                                <form action="{{url('upload/'.$project->id)}}" method="post" enctype="multipart/form-data">
-                                    @csrf
-                                    <input type="text" name="status" class="border-b border-gray-400" placeholder="Progress" value="{{old('status',$project->overview)}}" @if($project->completed_at) disabled @endif>
-                                    @if (!$project->completed_at)
-                                    <input type="file" name="file">
-                                    <input type="submit" class="btn btn-primary" value="Upload">
-                                    @endif
-                                </form>
-                                @if ($project->mime)
-                                <a class="btn btn-primary" href="{{url('download/'.$project->id.'/'.$project->project_header->title)}}">Download</a>
-                                @endif
-                                @endif
-                            @endif
-                        </td>
-                    </tr>
-                    {{-- <tr>
-                        <td><a href="{{ route('page.project.detail', ['id' => 1]) }}" class="text-primary hover:text-primary-dark">{{ $project['name'] }}</a></td>
-                        <td>{{ $project['type'] }}</td>
-                        <td>{{ convertCurrency($project['budget']) }}</td>
-                        <td></td>
-                    </tr> --}}
-                @endforeach
+                    </td>
+                </tr>
+                @empty
+                <tr><td>No advertising project</td></tr>
+                @endforelse
                 </tbody>
             </table>
             <div class="mt-4">

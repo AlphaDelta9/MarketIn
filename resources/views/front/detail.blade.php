@@ -57,7 +57,9 @@
                         <thead>
                         <tr>
                             <td>Nama</td>
+                            @if($project->type_name != 'Iklan')
                             <td>Status</td>
+                            @endif
                             <td></td>
                         </tr>
                         </thead>
@@ -67,10 +69,12 @@
                             <tr>
                                 <td><a href="{{url('assign/'.$detail->id)}}">{{ $detail->user->name }}</a></td>
                                 @if ($detail->accepted_at)
+                                @if($project->type_name != 'Iklan')
                                 <td class="text-success font-bold">Accepted</td>
+                                @endif
                                 <td>
-                                    @if ($detail->mime)
                                     {{$detail->overview}}
+                                    @if ($detail->mime)
                                     <form action="{{url('download/'.$detail->id.'/'.$project->title)}}" method="get">
                                         <input type="submit" class="btn btn-primary" value="Download">
                                     </form>
@@ -119,7 +123,7 @@
                         @csrf
                         <input type="submit" class="btn btn-primary" value="Assign">
                     </form>
-                    @elseif (auth()->user()->project_details()->where('project_header_id',$project->id)->first()->accepted_at && $project->type_name == 'Iklan')
+                    @elseif (auth()->user()->project_details()->where('project_header_id',$project->id)->first() && $project->type_name == 'Iklan')
                     <form class="mt-4" action="{{url("download/".$project->id."/".$project->title)}}" method="post">
                         @csrf
                         <input type="submit" class="btn btn-primary" value="Download">
@@ -127,7 +131,7 @@
                     @elseif (!auth()->user()->project_details()->where('project_header_id',$project->id)->first()->accepted_at)
                     <form class="mt-4" action="{{url("project/".auth()->user()->project_details->where('project_header_id',$project->id)->first()->id)}}" method="post">
                         @csrf
-                        @method('PATCH')
+                        @method('delete')
                         <input type="submit" class="btn btn-primary" value="Cancel">
                     </form>
                     @endif

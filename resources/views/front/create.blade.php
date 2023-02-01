@@ -23,9 +23,9 @@
                             @enderror
                         </div>
                         <div>
-                            <label for="city" class="block text-base mb-2">Kota</label>
+                            <label for="city" class="block text-base mb-2">@if(request()->type == 'Iklan') Kota Usaha @else Kota @endif</label>
                             <input type="text" name="city" class="w-full py-2 px-5 rounded-lg" id=""
-                            list="city" value="{{old('city')}}">
+                            list="city" value="{{old('city',auth()->user()->city_name)}}">
                             <datalist id="city">
                                 @foreach($cities as $city)
                                     <option value="{{ $city->name }}">{{ $city->name }}</option>
@@ -50,7 +50,7 @@
                         <div>
                             <label for="description" class="block text-base mb-2">Deskripsi</label>
                             <textarea id="description" name="description" rows="10"
-                                      class="w-full py-2 px-5 rounded-lg">{{ old('description') }}</textarea>
+                                      class="w-full py-2 px-5 rounded-lg">{{ old('description',"\n\n\n".auth()->user()->name."\n\n".auth()->user()->profile) }}</textarea>
                             @error('description')
                             <div class="text-danger text-base mt-1">{{ $message }}</div>
                             @enderror

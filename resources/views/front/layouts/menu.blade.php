@@ -8,12 +8,16 @@
 
     <div id="navbarBasicExample" class="flex items-center justify-between">
         <ul class="flex justify-end">
-            @if (auth()->user()==null || empty(auth()->user()->role) )
             <a href="{{ url('home') }}" class="block py-8 px-10 @if(url()->current() == url('home') )text-primary @endif">
                 Home
             </a>
+            @if (auth()->user()==null || filled(auth()->user()->role) )
             <a href="{{ url('search') }}" class="block py-8 px-10 @if(url()->current() == url('search') )text-primary @endif">
                 Search
+            </a>
+            @else
+            <a href="{{ url('complete') }}" class="block py-8 px-10">
+                Advertising
             </a>
             @endif
         {{-- @guest

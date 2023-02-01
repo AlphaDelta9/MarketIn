@@ -28,7 +28,7 @@
                 </thead>
 
                 <tbody>
-                @foreach($projects as $project)
+                @forelse($projects as $project)
                     <tr>
                         <td><a href="{{ url('project/'.$project->project_header->id) }}" class="text-primary hover:text-primary-dark">{{ $project->project_header->title }}</a></td>
                         {{-- <td>{{ $project['type'] }}</td> --}}
@@ -58,13 +58,14 @@
                             @endif
                         </td>
                     </tr>
-                    {{-- <tr>
-                        <td><a href="{{ route('page.project.detail', ['id' => 1]) }}" class="text-primary hover:text-primary-dark">{{ $project['name'] }}</a></td>
+                    @empty
+                    <tr>
+                        {{-- <td><a href="{{ route('page.project.detail', ['id' => 1]) }}" class="text-primary hover:text-primary-dark">{{ $project['name'] }}</a></td>
                         <td>{{ $project['type'] }}</td>
-                        <td>{{ convertCurrency($project['budget']) }}</td>
-                        <td></td>
-                    </tr> --}}
-                @endforeach
+                        <td>{{ convertCurrency($project['budget']) }}</td> --}}
+                        <td>No project payment</td>
+                    </tr>
+                @endforelse
                 </tbody>
             </table>
             <div class="mt-4">

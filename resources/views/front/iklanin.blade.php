@@ -67,9 +67,9 @@
                         @include('cards.project-card', ['project' => $project])
                     </div>
                 @empty
-                    <div class="col-span-3 bg-white border border-gray-200 relative top-0">
-                        No project{{-- {{auth()->user()->city_name}} --}}
-                    </div>
+                    {{-- <div class="col-span-3 bg-white border border-gray-200 relative top-0"> --}}
+                        No advertising project{{-- {{auth()->user()->city_name}} --}}
+                    {{-- </div> --}}
                 @endforelse
             </div>
             {{$projects->links()}}
