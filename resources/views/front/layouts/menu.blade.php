@@ -8,12 +8,14 @@
 
     <div id="navbarBasicExample" class="flex items-center justify-between">
         <ul class="flex justify-end">
+            @if (auth()->user()==null || empty(auth()->user()->role) )
             <a href="{{ url('home') }}" class="block py-8 px-10 @if(url()->current() == url('home') )text-primary @endif">
                 Home
             </a>
             <a href="{{ url('search') }}" class="block py-8 px-10 @if(url()->current() == url('search') )text-primary @endif">
                 Search
             </a>
+            @endif
         {{-- @guest
         <li>
             <a href="{{ url('login') }}" class="block py-8 px-10 @if(url()->current() == url('login') )text-primary @endif">
@@ -28,19 +30,30 @@
         </li>
         @endguest --}}
         @auth
+        @if (filled(auth()->user()->role))
+        @if (!auth()->user()->role)
+        <a href="{{ url('iklanin') }}" class="block py-8 px-10 @if(url()->current() == url('iklanin') )text-primary @endif">
+            Advertising
+        </a>
+        @endif
+
         <a href="{{ url('history') }}" class="block py-8 px-10 @if(url()->current() == url('history') )text-primary @endif">
             History
         </a>
 
         <a href="{{ url('profile') }}" class="block py-8 px-10 @if( url()->current() == url('profile') )text-primary @endif">
-            Profile
+            {{auth()->user()->name}}
         </a>
-
+        @else
+        <a class="block py-8 px-10 text-primary">
+            {{auth()->user()->name}}
+        </a>
+        @endif
         <a href="{{url('logout')}}" class="block py-8 px-10 @if(url()->current() == url('logout') )text-primary @endif">
             Logout
         </a>
 
-        <div class="block py-8 px-10">{{auth()->user()->role ? "Pengguna" : "Penyedia"}}</div>
+        {{-- <div class="block py-8 px-10">{{auth()->user()->role ? "Pengguna" : "Penyedia"}}</div> --}}
         @endauth
         </ul>
         <!-- <div class="navbar-item icon-navbar is-hidden-touch">

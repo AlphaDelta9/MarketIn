@@ -2,24 +2,8 @@
 <html>
 
 <head>
-	@include('layouts.meta')
+	{{-- @include('layouts.meta') --}}
     <title>@yield('title') | {{env('APP_NAME')}}</title>
-    <meta content="@yield('title') | Botanical Essentials" property="og:title">
-    <meta content="@yield('description')" name="description">
-    <meta content="@yield('description')" property="og:description">
-    @if(Route::currentRouteName() == 'journal.show' || Route::currentRouteName() == 'shop.show')
-        <meta content="@yield('image')" property="og:image">
-        <meta content="@yield('image_width')" property="og:image:width">
-        <meta content="@yield('image_height')" property="og:image:height">
-        <meta content="summary_large_image" name="twitter:card">
-        <meta content="@yield('updated_at')" property="article:modified_time">
-        <meta content="Est. reading time" name="twitter:label1">
-        <meta content="@yield('reading_time')" name="twitter:data1">
-    @else
-        <meta content="/app-assets/images/favicon/android-icon-192x192.png" property="og:image">
-        <meta content="192" property="og:image:width">
-        <meta content="192" property="og:image:height">
-    @endif
 	<link rel="stylesheet" href="/assets/css/index.css?v={{env('APP_VER')}}">
 	<link rel="stylesheet" href="/assets/css/bulma.css?v={{env('APP_VER')}}">
     <link rel="stylesheet" href="{{ asset('others/fontawesome/css/all.min.css') }}">
@@ -27,9 +11,9 @@
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 
-	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lozad/dist/lozad.min.js"></script>
+	{{-- <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lozad/dist/lozad.min.js"></script> --}}
 	<script src="{{asset('js/tailwindcss.js')}}"></script>
-	<style>
+	{{-- <style>
 
 		@media (max-width: 499px){
     	    #offer-modal .offer-content{
@@ -230,10 +214,10 @@
                 min-height: 60px;
             }
         }
-	</style>
+	</style> --}}
 	@yield('stylesheets')
 	@stack('stylesheets')
-    <!-- Global site tag (gtag.js) - Google Analytics -->
+    {{-- <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-W82ZQW2E0H"></script>
     <script>
     window.dataLayer = window.dataLayer || [];
@@ -241,7 +225,7 @@
     gtag('js', new Date());
 
     gtag('config', 'G-W82ZQW2E0H');
-    </script>
+    </script> --}}
 </head>
 
 <body>

@@ -70,7 +70,10 @@
                                 <td class="text-success font-bold">Accepted</td>
                                 <td>
                                     @if ($detail->mime)
-                                    <a class="btn btn-primary" href="{{url('download/'.$detail->id.'/'.$project->title)}}">Download</a>
+                                    {{$detail->overview}}
+                                    <form action="{{url('download/'.$detail->id.'/'.$project->title)}}" method="get">
+                                        <input type="submit" class="btn btn-primary" value="Download">
+                                    </form>
                                     @endif
                                     @if ($detail->completed_at && !$detail->price)
                                     <form action="{{url("pay/".$detail->id)}}" method="get">

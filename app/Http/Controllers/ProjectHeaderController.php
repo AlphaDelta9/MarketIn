@@ -26,11 +26,15 @@ class ProjectHeaderController extends Controller
             ->where('type_name', 'like', '%'.request()->type.'%')
             ->where('user_id', auth()->id())->paginate(6)->withQueryString()]);
         }
-        else{
-            return view('front.index', ['cities'=>City::all(),'types'=>Type::all(),
+        elseif(url()->current() == url('search/')){
+            return view('front.index', ['cities'=>City::all(),'types'=>Type::where('name', '!=', 'Iklan')->get(),
             'projects'=>ProjectHeader::where('title', 'like', '%'.request()->search.'%')
-            ->where('city_name', 'like', '%'.request()->city.'%')
+            ->where('city_name', 'like', '%'.request()->city.'%')->where('type_name', '!=', 'Iklan')
             ->where('type_name', 'like', '%'.request()->type.'%')->paginate(6)->withQueryString()]);
+        }else{
+            return view('front.iklanin', ['projects'=>auth()->user()->city->project_headers()
+            ->where('title', 'like', '%'.request()->search.'%')
+            ->where('type_name', 'Banner')->paginate(6)->withQueryString()]);
         }
     }
 

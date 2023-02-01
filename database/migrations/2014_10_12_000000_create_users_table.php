@@ -18,8 +18,10 @@ class CreateUsersTable extends Migration
             $table->string('name');
             $table->string('email')->unique();
             $table->string('password');
-            $table->boolean('role');
+            $table->boolean('role')->nullable();
             // $table->foreignId('user_role_id')->constrained();
+            $table->string('city_name');
+            $table->foreign('city_name')->references('name')->on('cities');
             $table->text('profile');
             $table->longText('picture');
             $table->string('mime');

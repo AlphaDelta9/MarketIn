@@ -21,11 +21,11 @@ class ProjectDetailController extends Controller
                 return view('front.verify', ['projects'=>ProjectDetail::whereNotNull('verified_at')->paginate(6)->withQueryString()]);
                 break;
             case 'Pending':
-                return view('front.verify', ['projects'=>ProjectDetail::whereNull('verified_at')->paginate(6)->withQueryString()]);
+                return view('front.verify', ['projects'=>ProjectDetail::whereNotNull('price')->whereNull('verified_at')->paginate(6)->withQueryString()]);
                 break;
 
             default:
-                return view('front.verify', ['projects'=>ProjectDetail::paginate(6)]);
+                return view('front.verify', ['projects'=>ProjectDetail::whereNotNull('price')->paginate(6)]);
                 break;
         }
     }
@@ -63,7 +63,10 @@ class ProjectDetailController extends Controller
      */
     public function show(ProjectDetail $projectDetail)
     {
+        if(url()->current() == url('assign/'.$projectDetail->id))
         return view('front.assign', ['user'=>$projectDetail->user]);
+        else
+        return view('front.assign', ['user'=>$projectDetail->project_header->user]);
     }
 
     /**
@@ -93,19 +96,23 @@ class ProjectDetailController extends Controller
         }elseif ($request->isMethod('patch')){
             $request->validate([
                 'price' => ['required'],
-                // 'file' => ['required','max:512'],
+                'receipt' => ['required','max:512'],
             ]);
             $projectDetail->price = $request->price;
-            // $projectDetail->receipt = base64_encode(file_get_contents($request->file('receipt')));
-            // $projectDetail->type = $request->file('receipt')->getMimeType();
+            $projectDetail->receipt = base64_encode(file_get_contents($request->file('receipt')));
+            $projectDetail->type = $request->file('receipt')->getMimeType();
             $projectDetail->save();
             return redirect('project/'.$projectDetail->project_header_id);
         }else {
             $request->validate([
-                'file' => ['required','max:512'],
+                'file' => ['nullable','max:512'],
+                'status' => ['required'],
             ]);
-            $projectDetail->mime = $request->file('file')->getMimeType();
-            $projectDetail->upload = base64_encode(file_get_contents($request->file('file')));
+            if($request->file('file')){
+                $projectDetail->mime = $request->file('file')->getMimeType();
+                $projectDetail->upload = base64_encode(file_get_contents($request->file('file')));
+            }
+            $projectDetail->overview = $request->status;
             $projectDetail->save();
             return redirect('history');
         }
@@ -132,16 +139,24 @@ class ProjectDetailController extends Controller
         return response(base64_decode($projectDetail->upload), 200, ['Content-Type' => $projectDetail->mime,]);
     }
 
+    public function receipt(ProjectDetail $projectDetail)
+    {
+        return response(base64_decode($projectDetail->receipt), 200, ['Content-Type' => $projectDetail->type,]);
+    }
+
     public function finalize(Request $request, ProjectDetail $projectDetail)
     {
         if($request->isMethod('post')){
             $projectDetail->completed_at = Carbon::now();
-            $projectDetail->price = $projectDetail->project_header->budget;
             $projectDetail->save();
             return redirect("project/".$projectDetail->project_header->id);
         }
+        elseif($request->isMethod('delete')){
+            $projectDetail->price = null;
+            $projectDetail->save();
+            return back()->withInput();
+        }
         elseif($request->isMethod('patch')){
-            // $request->flash();
             $projectDetail->verified_at = Carbon::now();
             $projectDetail->save();
             return back()->withInput();

@@ -71,12 +71,15 @@
                                 @if ($project->accepted_at && $project->project_header->type_name != 'Iklan')
                                 <form action="{{url('upload/'.$project->id)}}" method="post" enctype="multipart/form-data">
                                     @csrf
+                                    <input type="text" name="status" placeholder="Info" value="{{old('status',$project->overview)}}">
+                                    @if (!$project->completed_at)
                                     <input type="file" name="file">
                                     <input type="submit" class="btn btn-primary" value="Upload">
-                                    @if ($project->mime)
-                                    <a class="btn btn-primary" href="{{url('download/'.$project->id.'/'.$project->project_header->title)}}">Download</a>
                                     @endif
                                 </form>
+                                @if ($project->mime)
+                                <a class="btn btn-primary" href="{{url('download/'.$project->id.'/'.$project->project_header->title)}}">Download</a>
+                                @endif
                                 @endif
                             @endif
                         </td>

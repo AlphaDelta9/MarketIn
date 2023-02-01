@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\City;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -27,7 +28,7 @@ class UserController extends Controller
      */
     public function create(Request $request)
     {
-        return view('auth.register', ['role'=>$request->role]);
+        return view('auth.register', ['role'=>$request->role,'cities'=>City::all()]);
     }
 
     /**
@@ -42,6 +43,7 @@ class UserController extends Controller
             'name' => ['required'],
             'email' => ['required','email','unique:users'],
             'password' => ['required','confirmed'],
+            'city' => ['required', 'exists:cities,name'],
             'profile' => ['required'],
             'picture' => ['required','max:512','mimetypes:image/*']
         ]);
@@ -49,6 +51,7 @@ class UserController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'city' => $request->city,
             'profile' => $request->profile,
             'picture' => base64_encode(file_get_contents($request->file('picture'))),
             'mime' => $request->file('picture')->getMimeType(),

@@ -15,6 +15,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $name
  * 
  * @property Collection|ProjectHeader[] $project_headers
+ * @property Collection|User[] $users
  *
  * @package App\Models
  */
@@ -28,5 +29,10 @@ class City extends Model
 	public function project_headers()
 	{
 		return $this->hasMany(ProjectHeader::class, 'city_name');
+	}
+
+	public function users()
+	{
+		return $this->hasMany(User::class, 'city_name');
 	}
 }

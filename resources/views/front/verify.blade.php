@@ -32,21 +32,30 @@
                     <tr>
                         <td><a href="{{ url('project/'.$project->project_header->id) }}" class="text-primary hover:text-primary-dark">{{ $project->project_header->title }}</a></td>
                         {{-- <td>{{ $project['type'] }}</td> --}}
-                        <td><a class="text-primary hover:text-primary-dark">{{$project->project_header->user->name}}</a> - <a class="text-primary hover:text-primary-dark">{{ $project->user->name }}</a></td>
+                        <td><a class="text-primary hover:text-primary-dark" href="{{url('detail/'.$project->id)}}">{{$project->project_header->user->name}}</a> - <a class="text-primary hover:text-primary-dark" href="{{url('assign/'.$project->id)}}">{{ $project->user->name }}</a></td>
                         @if ($project->verified_at)
                         <td class="font-bold text-success">Done</td>
                         @else
                         <td class="font-bold text-warning">Pending</td>
                         @endif
                         <td>
+                            @if ($project->price)
+                            <form action="{{url('verify/'.$project->id)}}" method="post" enctype="multipart/form-data">
+                                @csrf
+                                @method('PATCH')
+                                @if (!$project->verified_at)
+                                <input type="submit" class="btn btn-primary" value="Verify">
+                                @endif
+                            </form>
+                                @if (!$project->verified_at)
                                 <form action="{{url('verify/'.$project->id)}}" method="post" enctype="multipart/form-data">
                                     @csrf
-                                    @method('PATCH')
-                                    <a class="btn btn-primary" href="{{url('verify/'.$project->id.'/'.$project->project_header->title)}}">Receipt</a>
-                                    @if (!$project->verified_at)
-                                    <input type="submit" class="btn btn-primary" value="Verify">
-                                    @endif
+                                    @method('DELETE')
+                                <input type="submit" class="btn btn-primary" value="Invalid">
                                 </form>
+                                @endif
+                            <a class="btn btn-primary" href="{{url('verify/'.$project->id.'/'.$project->project_header->title)}}">Receipt</a>
+                            @endif
                         </td>
                     </tr>
                     {{-- <tr>

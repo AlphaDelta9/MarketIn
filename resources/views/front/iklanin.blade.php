@@ -50,25 +50,29 @@
 
 	<section class="section" id="new-arrival">
 		<div class="container">
-            <div class="grid grid-cols-2 gap-5">
-                <a href="{{ url('register/penyedia') }}" class="block transition hover:text-primary mb-2 font-bold text-center">
-                    <div class="btn block rounded border border-primary py-6 px-4 text-2xl">
-                    Register sebagai Pekerja
+            <form class="mb-4 space-y-5" action="{{url('iklanin')}}" method="get">
+                <div>
+                    <label for="search" class="block mb-2 text-sm">Nama</label>
+                    <input type="search" name="search" class="w-full px-3 py-2 border-b border-gray-400" id=""
+                    value="{{old('search')}}">
+                    @error('search')
+                    <div class="mt-1 text-sm text-danger">{{ $message }}</div>
+                    @enderror
+                </div>
+                <input class="block ml-auto btn btn-primary" type="submit" value="Search">
+            </form>
+            <div class="grid grid-cols-3 gap-5 mb-4">
+                @forelse($projects as $project)
+                    <div>
+                        @include('cards.project-card', ['project' => $project])
                     </div>
-                </a>
-                <a href="{{ url('register/pengguna') }}" class="block transition hover:text-primary mb-2 font-bold text-center">
-                    <div class="btn block rounded border border-primary py-6 px-4 text-2xl">
-                    Register sebagai UMKM
+                @empty
+                    <div class="col-span-3 bg-white border border-gray-200 relative top-0">
+                        No project{{-- {{auth()->user()->city_name}} --}}
                     </div>
-                </a>
-                <a href="{{ url('login') }}" class="col-span-2 block transition hover:text-primary mb-2">
-                    <div class="btn block rounded border btn-primary py-6 px-4 text-2xl font-bold text-center">
-                        Login
-                    </div>
-                </a>
+                @endforelse
             </div>
-            {{-- <div class="grid grid-cols-1 gap-5 mt-4"> --}}
-            {{-- </div> --}}
+            {{$projects->links()}}
 		</div>
 	</section>
 

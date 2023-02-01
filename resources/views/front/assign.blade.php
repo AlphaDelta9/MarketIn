@@ -34,16 +34,34 @@
                 </div>
             </div>
 
-{{--            <div class="mt-10">--}}
-{{--                <div class="grid grid-cols-2">--}}
-{{--                    <div>--}}
-{{--                        <button>Forum</button>--}}
-{{--                    </div>--}}
-{{--                    <div>--}}
-{{--                        <button class="block ml-auto">Daftar Pelamar</button>--}}
-{{--                    </div>--}}
-{{--                </div>--}}
-{{--            </div>--}}
+           <div class="mt-10">
+            <div class="mb-4 tab-title">Proyek</div>
+
+            <table class="table">
+                <thead>
+                <tr>
+                    <td>Nama Proyek</td>
+                    <td>Jenis</td>
+                </tr>
+                </thead>
+
+                <tbody>
+                @foreach($user->project_details->whereNotNull('accepted_at')->sortDesc()->take(5) as $project)
+                    <tr>
+                        <td><a href="{{ url('project/'.$project->project_header->id) }}" class="text-primary hover:text-primary-dark">{{ $project->project_header->title }}</a></td>
+                        {{-- <td>{{ $project['type'] }}</td> --}}
+                        <td>{{ $project->project_header->type_name }}</td>
+                    </tr>
+                    {{-- <tr>
+                        <td><a href="{{ route('page.project.detail', ['id' => 1]) }}" class="text-primary hover:text-primary-dark">{{ $project['name'] }}</a></td>
+                        <td>{{ $project['type'] }}</td>
+                        <td>{{ convertCurrency($project['budget']) }}</td>
+                        <td></td>
+                    </tr> --}}
+                @endforeach
+                </tbody>
+            </table>
+           </div>
         </div>
     </section>
 

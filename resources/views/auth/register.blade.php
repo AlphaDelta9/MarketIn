@@ -40,20 +40,19 @@
                         <div class="text-danger text-sm mt-1">{{ $message }}</div>
                         @enderror
                     </div>
-                    <!--<div>
-                        <label for="role_id" class="block text-sm  mb-2">Peran#Deprecated</label>
-                        <select id="role_id" name="role_id" class="w-full py-2 px-3 border-b border-gray-400 focus:border-primary focus:outline-none transition">
-                            <option value="">Pilih Peran</option>
-                            {{-- @foreach($roles as $role) --}}
-                                {{-- <option value="{{ $role->id }}" @if(old('role_id') == $role->id) selected @endif>{{ $role->name }}</option> --}}
-                            {{-- @endforeach --}}
-                                <option value="0" @if(old('role') == '0') selected @endif>Penyedia</option>
-                                <option value="1" @if(old('role') == '1') selected @endif>Pengguna</option>
-                        </select>
-                        @error('role_id')
-                        <div class="text-danger text-sm mt-1">{{ $message }}</div>
+                    <div>
+                        <label for="city" class="block text-base mb-2">Kota</label>
+                        <input type="text" name="city" class="w-full py-2 px-3 border-b border-gray-400 focus:border-primary focus:outline-none transition" id=""
+                        list="city" value="{{old('city')}}">
+                        <datalist id="city">
+                            @foreach($cities as $city)
+                                <option value="{{ $city->name }}">{{ $city->name }}</option>
+                            @endforeach
+                        </datalist>
+                        @error('city')
+                        <div class="text-danger text-base mt-1">{{ $message }}</div>
                         @enderror
-                    </div>-->
+                    </div>
                     <div>
                         <label for="picture" class="block text-sm mb-2">Picture</label>
                         <input type="file" id="picture" name="picture" accept="image/*" class="w-full py-2 px-3 border-b border-gray-400 focus:border-primary focus:outline-none transition">

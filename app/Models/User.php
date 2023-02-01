@@ -8,6 +8,7 @@ namespace App\Models;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\User as AuthUser;
 
 /**
@@ -17,7 +18,8 @@ use Illuminate\Foundation\Auth\User as AuthUser;
  * @property string $name
  * @property string $email
  * @property string $password
- * @property bool $role
+ * @property bool|null $role
+ * @property string $city_name
  * @property string $profile
  * @property string $picture
  * @property string $mime
@@ -25,6 +27,7 @@ use Illuminate\Foundation\Auth\User as AuthUser;
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  *
+ * @property City $city
  * @property Collection|LoginToken[] $login_tokens
  * @property Collection|ProjectDetail[] $project_details
  * @property Collection|ProjectHeader[] $project_headers
@@ -49,11 +52,17 @@ class User extends AuthUser
 		'email',
 		'password',
 		'role',
+		'city_name',
 		'profile',
 		'picture',
 		'mime',
 		'remember_token'
 	];
+
+	public function city()
+	{
+		return $this->belongsTo(City::class, 'city_name');
+	}
 
 	public function login_tokens()
 	{
