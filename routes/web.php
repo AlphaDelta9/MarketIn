@@ -82,28 +82,42 @@ use App\Http\Controllers\UserController;
 // //    });
 // });
 
-Route::get('/', [HomepageController::class,'index']);
+Route::get('/', [HomepageController::class,'landing']);
+Route::get('/home', [HomepageController::class,'index']);
 
-Route::get('/register', [UserController::class,'create']);
-Route::post('/register', [UserController::class,'store']);
+Route::get('/register/{role?}', [UserController::class,'create']);
+Route::post('/register/{role?}', [UserController::class,'store']);
 Route::get('/login', [UserController::class,'index']);
 Route::post('/login', [UserController::class,'login']);
 Route::get('/logout', [UserController::class,'logout']);
 Route::get('/profile/{user?}', [UserController::class,'edit']);
 Route::put('/profile/{user?}', [UserController::class,'update']);
 Route::get('/history/{user?}', [UserController::class,'show']);
+
 Route::get('/create/{type}', [ProjectHeaderController::class,'create']);
 Route::post('/create/{type}', [ProjectHeaderController::class,'store']);
 Route::get('/project/{projectHeader}', [ProjectHeaderController::class,'show'])->withTrashed();
-Route::patch('/project/{id}', [ProjectDetailController::class,'store']);
-Route::delete('/project/{projectDetail}', [ProjectDetailController::class,'destroy']);
-Route::put('/accept/{projectDetail}', [ProjectDetailController::class,'update']);
-Route::patch('/reject/{projectDetail}', [ProjectDetailController::class,'update']);
 Route::get('/edit/{projectHeader}', [ProjectHeaderController::class,'edit']);
 Route::put('/edit/{projectHeader}', [ProjectHeaderController::class,'update']);
+Route::post('/download/{projectHeader}/{name}', [ProjectHeaderController::class,'file']);
+Route::get('/search', [ProjectHeaderController::class,'index']);
+
+Route::post('/project/{id}', [ProjectDetailController::class,'store']);
+Route::delete('/project/{projectDetail}', [ProjectDetailController::class,'destroy']);
+Route::put('/accept/{projectDetail}', [ProjectDetailController::class,'update']);
+Route::patch('/reject/{projectDetail}', [ProjectDetailController::class,'destroy']);
+Route::post('/upload/{projectDetail}', [ProjectDetailController::class,'update']);
+Route::get('/download/{projectDetail}/{name?}', [ProjectDetailController::class,'file']);
+Route::get('/assign/{projectDetail}', [ProjectDetailController::class,'show']);
+Route::post('/complete/{projectDetail}', [ProjectDetailController::class,'finalize']);
+
+Route::get('/pay/{projectDetail}', [ProjectDetailController::class,'finalize']);
+Route::patch('/pay/{projectDetail}', [ProjectDetailController::class,'update']);
+Route::get('/verify', [ProjectDetailController::class,'index']);
+Route::get('/verify/{projectDetail}/{name?}', [ProjectDetailController::class,'']);
+Route::patch('/verify/{projectDetail}', [ProjectDetailController::class,'finalize']);
 
 Route::get('/shop', [ShopController::class, 'index'])->name('shop.all');
-
 Route::get('/shop/by-hero', [ShopController::class,'index'])->name('shop.by-hero');
 Route::get('/shop/by-hero/{hero}', [ShopController::class,'show'])->name('shop.by-hero.hero');
 

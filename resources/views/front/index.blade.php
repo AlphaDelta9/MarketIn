@@ -45,69 +45,49 @@
     }
 </style>
 @endsection
-@section('content')
 @include('front.layouts.navbar')
-@isset($active)
-
-	<section class="section" id="about">
-		{{--<div class="ornament-about is-hidden-mobile">
-			<img src="/assets/images/homepage/ornament-1.png?v={{env('APP_VER')}}" alt="">
-		</div>--}}
-		<div class="is-hidden-tablet" style="position:absolute; width:100px; top:-14px;left:0;z-index:-1">
-			<img src="/assets/images/homepage/ornament-9.png?v={{env('APP_VER')}}" alt="">
-		</div>
-		<div class="container">
-            @if(!auth()->user()->role)
-            <div class="text-3xl mb-4">Proyek Sekarang</div>
-            @endif
-            <div class="grid grid-cols-{{$active->count()}} gap-5 justify-items-center">
-                @forelse($active as $item)
-                    <div class="flex space-x-3">
-                        @if(auth()->user()->role)
-                        <a href="{{ url('/create/'.$item->name) }}" class="w-40 rounded-lg border border-gray-200 px-3 py-3 text-center group">
-                            <i class="{{ $item->icon }} text-primary/50 group-hover:text-primary transition" style="font-size: 60px;"></i>
-                            <div class="mt-2 group-hover:text-primary transition">{{ $item->name }}</div>
-                        </a>
-                        @elseif(!$item->project_header->finished_at)
-                        @include('cards.project-card', ['project' => $item->project_header])
-                        @endif
-                    </div>
-                @empty
-                    <div class="flex-1 font-bold pr-2" style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap"> No projects</div>
-                @endforelse
-            </div>
-		</div>
-	</section>
-
-	<section class="bg-section section homepage-heroes">
-		<div class="container">
-            @if(auth()->user()->role)
-            <div class="text-3xl mb-4">Proyek Sekarang</div>
-            @else
-            <div class="text-3xl mb-4">Proyek Rekomendasi</div>
-            @endif
-            <div class="grid grid-cols-3 gap-5">
-                @forelse($projects as $project)
-                    <div>
-                        @include('cards.project-card', ['project' => $project])
-                    </div>
-                @empty
-                    <div class="flex-1 font-bold pr-2" style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap"> No projects</div>
-                @endforelse
-            </div>
-            <div class="text-base">
-                {{$projects->links()}}
-            </div>
-		</div>
-	</section>
-
-@endisset
-@empty($active)
+@section('content')
 
 	<section class="section" id="new-arrival">
 		<div class="container">
-            <div class="text-3xl mb-4">Proyek Rekomendasi</div>
-            <div class="grid grid-cols-3 gap-5">
+            <form class="mb-4 space-y-5" action="{{url('search')}}" method="get">
+                <div>
+                    <label for="city" class="block mb-2 text-sm">Kota</label>
+                    <input type="text" name="city" class="w-full px-3 py-2 border-b border-gray-400" id=""
+                    list="city" value="{{old('city')}}">
+                    <datalist id="city">
+                        @foreach($cities as $city)
+                            <option value="{{ $city->name }}">{{ $city->name }}</option>
+                        @endforeach
+                    </datalist>
+                    @error('city')
+                    <div class="mt-1 text-sm text-danger">{{ $message }}</div>
+                    @enderror
+                </div>
+                <div>
+                    <label for="type" class="block mb-2 text-sm">Jenis</label>
+                    <input type="text" name="type" class="w-full px-3 py-2 border-b border-gray-400" id=""
+                    list="type" value="{{old('type')}}">
+                    <datalist id="type">
+                        @foreach($types as $type)
+                            <option value="{{ $type->name }}">{{ $type->name }}</option>
+                        @endforeach
+                    </datalist>
+                    @error('type')
+                    <div class="mt-1 text-sm text-danger">{{ $message }}</div>
+                    @enderror
+                </div>
+                <div>
+                    <label for="search" class="block mb-2 text-sm">Nama</label>
+                    <input type="search" name="search" class="w-full px-3 py-2 border-b border-gray-400" id=""
+                    value="{{old('search')}}">
+                    @error('search')
+                    <div class="mt-1 text-sm text-danger">{{ $message }}</div>
+                    @enderror
+                </div>
+                <input class="block ml-auto btn btn-primary" type="submit" value="Search">
+            </form>
+            <div class="grid grid-cols-3 gap-5 mb-4">
                 @foreach($projects as $project)
                     <div>
                         @include('cards.project-card', ['project' => $project])
@@ -117,7 +97,7 @@
             {{$projects->links()}}
 		</div>
 	</section>
-@endempty
+
 @endsection
 @section('scripts')
 <script type="text/javascript" src="/app-assets/vendors/js/jquery/jquery.min.js?v={{env('APP_VER')}}"></script>

@@ -22,11 +22,16 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property int $user_id
  * @property string $type_name
  * @property string $city_name
+ * @property string $picture
+ * @property string $mime
+ * @property string|null $asset
+ * @property string|null $type
+ * @property Carbon $work
+ * @property int $budget
  * @property string|null $deleted_at
  * @property Carbon|null $finished_at
  * 
  * @property City $city
- * @property Type $type
  * @property User $user
  * @property Collection|ProjectDetail[] $project_details
  *
@@ -38,10 +43,12 @@ class ProjectHeader extends Model
 	protected $table = 'project_headers';
 
 	protected $casts = [
-		'user_id' => 'int'
+		'user_id' => 'int',
+		'budget' => 'int'
 	];
 
 	protected $dates = [
+		'work',
 		'finished_at'
 	];
 
@@ -51,6 +58,12 @@ class ProjectHeader extends Model
 		'user_id',
 		'type_name',
 		'city_name',
+		'picture',
+		'mime',
+		'asset',
+		'type',
+		'work',
+		'budget',
 		'finished_at'
 	];
 

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\City;
 use App\Models\ProjectHeader;
+use App\Models\Type;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Str;
@@ -17,7 +18,20 @@ class ProjectHeaderController extends Controller
      */
     public function index()
     {
-        return view('index', ['list'=>ProjectHeader::paginate(6)]);
+        request()->flash();
+        if(auth()->check() && auth()->user()->role){
+            return view('front.index', ['cities'=>City::all(),'types'=>Type::all(),
+            'projects'=>ProjectHeader::where('title', 'like', '%'.request()->search.'%')
+            ->where('city_name', 'like', '%'.request()->city.'%')
+            ->where('type_name', 'like', '%'.request()->type.'%')
+            ->where('user_id', auth()->id())->paginate(6)->withQueryString()]);
+        }
+        else{
+            return view('front.index', ['cities'=>City::all(),'types'=>Type::all(),
+            'projects'=>ProjectHeader::where('title', 'like', '%'.request()->search.'%')
+            ->where('city_name', 'like', '%'.request()->city.'%')
+            ->where('type_name', 'like', '%'.request()->type.'%')->paginate(6)->withQueryString()]);
+        }
     }
 
     /**
@@ -43,14 +57,23 @@ class ProjectHeaderController extends Controller
             'title' => ['required'],
             'description' => ['required'],
             'city' => ['required', 'exists:cities,name'],
-        ]);;
+            'picture' => ['nullable','mimetypes:image/*','max:512'],
+            'work' => ['required','date'],
+            'budget' => ['required','numeric'],
+        ]);
         return redirect('project/'.
         ProjectHeader::create([
             'title' => $request->title,
             'description' => $request->description,
             'user_id' => $request->user()->id,
             'type_name' => $request->type,
-            'city_name' => $request->city
+            'city_name' => $request->city,
+            'picture' => base64_encode(file_get_contents($request->file('picture'))),
+            'mime' => $request->file('picture')->getMimeType(),
+            'asset' => $request->type=='Iklan' ? base64_encode(file_get_contents($request->file('asset'))) : '',
+            'type' => $request->type=='Iklan' ? $request->file('asset')->getMimeType() : '',
+            'work' => $request->work,
+            'budget' => $request->budget,
         ])->id);
     }
 
@@ -90,20 +113,33 @@ class ProjectHeaderController extends Controller
             'title' => ['required'],
             'description' => ['required'],
             'city' => ['required', 'exists:cities,name'],
+            'picture' => ['nullable','mimetypes:image/*','max:512'],
+            'work' => ['required','date'],
+            'budget' => ['required','numeric'],
         ]);
         $projectHeader->title=$request->title;
         $projectHeader->description=$request->description;
         $projectHeader->city_name=$request->city;
+        if ($request->picture) {
+            $projectHeader->picture=base64_encode(file_get_contents($request->file('picture')));
+            $projectHeader->mime = $request->file('picture')->getMimeType();
+        }
+        if ($request->asset) {
+            $projectHeader->asset = base64_encode(file_get_contents($request->file('asset')));
+            $projectHeader->type = $request->file('asset')->getMimeType();
+        }
+        $projectHeader->work=$request->work;
+        $projectHeader->budget=$request->budget;
         if($request->at>0) $projectHeader->updated_at = Carbon::now();
         elseif($request->at<0) $projectHeader->deleted_at = Carbon::now();
-        if(!$request->at){
+        if (!$request->at) {
             $detailController = new ProjectDetailController();
-            foreach($projectHeader->project_details as $detail){
+            foreach ($projectHeader->project_details as $detail) {
                 $detailController->destroy($detail);
             }
         }
         $projectHeader->save();
-        return redirect("edit/$projectHeader->id");
+        return redirect("project/$projectHeader->id");
     }
 
     /**
@@ -115,5 +151,10 @@ class ProjectHeaderController extends Controller
     public function destroy(ProjectHeader $projectHeader)
     {
         //
+    }
+
+    public function file(ProjectHeader $projectHeader)
+    {
+        return response(base64_decode($projectHeader->asset), 200, ['Content-Type' => $projectHeader->type,]);
     }
 }

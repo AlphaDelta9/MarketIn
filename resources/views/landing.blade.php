@@ -45,79 +45,33 @@
     }
 </style>
 @endsection
-@section('content')
 @include('front.layouts.navbar')
-@isset($active)
-
-	<section class="section" id="about">
-		{{--<div class="ornament-about is-hidden-mobile">
-			<img src="/assets/images/homepage/ornament-1.png?v={{env('APP_VER')}}" alt="">
-		</div>--}}
-		<div class="is-hidden-tablet" style="position:absolute; width:100px; top:-14px;left:0;z-index:-1">
-			<img src="/assets/images/homepage/ornament-9.png?v={{env('APP_VER')}}" alt="">
-		</div>
-		<div class="container">
-            @if(!auth()->user()->role)
-            <div class="text-3xl mb-4">Proyek Sekarang</div>
-            @endif
-            <div class="grid grid-cols-{{$active->count()}} gap-5 justify-items-center">
-                @forelse($active as $item)
-                    <div class="flex space-x-3">
-                        @if(auth()->user()->role)
-                        <a href="{{ url('/create/'.$item->name) }}" class="w-40 rounded-lg border border-gray-200 px-3 py-3 text-center group">
-                            <i class="{{ $item->icon }} text-primary/50 group-hover:text-primary transition" style="font-size: 60px;"></i>
-                            <div class="mt-2 group-hover:text-primary transition">{{ $item->name }}</div>
-                        </a>
-                        @elseif(!$item->project_header->finished_at)
-                        @include('cards.project-card', ['project' => $item->project_header])
-                        @endif
-                    </div>
-                @empty
-                    <div class="flex-1 font-bold pr-2" style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap"> No projects</div>
-                @endforelse
-            </div>
-		</div>
-	</section>
-
-	<section class="bg-section section homepage-heroes">
-		<div class="container">
-            @if(auth()->user()->role)
-            <div class="text-3xl mb-4">Proyek Sekarang</div>
-            @else
-            <div class="text-3xl mb-4">Proyek Rekomendasi</div>
-            @endif
-            <div class="grid grid-cols-3 gap-5">
-                @forelse($projects as $project)
-                    <div>
-                        @include('cards.project-card', ['project' => $project])
-                    </div>
-                @empty
-                    <div class="flex-1 font-bold pr-2" style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap"> No projects</div>
-                @endforelse
-            </div>
-            <div class="text-base">
-                {{$projects->links()}}
-            </div>
-		</div>
-	</section>
-
-@endisset
-@empty($active)
+@section('content')
 
 	<section class="section" id="new-arrival">
 		<div class="container">
-            <div class="text-3xl mb-4">Proyek Rekomendasi</div>
-            <div class="grid grid-cols-3 gap-5">
-                @foreach($projects as $project)
-                    <div>
-                        @include('cards.project-card', ['project' => $project])
+            <div class="grid grid-cols-2 gap-5">
+                <a href="{{ url('register/penyedia') }}" class="block transition hover:text-primary mb-2 font-bold text-center">
+                    <div class="btn block rounded border border-primary py-6 px-4 text-2xl">
+                    Register sebagai penyedia layanan
                     </div>
-                @endforeach
+                </a>
+                <a href="{{ url('register/pengguna') }}" class="block transition hover:text-primary mb-2 font-bold text-center">
+                    <div class="btn block rounded border border-primary py-6 px-4 text-2xl">
+                    Register sebagai pengguna layanan
+                    </div>
+                </a>
+                <a href="{{ url('login') }}" class="col-span-2 block transition hover:text-primary mb-2">
+                    <div class="btn block rounded border btn-primary py-6 px-4 text-2xl font-bold text-center">
+                        Login
+                    </div>
+                </a>
             </div>
-            {{$projects->links()}}
+            {{-- <div class="grid grid-cols-1 gap-5 mt-4"> --}}
+            {{-- </div> --}}
 		</div>
 	</section>
-@endempty
+
 @endsection
 @section('scripts')
 <script type="text/javascript" src="/app-assets/vendors/js/jquery/jquery.min.js?v={{env('APP_VER')}}"></script>

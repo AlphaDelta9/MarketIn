@@ -11,19 +11,19 @@
     <section class="py-20">
         <div class="container">
             <div>
-                <div class="grid grid-cols-2 gap-x-7">
-                    <div class="h-80 rounded-xl overflow-hidden">
-                        <img src="data:{{$project->mime}};base64,{{$project->picture}}" alt="" class="w-full h-full object-cover object-center">
+                <div class="grid grid-cols-3 gap-x-7">
+                    <div class="h-96 rounded-xl overflow-hidden">
+                        <img src="data:{{$user->mime}};base64,{{$user->picture}}" alt="" class="w-full h-full object-cover object-center">
                     </div>
-                    <div>
-                        <div class="text-2xl font-bold mb-4">{{ $project->title }} - {{$project->type_name}}</div>
+                    <div class="col-span-2">
+                        <div class="text-2xl font-bold mb-4">{{ $user->name }}</div>
                         <div class="border-t border-gray-300 space-y-2 pt-6">
 {{--                            <div class="flex">--}}
 {{--                                <div class="flex-1 font-bold pr-2">Usaha</div>--}}
 {{--                                <div class="flex-1">Usaha Makmur Rice Bowl</div>--}}
 {{--                            </div>--}}
                             <div class="flex">
-                                <div class="font-bold mb-2" style="white-space: pre-line">{{ $project->description }}</div>
+                                <div class="font-bold mb-2" style="white-space: pre-line">{{ $user->profile }}</div>
                             </div>
 {{--                            <div class="flex">--}}
 {{--                                <div class="flex-1 font-bold pr-2">Total Pelamar</div>--}}
@@ -32,104 +32,6 @@
                         </div>
                     </div>
                 </div>
-                @auth
-                @if($project->user()->is(auth()->user()))
-                <div class="mt-4 grid grid-cols-2">
-                    <div class="text-base">
-                        <p class="">
-                            Lokasi: {{ $project->city_name }}
-                        </p>
-                        <p class="">
-                            Batas Pengerjaan: {{ $project->work->format('Y-m-d') }}
-                        </p>
-                        <p class="">
-                            Budget: Rp. {{ $project->budget }}
-                        </p>
-                    </div>
-                    @if (!$project->finished_at && !$project->deleted_at)
-                    <div class="text-right">
-                        <a href="{{ url('/edit/'.$project->id) }}" class="btn btn-primary">Edit</a>
-                    </div>
-                </div>
-                    @endif
-                    @if (!$project->trashed())
-                    <table class="table mt-4">
-                        <thead>
-                        <tr>
-                            <td>Nama</td>
-                            <td>Status</td>
-                            <td></td>
-                        </tr>
-                        </thead>
-
-                        <tbody>
-                            @forelse ($project->project_details as $detail)
-                            <tr>
-                                <td><a href="{{url('assign/'.$detail->id)}}">{{ $detail->user->name }}</a></td>
-                                @if ($detail->accepted_at)
-                                <td class="text-success font-bold">Accepted</td>
-                                <td>
-                                    @if ($detail->mime)
-                                    <a class="btn btn-primary" href="{{url('download/'.$detail->id.'/'.$project->title)}}">Download</a>
-                                    @endif
-                                    @if ($detail->completed_at && !$detail->price)
-                                    <form action="{{url("pay/".$detail->id)}}" method="get">
-                                        @csrf
-                                        <input type="submit" class="btn btn-primary" value="Pay">
-                                    </form>
-                                    @elseif (!$detail->completed_at && $detail->mime)
-                                    <form action="{{url("complete/".$detail->id)}}" method="post">
-                                        @csrf
-                                        <input type="submit" class="btn btn-primary" value="Done">
-                                    </form>
-                                    @endif
-                                </td>
-                                @else
-                                <td class="text-warning font-bold">Pending</td>
-                                <td class="">
-                                    @if (!$detail->accepted_at && !$detail->rejected_at)
-                                    <form action="{{url("accept/".$detail->id)}}" method="post">
-                                        @csrf
-                                        @method('put')
-                                        <input type="submit" class="btn btn-primary" value="Accept">
-                                    </form>
-                                    <form action="{{url("reject/".$detail->id)}}" method="post">
-                                        @csrf
-                                        @method('patch')
-                                        <input type="submit" class="btn btn-primary" value="Reject">
-                                    </form>
-                                    @endif
-                                </td>
-                                @endif
-                            </tr>
-                            @empty
-                            <tr>
-                                <td class="flex-1 font-bold pr-2" style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap"> No users</td>
-                            </tr>
-                            @endforelse
-                        </tbody>
-                    </table>
-                    @endif
-                @elseif (!auth()->user()->role)
-                    @if (blank(auth()->user()->project_details->where('project_header_id',$project->id)))
-                    <form class="mt-4" action="{{url("project/".$project->id)}}" method="post">
-                        @csrf
-                        <input type="submit" class="btn btn-primary" value="Assign">
-                    </form>
-                    @elseif (auth()->user()->project_details()->where('project_header_id',$project->id)->first()->accepted_at && $project->type_name == 'Iklan')
-                    <form class="mt-4" action="{{url("download/".$project->id."/".$project->title)}}" method="post">
-                        @csrf
-                        <input type="submit" class="btn btn-primary" value="Download">
-                    </form>
-                    @elseif (!auth()->user()->project_details()->where('project_header_id',$project->id)->first()->accepted_at)
-                    <form class="mt-4" action="{{url("project/".auth()->user()->project_details->where('project_header_id',$project->id)->first()->id)}}" method="post">
-                        @csrf
-                        @method('PATCH')
-                        <input type="submit" class="btn btn-primary" value="Cancel">
-                    </form>
-                    @endif
-                @endif
-                @endauth
             </div>
 
 {{--            <div class="mt-10">--}}

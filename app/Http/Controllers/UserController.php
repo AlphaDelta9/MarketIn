@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rule;
 
 class UserController extends Controller
 {
@@ -24,9 +25,9 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        return view('auth.register');
+        return view('auth.register', ['role'=>$request->role]);
     }
 
     /**
@@ -41,7 +42,8 @@ class UserController extends Controller
             'name' => ['required'],
             'email' => ['required','email','unique:users'],
             'password' => ['required','confirmed'],
-            'profile' => ['required']
+            'profile' => ['required'],
+            'picture' => ['required','max:512','mimetypes:image/*']
         ]);
         User::create([
             'name' => $request->name,
@@ -49,7 +51,8 @@ class UserController extends Controller
             'password' => Hash::make($request->password),
             'profile' => $request->profile,
             'picture' => base64_encode(file_get_contents($request->file('picture'))),
-            'role' => $request->role_id
+            'mime' => $request->file('picture')->getMimeType(),
+            'role' => $request->role == 'pengguna'
         ]);
         return redirect('login');
     }
@@ -62,10 +65,33 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
+        request()->flash();
         if (Auth::user()->role) {
-            return view('front.history', ['projects'=>Auth::user()->project_headers()->withTrashed()->paginate(6)]);
+            switch (request()->filter) {
+                case 'Done':
+                    return view('front.history', ['projects'=>Auth::user()->project_headers()->whereNotNull('finished_at')->paginate(6)->withQueryString()]);
+                    break;
+                case 'Active':
+                    return view('front.history', ['projects'=>Auth::user()->project_headers()->whereNull('finished_at')->paginate(6)->withQueryString()]);
+                    break;
+
+                default:
+                    return view('front.history', ['projects'=>Auth::user()->project_headers()->withTrashed()->paginate(6)]);
+                    break;
+            }
         } else {
-            return view('front.history', ['projects'=>Auth::user()->project_details()->withTrashed()->paginate(6)]);
+            switch (request()->filter) {
+                case 'Accepted':
+                    return view('front.history', ['projects'=>Auth::user()->project_details()->whereNotNull('accepted_at')->paginate(6)->withQueryString()]);
+                    break;
+                case 'Pending':
+                    return view('front.history', ['projects'=>Auth::user()->project_details()->whereNull('accepted_at')->paginate(6)->withQueryString()]);
+                    break;
+
+                default:
+                    return view('front.history', ['projects'=>Auth::user()->project_details()->withTrashed()->paginate(6)]);
+                    break;
+            }
         }
     }
 
@@ -91,14 +117,19 @@ class UserController extends Controller
     {
         $request->validate([
             'name' => ['required'],
-            'email' => ['required','email','unique:users'],
+            'email' => ['required','email',Rule::unique('users')->ignore($user->id)],
             'password' => ['nullable','confirmed'],
-            'profile' => ['required']
+            'profile' => ['required'],
+            'picture' => ['nullable','mimetypes:image/*','max:512']
         ]);
         $user->name=$request->name;
         $user->email=$request->email;
         if (filled($request->password)) {
             $user->password=Hash::make($request->password);
+        }
+        if (filled($request->picture)) {
+            $user->picture=base64_encode(file_get_contents($request->file('picture')));
+            $user->mime = $request->file('picture')->getMimeType();
         }
         $user->profile=$request->profile;
         $user->save();
@@ -126,7 +157,7 @@ class UserController extends Controller
         )) {
             $request->session()->regenerate();
 
-            return redirect('/');
+            return redirect('/home');
         }
         return back()->withErrors([
 
@@ -140,4 +171,5 @@ class UserController extends Controller
         $request->session()->regenerateToken();
         return redirect('/');
     }
+
 }

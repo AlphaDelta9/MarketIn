@@ -22,7 +22,13 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property Carbon|null $accepted_at
  * @property Carbon|null $rejected_at
  * @property string|null $upload
+ * @property string|null $mime
  * @property Carbon|null $completed_at
+ * @property string|null $overview
+ * @property int|null $price
+ * @property string|null $receipt
+ * @property string|null $type
+ * @property Carbon|null $verified_at
  * 
  * @property ProjectHeader $project_header
  * @property User $user
@@ -36,13 +42,15 @@ class ProjectDetail extends Model
 
 	protected $casts = [
 		'project_header_id' => 'int',
-		'user_id' => 'int'
+		'user_id' => 'int',
+		'price' => 'int'
 	];
 
 	protected $dates = [
 		'accepted_at',
 		'rejected_at',
-		'completed_at'
+		'completed_at',
+		'verified_at'
 	];
 
 	protected $fillable = [
@@ -51,7 +59,13 @@ class ProjectDetail extends Model
 		'accepted_at',
 		'rejected_at',
 		'upload',
-		'completed_at'
+		'mime',
+		'completed_at',
+		'overview',
+		'price',
+		'receipt',
+		'type',
+		'verified_at'
 	];
 
 	public function project_header()

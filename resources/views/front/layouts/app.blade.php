@@ -28,6 +28,7 @@
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 
 	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lozad/dist/lozad.min.js"></script>
+	<script src="{{asset('js/tailwindcss.js')}}"></script>
 	<style>
 
 		@media (max-width: 499px){
@@ -248,66 +249,15 @@
 
 	<footer class="footer">
 		<div class="container">
-			<div class="columns is-variable is-8">
-				<div class="column is-4">
-					{{-- <div class="">
-						<div class="top mb-4">
-							<div class="field">
-								<div class="has-icons-right">
-									<input class="input" type="email" placeholder="Email Address">
-									<a href="#" class="icon is-right">
-										<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 29.03 22.09">
-											<defs>
-												<style>
-													.cls-2 {
-														fill: none;
-														stroke: #fcf7ee;
-														stroke-miterlimit: 10;
-														stroke-width: 3px;
-													}
-												</style>
-											</defs>
-											<g id="Layer_2" data-name="Layer 2">
-												<g id="about">
-													<line class="cls-2" x1="26.51" y1="10.79" y2="10.79" />
-													<polyline class="cls-2" points="16.78 1.08 26.89 10.79 16.66 21.02" />
-												</g>
-											</g>
-										</svg>
-									</a>
-								</div>
-							</div>
-							<p>
-								Subscribe to receive communications about
-								Botanical Essentials products, services, stores, events,
-								promo and matters of cultural interest.
-							</p>
-						</div>
-						<div class="bottom is-hidden-mobile">
-						    @if(env('IG_URL'))
-    							<a href="{{env('IG_URL')}}" target="_blank">
-								    <img data-src="/assets/images/ig.png" class="lozad mr-5" alt="">
-							    </a>
-							@endif
-						    @if(env('FB_URL'))
-    							<a href="{{env('FB_URL')}}" target="_blank">
-    								<img data-src="/assets/images/fb.png" class="lozad ml-5 mr-5" alt="">
-    							</a>
-							@endif
-						    @if(env('WA_URL'))
-    							<a href="{{env('WA_URL')}}" target="_blank">
-    								<img data-src="/assets/images/wa.png" class="lozad ml-5" alt="">
-    							</a>
-							@endif
-						</div>
-					</div> --}}
-				</div>
-				<div class="column is-8">
-					<div class="columns is-multiline is-mobile">
-
-					</div>
-				</div>
-			</div>
+            <div class="top mb-4 text-center">
+                Komang Andreawan Ambri | 2301904181
+            </div>
+            <div class="top mb-4 text-center">
+                Michael Alexander Lienardy | 2301907353
+            </div>
+            <div class="top mb-4 text-center">
+                Tenny Agatha Indah | 2301858175
+            </div>
 		</div>
 	</footer>
 
