@@ -121,7 +121,7 @@
                     @if (blank(auth()->user()->project_details->where('project_header_id',$project->id)))
                     <form class="mt-4" action="{{url("project/".$project->id)}}" method="post">
                         @csrf
-                        <input type="submit" class="btn btn-primary" value="Assign">
+                        <input type="submit" class="btn btn-primary" value="Apply">
                     </form>
                     @elseif (auth()->user()->project_details()->where('project_header_id',$project->id)->first() && $project->type_name == 'Iklan')
                     <form class="mt-4" action="{{url("download/".$project->id."/".$project->title)}}" method="post">

@@ -134,8 +134,8 @@ class ProjectDetailController extends Controller
             $projectDetail->rejected_at = Carbon::now();
             $projectDetail->save();
         }
-        $projectDetail->delete();
-        return redirect('project/'.$projectDetail->project_header_id);
+        $projectDetail->delete();//$projectDetail->delete()->project_header_id
+        return back();
     }
 
     public function file(ProjectDetail $projectDetail)

@@ -1,8 +1,7 @@
 <div class="container">
     <div class="navbar-brand is-flex-touch">
         <a class="navbar-item" href="/">
-            {{-- <img src="/assets/images/logo.png"> --}}
-            {{env('APP_NAME')}}
+            <img src="/assets/logo.png">
         </a>
     </div>
 
@@ -11,12 +10,12 @@
             <a href="{{ url('home') }}" class="block py-8 px-10 @if(url()->current() == url('home') )text-primary @endif">
                 Home
             </a>
-            @if (auth()->user()==null || filled(auth()->user()->role) )
+            @if (auth()->user()==null || auth()->user()->role )
             <a href="{{ url('search') }}" class="block py-8 px-10 @if(url()->current() == url('search') )text-primary @endif">
                 Search
             </a>
-            @else
-            <a href="{{ url('complete') }}" class="block py-8 px-10">
+            @elseif(blank(auth()->user()->role))
+            <a href="{{ url('complete') }}" class="block px-10 py-8">
                 Advertising
             </a>
             @endif
@@ -36,8 +35,12 @@
         @auth
         @if (filled(auth()->user()->role))
         @if (!auth()->user()->role)
+        <a href="{{ url('search') }}" class="block py-8 px-10 @if(url()->current() == url('search') )text-primary @endif">
+            Material Project
+        </a>
+
         <a href="{{ url('iklanin') }}" class="block py-8 px-10 @if(url()->current() == url('iklanin') )text-primary @endif">
-            Advertising
+            Advertising Project
         </a>
         @endif
 
@@ -49,7 +52,7 @@
             {{auth()->user()->name}}
         </a>
         @else
-        <a class="block py-8 px-10 text-primary">
+        <a class="block px-10 py-8 text-primary">
             {{auth()->user()->name}}
         </a>
         @endif
@@ -57,7 +60,7 @@
             Logout
         </a>
 
-        {{-- <div class="block py-8 px-10">{{auth()->user()->role ? "Pengguna" : "Penyedia"}}</div> --}}
+        {{-- <div class="block px-10 py-8">{{auth()->user()->role ? "Pengguna" : "Penyedia"}}</div> --}}
         @endauth
         </ul>
         <!-- <div class="navbar-item icon-navbar is-hidden-touch">

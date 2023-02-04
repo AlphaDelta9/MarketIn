@@ -51,7 +51,7 @@ class UserController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'city' => $request->city,
+            'city_name' => $request->city,
             'profile' => $request->profile,
             'picture' => base64_encode(file_get_contents($request->file('picture'))),
             'mime' => $request->file('picture')->getMimeType(),
@@ -123,10 +123,12 @@ class UserController extends Controller
             'email' => ['required','email',Rule::unique('users')->ignore($user->id)],
             'password' => ['nullable','confirmed'],
             'profile' => ['required'],
+            'city' => ['required', 'exists:cities,name'],
             'picture' => ['nullable','mimetypes:image/*','max:512']
         ]);
         $user->name=$request->name;
         $user->email=$request->email;
+        $user->city_name = $request->city;
         if (filled($request->password)) {
             $user->password=Hash::make($request->password);
         }

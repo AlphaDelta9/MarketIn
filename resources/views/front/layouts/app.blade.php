@@ -233,13 +233,13 @@
 
 	<footer class="footer">
 		<div class="container">
-            <div class="top mb-4 text-center">
+            <div class="mb-4 text-center top">
                 Komang Andreawan Ambri | 2301904181
             </div>
-            <div class="top mb-4 text-center">
+            <div class="mb-4 text-center top">
                 Michael Alexander Lienardy | 2301907353
             </div>
-            <div class="top mb-4 text-center">
+            <div class="mb-4 text-center top">
                 Tenny Agatha Indah | 2301858175
             </div>
 		</div>

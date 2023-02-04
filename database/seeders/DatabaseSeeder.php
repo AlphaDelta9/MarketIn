@@ -52,8 +52,8 @@ class DatabaseSeeder extends Seeder
             ]);
         \App\Models\Type::create(['name' => 'Logo', 'icon' => 'fas fa-draw-polygon']);
         \App\Models\Type::create(['name' => 'Narasi', 'icon' => 'fas fa-pencil-alt']);
-        \App\Models\Type::create(['name' => 'Banner', 'icon' => 'fas fa-drafting-compass']);
-        \App\Models\Type::create(['name' => 'Poster', 'icon' => 'fas fa-quidditch']);
+        \App\Models\Type::create(['name' => 'Foto', 'icon' => 'fas fa-drafting-compass']);
+        \App\Models\Type::create(['name' => 'Feed', 'icon' => 'fas fa-quidditch']);
         \App\Models\Type::create(['name' => 'Iklan', 'icon' => 'fab fa-adversal']);
         $faker->addProvider(new \Mmo\Faker\PicsumProvider($faker));
         for ($i=0; $i < 12; $i++) {

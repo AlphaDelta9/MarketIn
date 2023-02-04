@@ -23,7 +23,7 @@
                             @enderror
                         </div>
                         <div>
-                            <label for="city" class="block text-base mb-2">@if(request()->type == 'Iklan') Kota Usaha @else Kota @endif</label>
+                            <label for="city" class="block text-base mb-2">Area @if(request()->type == 'Iklan') Pemasaran @endif</label>
                             <input type="text" name="city" class="w-full py-2 px-5 rounded-lg" id=""
                             list="city" value="{{old('city',auth()->user()->city_name)}}">
                             <datalist id="city">
@@ -72,7 +72,7 @@
                         </div>
                         @endif
                         <div>
-                            <label for="work" class="block text-base mb-2">Waktu Pengerjaan</label>
+                            <label for="work" class="block text-base mb-2">@if(request()->type == 'Iklan') Batas Promosi Konten @else Batas Pengerjaan @endif</label>
                             <input type="date" id="work" name="work" class="w-full py-2 px-5 rounded-lg" value="{{ old('work') }}">
                             @error('work')
                             <div class="text-danger text-base mt-1">{{ $message }}</div>

@@ -34,7 +34,7 @@ class ProjectHeaderController extends Controller
         }else{
             return view('front.iklanin', ['projects'=>auth()->user()->city->project_headers()
             ->where('title', 'like', '%'.request()->search.'%')
-            ->where('type_name', 'Banner')->paginate(6)->withQueryString()]);
+            ->where('type_name', 'Iklan')->paginate(6)->withQueryString()]);
         }
     }
 
