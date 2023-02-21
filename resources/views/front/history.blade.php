@@ -61,7 +61,11 @@
                         <td class="font-bold text-danger">Cancel</td>
                         @endif
                         @elseif ($project->accepted_at)
-                        <td class="font-bold text-success">Accepted</td>
+                        @if ($project->completed_at)
+                        <td class="font-bold text-success">Done</td>
+                        @else
+                        <td class="font-bold text-warning">On Progress</td>
+                        @endif
                         @else
                         <td class="font-bold text-warning">Pending</td>
                         @endif

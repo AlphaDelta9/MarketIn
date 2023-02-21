@@ -106,7 +106,8 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        return view('front.profile', ['user'=>Auth::user()]);
+        // dd(session()->all());
+        return view('front.profile', ['user'=>Auth::user(),'cities'=>City::all()]);
     }
 
     /**
@@ -138,7 +139,7 @@ class UserController extends Controller
         }
         $user->profile=$request->profile;
         $user->save();
-        return redirect("profile");
+        return redirect('profile')->with('message', 'Profile updated!');
     }
 
     /**
@@ -156,7 +157,7 @@ class UserController extends Controller
     {
         if (Auth::attempt(
             $request->validate([
-            'email' => ['required'],
+            'email' => ['required','email'],
             'password' => ['required']
         ]), $request->remember
         )) {
@@ -165,7 +166,7 @@ class UserController extends Controller
             return redirect('/home');
         }
         return back()->withErrors([
-
+            'password' => 'The credentials do not match.',
         ]);
     }
 

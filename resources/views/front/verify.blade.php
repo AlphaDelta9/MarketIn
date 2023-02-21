@@ -51,10 +51,10 @@
                                 <form action="{{url('verify/'.$project->id)}}" method="post" enctype="multipart/form-data">
                                     @csrf
                                     @method('DELETE')
-                                <input type="submit" class="btn btn-primary" value="Invalid">
+                                <input type="submit" class="btn btn-primary" value="Reject">
                                 </form>
                                 @endif
-                            <a class="btn btn-primary" href="{{url('verify/'.$project->id.'/'.$project->project_header->title)}}">Receipt</a>
+                            <a class="btn btn-primary" href="{{url('verify/'.$project->id.'/'.$project->project_header->title)}}">View Receipt</a>
                             @endif
                         </td>
                     </tr>

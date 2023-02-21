@@ -17,11 +17,12 @@
                     @method('PATCH')
                     <div class="mb-6 space-y-5">
                         <div>
+                            <label for="title" class="block mb-2 text-base">Id Transaksi</label>
+                            <input type="text" id="title" name="title" class="w-full px-5 py-2 rounded-lg" value="{{ $transaction }}" disabled>
+                        </div>
+                        <div>
                             <label for="title" class="block mb-2 text-base">Nama Project</label>
-                            <input type="text" id="title" name="title" class="w-full px-5 py-2 rounded-lg" value="{{ old('title',$project->project_header->title) }}">
-                            @error('title')
-                            <div class="mt-1 text-base text-danger">{{ $message }}</div>
-                            @enderror
+                            <input type="text" id="title" name="title" class="w-full px-5 py-2 rounded-lg" value="{{ $project->project_header->title }}" disabled>
                         </div>
                         <div>
                             <label for="receipt" class="block mb-2 text-base">Bukti Pembayaran</label>

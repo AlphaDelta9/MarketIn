@@ -51,14 +51,14 @@
 	<section class="section" id="new-arrival">
 		<div class="container">
             <div class="grid grid-cols-2 gap-5">
-                <a href="{{ url('register/penyedia') }}" class="block transition hover:text-primary mb-2 font-bold text-center">
-                    <div class="btn block rounded border border-primary py-6 px-4 text-2xl">
-                    Register sebagai Pekerja
-                    </div>
-                </a>
                 <a href="{{ url('register/pengguna') }}" class="block transition hover:text-primary mb-2 font-bold text-center">
                     <div class="btn block rounded border border-primary py-6 px-4 text-2xl">
                     Register sebagai UMKM
+                    </div>
+                </a>
+                <a href="{{ url('register/penyedia') }}" class="block transition hover:text-primary mb-2 font-bold text-center">
+                    <div class="btn block rounded border border-primary py-6 px-4 text-2xl">
+                    Register sebagai Freelancer
                     </div>
                 </a>
                 <a href="{{ url('login') }}" class="col-span-2 block transition hover:text-primary mb-2">

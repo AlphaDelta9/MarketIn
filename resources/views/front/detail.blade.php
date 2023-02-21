@@ -70,7 +70,11 @@
                                 <td><a href="{{url('assign/'.$detail->id)}}">{{ $detail->user->name }}</a></td>
                                 @if ($detail->accepted_at)
                                 @if($project->type_name != 'Iklan')
-                                <td class="text-success font-bold">Accepted</td>
+                                    @if($detail->completed_at)
+                                    <td class="text-success font-bold">Done</td>
+                                    @else
+                                    <td class="text-warning font-bold">On Progress</td>
+                                    @endif
                                 @endif
                                 <td>
                                     {{$detail->overview}}
@@ -92,7 +96,9 @@
                                     @endif
                                 </td>
                                 @else
+                                @if($project->type_name != 'Iklan')
                                 <td class="text-warning font-bold">Pending</td>
+                                @endif
                                 <td class="">
                                     @if (!$detail->accepted_at && !$detail->rejected_at)
                                     <form action="{{url("accept/".$detail->id)}}" method="post">
@@ -117,7 +123,7 @@
                         </tbody>
                     </table>
                     @endif
-                @elseif (!auth()->user()->role)
+                @elseif (filled(auth()->user()->role) && !auth()->user()->role)
                     @if (blank(auth()->user()->project_details->where('project_header_id',$project->id)))
                     <form class="mt-4" action="{{url("project/".$project->id)}}" method="post">
                         @csrf

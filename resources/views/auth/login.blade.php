@@ -33,6 +33,9 @@
                 </div>
                 <button class="btn btn-primary block ml-auto">Login</button>
             </form>
+            <div class="text-center">
+                Not registered yet? <a class="underline" href="{{ url('register') }}"><strong>Create an Account</strong></a>
+            </div>
         </div>
     </div>
 </section>

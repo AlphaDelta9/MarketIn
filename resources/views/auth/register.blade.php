@@ -71,6 +71,9 @@
                 </div>
                 <button class="py-2 px-6 bg-primary text-white border border-primary hover:bg-white hover:text-primary rounded-lg transition block ml-auto">Register</button>
             </form>
+            <div class="text-center">
+                Already have an account? <a class="underline" href="{{ url('login') }}"><strong>Login</strong></a>
+            </div>
         </div>
     </div>
 </section>

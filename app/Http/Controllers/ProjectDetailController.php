@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\ProjectDetail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Str;
 
 class ProjectDetailController extends Controller
 {
@@ -166,7 +167,7 @@ class ProjectDetailController extends Controller
             return back()->withInput();
         }
         elseif($request->_token == csrf_token()){
-            return view('front.pay', ['project'=>$projectDetail]);
+            return view('front.pay', ['project'=>$projectDetail,'transaction'=>Str::orderedUuid()]);
         }
     }
 }
