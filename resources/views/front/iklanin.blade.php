@@ -1,4 +1,4 @@
-@extends('front.layouts.app')
+@extends('layouts.app')
 @section('title','Homepage')
 @section('descrtipion',env("DEFAULT_DESC"))
 @section('stylesheets')
@@ -45,7 +45,7 @@
     }
 </style>
 @endsection
-@include('front.layouts.navbar')
+@include('layouts.navbar')
 @section('content')
 
 	<section class="section" id="new-arrival">
@@ -64,7 +64,7 @@
             <div class="grid grid-cols-3 gap-5 mb-4">
                 @forelse($projects as $project)
                     <div>
-                        @include('cards.project-card', ['project' => $project])
+                        @include('layouts.project-card', ['project' => $project])
                     </div>
                 @empty
                     {{-- <div class="col-span-3 bg-white border border-gray-200 relative top-0"> --}}

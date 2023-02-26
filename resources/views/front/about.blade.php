@@ -1,4 +1,4 @@
-@extends('front.layouts.app')
+@extends('layouts.app')
 @section('title','About us')
 @section('descrtipion',env("DEFAULT_DESC"))
 @section('stylesheets')
@@ -56,21 +56,21 @@
 
 
 @section('content')
-@include('front.layouts.transparent-navbar')
+@include('layouts.transparent-navbar')
 <!-- <section class="image-section">
     <img src="/assets/images/about/header.jpg?v={{env('APP_VER')}}" alt="">
 </section> -->
 <section class="image-section homepage-banner header-slider zoomimage">
 	    <div>
 			<img src="/assets/images/about/header_2.jpg?v={{env('APP_VER')}}" alt="">
-		</div>  
+		</div>
 	    <div>
 			<img src="/assets/images/about/header_1.jpg?v={{env('APP_VER')}}" alt="">
-		</div>  
+		</div>
 	    <div>
 			<img src="/assets/images/about/header.jpg?v={{env('APP_VER')}}" alt="">
 		</div>
-	       	    
+
 </section>
 
 <section class="section" id="our-philosophy">
@@ -82,7 +82,7 @@
                     Our fundamental interest in things that smell good, are environmentally friendly, and can bring benefits to everyday life, led us to create a range of personal and home care products that we proudly call Botanical Essentials.
                 </p>
                 <p class="sub mt-4">
-                    Our products are made from naturally derived  active ingredients that have gone through stringent research and quality control processes to ensure they are safe and beneficial  for your skin. 
+                    Our products are made from naturally derived  active ingredients that have gone through stringent research and quality control processes to ensure they are safe and beneficial  for your skin.
                 </p>
             </div>
             <div class="column is-6 is-12-touch has-text-centered">
@@ -130,7 +130,7 @@
             Let’s celebrate our new heroes!
         </p>
     </div>
-    
+
 </section>
 
 <section class="section bg-section mb-10">
@@ -169,7 +169,7 @@
     <script type="text/javascript" src="/assets/js/slick.js?v={{env('APP_VER')}}"></script>
     <script>
         $(document).ready(function(){
-            
+
             $('.header-slider').slick({
                 autoplay: true,
                 autoplaySpeed: 3500,

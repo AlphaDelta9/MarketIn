@@ -1,6 +1,6 @@
-@extends('front.layouts.app')
+@extends('layouts.app')
 @section('title','Profile')
-@include('front.layouts.navbar')
+@include('layouts.navbar')
 
 @section('content')
 

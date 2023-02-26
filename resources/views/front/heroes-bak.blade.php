@@ -1,4 +1,4 @@
-@extends('front.layouts.app')
+@extends('layouts.app')
 @section('stylesheets')
     <style>
         @media(max-width:1023px){
@@ -23,7 +23,7 @@
     </style>
 @endsection
 @section('content')
-@include('front.layouts.navbar')
+@include('layouts.navbar')
 
     <section id="header" class=" pt-0 quiz-header mb-10" style="background-color:#F2DAB2">
         <div class="">
@@ -36,7 +36,7 @@
                         <p class="sub mb-5 pb-5">
                             <b>Take our personality quiz to know which hero is for you!</b>
                         </p>
-                        
+
                         <a href="{{route('quiz')}}" class="button is-uppercase">Start here!</a>
                     </div>
                 </div>
@@ -73,7 +73,7 @@
                 <div class="column is-5 is-12-touch pl-4">
                     <h1 class="title has-text-centered-mobile">Bergamot</h1>
                     <p class="sub has-text-centered-mobile pb-3">
-                        Say hello to this energizer that adds sparkle to our products; Bergamot a.k.a. <em>Citrus bergamia</em> from South Italy. The essential oil - coming from its fruit peel - smells zesty, fresh, sparkling, vibrant, bitter, and spicy. It has been widely and commonly used to enhance mood and also alleviate stress and depression. A perfect match for your lively, dynamic, and full of energy personality. 
+                        Say hello to this energizer that adds sparkle to our products; Bergamot a.k.a. <em>Citrus bergamia</em> from South Italy. The essential oil - coming from its fruit peel - smells zesty, fresh, sparkling, vibrant, bitter, and spicy. It has been widely and commonly used to enhance mood and also alleviate stress and depression. A perfect match for your lively, dynamic, and full of energy personality.
                     </p>
                     <div class="mt-5 has-text-centered-mobile is-relative" style="z-index:2">
                         <a href="{{route('heroes.bergamot')}}" class="button is-uppercase">Learn More</a>
@@ -97,7 +97,7 @@
                 <div class="column is-5 is-offset-1 is-12-touch pl-4">
                     <h1 class="title has-text-centered-mobile">Patchouli</h1>
                     <p class="sub has-text-centered-mobile pb-3">
-                       Welcoming this hidden gem that is the pillar to our luxurious fragrance; Patchouli a.k.a. <em>Pogostemon cablin</em>, from a sustainable farm in Sulawesi, Indonesia. The essential oil - coming from its leaves - smells heavy, earthy, woody, minty, leathery, and mossy. Well known for its grounding & balancing aromatherapy properties. An ideal pair for your confident, sophisticated, and charismatic self. 
+                       Welcoming this hidden gem that is the pillar to our luxurious fragrance; Patchouli a.k.a. <em>Pogostemon cablin</em>, from a sustainable farm in Sulawesi, Indonesia. The essential oil - coming from its leaves - smells heavy, earthy, woody, minty, leathery, and mossy. Well known for its grounding & balancing aromatherapy properties. An ideal pair for your confident, sophisticated, and charismatic self.
                     </p>
                     <div class="mt-5 has-text-centered-mobile is-relative" style="z-index:2">
                         <a href="{{route('heroes.patchouli')}}" class="button is-uppercase">Learn More</a>

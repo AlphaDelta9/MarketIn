@@ -1,4 +1,4 @@
-@extends('front.layouts.app')
+@extends('layouts.app')
 @section('title','Heroes')
 @section('descrtipion',env("DEFAULT_DESC"))
 @section('stylesheets')
@@ -33,7 +33,7 @@
     </style>
 @endsection
 @section('content')
-@include('front.layouts.navbar')
+@include('layouts.navbar')
 
     <section id="header" class=" pt-0 quiz-header mb-10" style="line-height:0 !important;background-color:#C5BEBE">
         <div style="background-color:#C5BEBE">
@@ -46,7 +46,7 @@
                         <p class="sub mb-5 pb-5">
                             <b>Take our personality quiz to know which hero is for you!</b>
                         </p>
-                        
+
                         <a href="{{route('quiz')}}" class="button is-uppercase">Start here!</a>
                     </div>
                 </div>
@@ -106,7 +106,7 @@
     					<img class="lozad heroes-text" data-src="/assets/images/patchouli-text.png?v={{env('APP_VER')}}" alt="" style="margin:auto; width:356px !important">
                     </div>
                     <p class="sub has-text-centered-mobile pb-3">
-                       Welcoming this hidden gem that is the pillar to our luxurious fragrance; Patchouli a.k.a. <em>Pogostemon cablin</em>, from a sustainable farm in Sulawesi, Indonesia. The essential oil - coming from its leaves - smells heavy, earthy, woody, minty, leathery, and mossy. Well known for its grounding & balancing aromatherapy properties. An ideal pair for your confident, sophisticated, and charismatic self. 
+                       Welcoming this hidden gem that is the pillar to our luxurious fragrance; Patchouli a.k.a. <em>Pogostemon cablin</em>, from a sustainable farm in Sulawesi, Indonesia. The essential oil - coming from its leaves - smells heavy, earthy, woody, minty, leathery, and mossy. Well known for its grounding & balancing aromatherapy properties. An ideal pair for your confident, sophisticated, and charismatic self.
                     </p>
                     <div class="mt-5 has-text-centered-mobile is-relative" style="z-index:2">
                         <a href="{{route('heroes.patchouli')}}" class="button is-uppercase">Learn More</a>

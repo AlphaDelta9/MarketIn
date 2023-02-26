@@ -1,4 +1,4 @@
-@extends('front.layouts.app')
+@extends('layouts.app')
 @section('title','Frequently Asked Questions')
 @section('descrtipion',env("DEFAULT_DESC"))
 @section('stylesheets')
@@ -33,7 +33,7 @@
 </style>
 @endsection
 @section('content')
-@include('front.layouts.navbar')
+@include('layouts.navbar')
 	<section class="section mt-10" style="padding-bottom:0;">
         <div class="container">
             <div class="columns is-multiline is-align-items-center">
@@ -41,13 +41,13 @@
                     <h1 class="title has-text-centered">Frequently Asked Questions</h1>
                 </div>
                 <div class="column is-12">
-                    
+
                     <div class="tabs">
                         <ul>
                             <li>
                                 <a onclick="openTab(event, 'general-information')" class="tablinks subtitle @if(\Request::query('tab') == 'general-information' || \Request::query('tab') == '') active @endif">
                                     <span style="display: inline-flex;align-items: center;">
-                                        <svg style="width:115px" xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 330 330" viewBox="0 0 330 330"><path d="m165 0c-90.981 0-165 74.02-165 165s74.019 165 165 165 165-74.018 165-165-74.019-165-165-165zm0 300c-74.44 0-135-60.56-135-135s60.56-135 135-135 135 60.562 135 135-60.561 135-135 135z"/><path d="m165 70c-11.026 0-19.996 8.976-19.996 20.009 0 11.023 8.97 19.991 19.996 19.991s19.996-8.968 19.996-19.991c0-11.033-8.97-20.009-19.996-20.009z"/><path d="m165 140c-8.284 0-15 6.716-15 15v90c0 8.284 6.716 15 15 15s15-6.716 15-15v-90c0-8.284-6.716-15-15-15z"/></svg> 
+                                        <svg style="width:115px" xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 330 330" viewBox="0 0 330 330"><path d="m165 0c-90.981 0-165 74.02-165 165s74.019 165 165 165 165-74.018 165-165-74.019-165-165-165zm0 300c-74.44 0-135-60.56-135-135s60.56-135 135-135 135 60.562 135 135-60.561 135-135 135z"/><path d="m165 70c-11.026 0-19.996 8.976-19.996 20.009 0 11.023 8.97 19.991 19.996 19.991s19.996-8.968 19.996-19.991c0-11.033-8.97-20.009-19.996-20.009z"/><path d="m165 140c-8.284 0-15 6.716-15 15v90c0 8.284 6.716 15 15 15s15-6.716 15-15v-90c0-8.284-6.716-15-15-15z"/></svg>
                                     </span>
                                 </a>
                             </li>
@@ -67,34 +67,34 @@
 	</section>
 
     <section class="section" id="answer" style="background-color:#e1dcd6; margin-bottom:50px;">
-                      
+
         <div class="container">
             <div class="sub-2 tabcontent" id="general-information" style="@if(\Request::query('tab') == 'general-information' || \Request::query('tab') == '') display:block @endif">
                 Where to buy BE products?
                 <span class="mt-0">Our products are available on our official ecommerce stores at Tokopedia & Shopee under Botanical Essentials with orders and payments according to the following ecommerce terms and conditions.</span>
-                        
+
                 How to order products in bulk or for B2B?
                 <span class="mt-0">To order in bulk and for B2B inquiry, please contact our email <b>hello@thebotanicalessentials.com</b></span>
-                
+
                 How do I use my discount code?
                 <span class="mt-0">Discount code applies according to our official ecommerce (Tokopedia and Shopee) terms and conditions depending on the promotion period.</span>
-                            
+
                 Can I amend my order after it has gone through?
                 <span class="mt-0">Once processed, we cannot amend orders since all orders and shipments will be under our official ecommerce terms and conditions. If you think you have submitted the wrong address in your orders, please contact us at <b>hello@thebotanicalessentials.com</b> immediately.</span>
-                    
+
                 Do you have an offline retail store?
                 <span class="mt-0">We do not have one yet at the moment but stay tuned to our website or instagram <b>@botanicalessentials.id</b> for updates.</span>
             </div>
             <div class="sub-2 tabcontent" id="shipping-delivery" style="@if(\Request::query('tab') == 'shipping-delivery') display:block @endif">
                 Where do we deliver?
                 <span class="mt-0">We currently ship Nationwide within Indonesia.</span>
-                    
+
                 When will I receive my order?
                 <span class="mt-0">Orders will be packed and sent within 24 - 48 hours during business days/working hours: Monday to Friday, 9 am to 4 pm.</span>
-                    
+
                 What if I receive the wrong product?
                 <span class="mt-0">We are not accepting any refunds. However we can replace your items with the correct products once you have requested a return/ exchange to our customer service via ecommerce and email us at <b>hello@thebotanicalessentials.com</b> or chat us directly on our ecommerce chat box. After submitting a refund request to our official ecommerce stores, kindly drop the package to the nearest expedition partners in your city and send the package back to us ( this shipping fee will be under customer’s expense) . We will exchange the items once we confirm the products have not been used or damaged and you will receive the correct items. Shipping fee will be included.</span>
-                            
+
                 What happens if I entered the wrong address for my order?
                 <span class="mt-0">Please make sure your address is correct before submitting the order. If you think the address may not be correct, do contact us immediately and we will do our best to assist.
                 Our official customer service <b>hello@thebotanicalessentials.com</b>

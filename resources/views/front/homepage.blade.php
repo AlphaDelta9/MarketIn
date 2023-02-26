@@ -1,4 +1,4 @@
-@extends('front.layouts.app')
+@extends('layouts.app')
 @section('title','Homepage')
 @section('descrtipion',env("DEFAULT_DESC"))
 @section('stylesheets')
@@ -46,7 +46,7 @@
 </style>
 @endsection
 @section('content')
-@include('front.layouts.navbar')
+@include('layouts.navbar')
 @isset($active)
 
 	<section class="section" id="about">
@@ -58,22 +58,22 @@
 		</div>
 		<div class="container">
             @if(!auth()->user()->role)
-            <div class="text-3xl mb-4">Proyek Sekarang</div>
+            <div class="mb-4 text-3xl">Proyek Sekarang</div>
             @endif
             <div class="grid grid-cols-{{$active->count()}} gap-5 justify-items-center">
                 @forelse($active as $item)
                     <div class="flex space-x-3">
                         @if(auth()->user()->role)
-                        <a href="{{ url('/create/'.$item->name) }}" class="w-40 rounded-lg border border-gray-200 px-3 py-3 text-center group">
+                        <a href="{{ url('/create/'.$item->name) }}" class="w-40 px-3 py-3 text-center border border-gray-200 rounded-lg group">
                             <i class="{{ $item->icon }} text-primary/50 group-hover:text-primary transition" style="font-size: 60px;"></i>
-                            <div class="mt-2 group-hover:text-primary transition">{{ $item->name }}</div>
+                            <div class="mt-2 transition group-hover:text-primary">{{ $item->name }}</div>
                         </a>
                         @elseif(!$item->project_header->finished_at)
-                        @include('cards.project-card', ['project' => $item->project_header])
+                        @include('layouts.project-card', ['project' => $item->project_header])
                         @endif
                     </div>
                 @empty
-                    <div class="flex-1 font-bold pr-2" style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap"> No projects</div>
+                    <div class="flex-1 pr-2 font-bold" style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap"> No projects</div>
                 @endforelse
             </div>
 		</div>
@@ -82,17 +82,17 @@
 	<section class="bg-section section homepage-heroes">
 		<div class="container">
             @if(auth()->user()->role)
-            <div class="text-3xl mb-4">Proyek Sekarang</div>
+            <div class="mb-4 text-3xl">Proyek Sekarang</div>
             @else
-            <div class="text-3xl mb-4">Proyek Rekomendasi</div>
+            <div class="mb-4 text-3xl">Proyek Rekomendasi</div>
             @endif
             <div class="grid grid-cols-3 gap-5">
                 @forelse($projects as $project)
                     <div>
-                        @include('cards.project-card', ['project' => $project])
+                        @include('layouts.project-card', ['project' => $project])
                     </div>
                 @empty
-                    <div class="flex-1 font-bold pr-2" style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap"> No projects</div>
+                    <div class="flex-1 pr-2 font-bold" style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap"> No projects</div>
                 @endforelse
             </div>
             <div class="text-base">
@@ -106,11 +106,11 @@
 
 	<section class="section" id="new-arrival">
 		<div class="container">
-            <div class="text-3xl mb-4">Proyek Rekomendasi</div>
+            <div class="mb-4 text-3xl">Proyek Rekomendasi</div>
             <div class="grid grid-cols-3 gap-5">
                 @foreach($projects as $project)
                     <div>
-                        @include('cards.project-card', ['project' => $project])
+                        @include('layouts.project-card', ['project' => $project])
                     </div>
                 @endforeach
             </div>

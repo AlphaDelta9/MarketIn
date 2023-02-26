@@ -1,4 +1,4 @@
-@extends('front.layouts.app')
+@extends('layouts.app')
 @section('title','Sustainability')
 @section('descrtipion',env("DEFAULT_DESC"))
 @section('stylesheets')
@@ -51,9 +51,9 @@
 </style>
 @endsection
 @section('content')
-@include('front.layouts.navbar')
+@include('layouts.navbar')
 
-	
+
     <section class="section">
         <div class="container">
             <div>
@@ -246,7 +246,7 @@
 			</div>
 		</div>
 	</section>
-    
+
     {{--<section class="section is-hidden-mobile">
         <div class="container">
             <div class="columns is-variable is-8 is-multiline is-align-items-center">
@@ -268,7 +268,7 @@
                         <li>
                             <h1 class="subtitle">
                                 BE will generate and redistribute
-                                wealth using a social enterprise 
+                                wealth using a social enterprise
                                 funding model.
                             </h1>
                             <p class="is-nova">
@@ -296,7 +296,7 @@
             </div>
         </div>
     </section>
-    
+
     <section class="section is-hidden-tablet">
         <div class="container">
             <div class="columns is-multiline is-align-items-center is-mobile">
@@ -318,7 +318,7 @@
             </div>
         </div>
     </section>--}}
-    
+
     {{--<section class="section bg-section is-hidden-tablet">
         <div class="container">
             <div>
@@ -327,7 +327,7 @@
                             <li class="mb-0">
                                 <h1 class="subtitle">
                                     BE will generate and redistribute
-                                    wealth using a social enterprise 
+                                    wealth using a social enterprise
                                     funding model.
                                 </h1>
                                 <p class="is-nova">
@@ -356,7 +356,7 @@
                             </li>
                         </ol>
                     </div>
-                
+
             </div>
         </div>
     </section>--}}
@@ -380,8 +380,8 @@
             </h1>
         </div>
     </section>
-    
-    
+
+
 @endsection
 
 @section('scripts')

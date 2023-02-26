@@ -1,10 +1,10 @@
-@extends('front.layouts.app')
+@extends('layouts.app')
 
 @section('title')
     Masuk
 @endsection
 
-@extends('front.layouts.navbar')
+@extends('layouts.navbar')
 
 @section('content')
     <section class="py-12">

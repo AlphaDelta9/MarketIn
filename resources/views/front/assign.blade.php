@@ -1,10 +1,10 @@
-@extends('front.layouts.app')
+@extends('layouts.app')
 
 @section('title')
     Detail
 @endsection
 
-@extends('front.layouts.navbar')
+@extends('layouts.navbar')
 
 @section('content')
 
