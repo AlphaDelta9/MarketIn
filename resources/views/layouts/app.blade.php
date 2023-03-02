@@ -6,12 +6,14 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>@yield('title')</title>
 
-	<link rel="stylesheet" href="/assets/css/index.css">
-	<link rel="stylesheet" href="/assets/css/bulma.css">
+    <link href="{{ asset('images/logo.png') }}" rel="icon" type="image/png" />
+
+	<link rel="stylesheet" href="{{ asset('assets/css/index.css') }}">
+	<link rel="stylesheet" href="{{ asset('assets/css/bulma.css') }}">
     <link rel="stylesheet" href="{{ asset('others/fontawesome/css/all.min.css') }}">
 
-    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/app.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
 
 	<script src="{{asset('js/tailwindcss.js')}}"></script>
 

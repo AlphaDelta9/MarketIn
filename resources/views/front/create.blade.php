@@ -1,10 +1,6 @@
 @extends('layouts.app')
-
-@section('title')
-    Masuk
-@endsection
-
-@extends('layouts.navbar')
+@section('title','Buat Proyek')
+@include('layouts.navbar')
 
 @section('content')
     <section class="py-20">

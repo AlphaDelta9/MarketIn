@@ -1,9 +1,5 @@
 @extends('layouts.app')
-
-@section('title')
-    Masuk
-@endsection
-
+@section('title','Pembayaran')
 @extends('layouts.navbar')
 
 @section('content')
