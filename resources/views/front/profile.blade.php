@@ -6,7 +6,6 @@
 
     <section class="py-20">
         <div class="container">
-            <div id="content-profile">
                 {{-- <div class="tab-title">Profil</div> --}}
                 <div class="grid grid-cols-2 gap-x-7">
                     <img class="h-full overflow-hidden rounded-xl" src="data:{{$user->mime}};base64,{{$user->picture}}" alt="Picture" srcset="">
@@ -77,7 +76,6 @@
                         <button class="block px-6 py-2 ml-auto text-white transition border rounded-lg bg-primary border-primary hover:bg-white hover:text-primary">Save</button>
                     </form>
                 </div>
-            </div>
         </div>
 
     </section>

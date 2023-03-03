@@ -6,7 +6,7 @@
             </a>
         </div>
 
-        <div id="navbarBasicExample" class="flex items-center justify-between">
+        <div class="flex items-center justify-between">
             <ul class="flex justify-end text-center">
                 <a href="{{ url('home') }}" class="block py-8 px-10
                 @if(url()->current() == url('home') )text-primary @endif">
