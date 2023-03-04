@@ -19,7 +19,9 @@
 
 </head>
 <body>
-	@yield('content')
+    <div style="min-height: 76vh">
+        @yield('content')
+    </div>
 
 	<footer class="relative footer">
 		<div class="container text-center">

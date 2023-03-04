@@ -5,8 +5,7 @@
 @section('content')
 
     <section class="py-20">
-        <div class="container">
-            <div id="content-profile">
+            <div class="container" id="content-profile">
                 {{-- <div class="tab-title">Profil</div> --}}
                 <div class="grid grid-cols-2 gap-x-7">
                     <img class="h-full overflow-hidden rounded-xl" src="data:{{$user->mime}};base64,{{$user->picture}}" alt="Picture" srcset="">
@@ -78,7 +77,5 @@
                     </form>
                 </div>
             </div>
-        </div>
-
     </section>
 @endsection

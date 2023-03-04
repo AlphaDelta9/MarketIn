@@ -4,7 +4,7 @@
 @section('content')
 
 	<section class="section" id="">
-		<div class="container">
+		<div class="container" style="margin-bottom: 50px">
             <form class="mb-4 space-y-5" action="{{url('search')}}" method="get">
                 <div>
                     <label for="city" class="block mb-2 text-sm">Kota</label>
