@@ -20,7 +20,7 @@
                 </a>
                 <a href="{{ url('login') }}" class="block col-span-2 mb-2 transition hover:text-primary">
                     <div class="block px-4 py-6 text-2xl font-bold text-center border rounded btn btn-primary">
-                        Login
+                        LOGIN
                     </div>
                 </a>
             </div>
