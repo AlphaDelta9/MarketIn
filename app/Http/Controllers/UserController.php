@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\City;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -27,7 +28,7 @@ class UserController extends Controller
      */
     public function create(Request $request)
     {
-        return view('auth.register', ['role'=>$request->role]);
+        return view('auth.register', ['role'=>$request->role,'cities'=>City::all()]);
     }
 
     /**
@@ -42,6 +43,7 @@ class UserController extends Controller
             'name' => ['required'],
             'email' => ['required','email','unique:users'],
             'password' => ['required','confirmed'],
+            'city' => ['required', 'exists:cities,name'],
             'profile' => ['required'],
             'picture' => ['required','max:512','mimetypes:image/*']
         ]);
@@ -49,6 +51,7 @@ class UserController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'city_name' => $request->city,
             'profile' => $request->profile,
             'picture' => base64_encode(file_get_contents($request->file('picture'))),
             'mime' => $request->file('picture')->getMimeType(),
@@ -103,7 +106,8 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        return view('front.profile', ['user'=>Auth::user()]);
+        // dd(session()->all());
+        return view('front.profile', ['user'=>Auth::user(),'cities'=>City::all()]);
     }
 
     /**
@@ -120,10 +124,12 @@ class UserController extends Controller
             'email' => ['required','email',Rule::unique('users')->ignore($user->id)],
             'password' => ['nullable','confirmed'],
             'profile' => ['required'],
+            'city' => ['required', 'exists:cities,name'],
             'picture' => ['nullable','mimetypes:image/*','max:512']
         ]);
         $user->name=$request->name;
         $user->email=$request->email;
+        $user->city_name = $request->city;
         if (filled($request->password)) {
             $user->password=Hash::make($request->password);
         }
@@ -133,7 +139,7 @@ class UserController extends Controller
         }
         $user->profile=$request->profile;
         $user->save();
-        return redirect("profile");
+        return redirect('profile')->with('message', 'Profile updated!');
     }
 
     /**
@@ -151,7 +157,7 @@ class UserController extends Controller
     {
         if (Auth::attempt(
             $request->validate([
-            'email' => ['required'],
+            'email' => ['required','email'],
             'password' => ['required']
         ]), $request->remember
         )) {
@@ -160,7 +166,7 @@ class UserController extends Controller
             return redirect('/home');
         }
         return back()->withErrors([
-
+            'password' => 'The credentials do not match.',
         ]);
     }
 

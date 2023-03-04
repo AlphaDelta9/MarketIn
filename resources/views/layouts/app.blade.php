@@ -1,224 +1,46 @@
 <!DOCTYPE html>
-<html class="loading" lang="en" data-textdirection="ltr">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>@yield('title')</title>
 
-    <head>
-        @include('layouts.meta')
-        <title>@yield('title')</title>
-        <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500;1,600" rel="stylesheet">
-        <link rel="stylesheet" type="text/css" href="/app-assets/css/bootstrap.css?v={{env('APP_VERSION')}}">
-        <link rel="stylesheet" type="text/css" href="/app-assets/css/bootstrap-extended.css?v={{env('APP_VERSION')}}">
-        <link rel="stylesheet" type="text/css" href="/app-assets/css/colors.css?v={{env('APP_VERSION')}}">
-        <link rel="stylesheet" type="text/css" href="/app-assets/css/components.css?v={{env('APP_VERSION')}}">
-        <link rel="stylesheet" type="text/css" href="/app-assets/css/themes/dark-layout.css?v={{env('APP_VERSION')}}">
-        <link rel="stylesheet" type="text/css" href="/app-assets/css/themes/bordered-layout.css?v={{env('APP_VERSION')}}">
-        <link rel="stylesheet" type="text/css" href="/app-assets/css/core/menu/menu-types/vertical-menu.css?v={{env('APP_VERSION')}}">
-        <link rel="stylesheet" type="text/css" href="/app-assets/vendors/css/extensions/toastr.min.css?v={{env('APP_VERSION')}}">
-        <link rel="stylesheet" type="text/css" href="/app-assets/css/plugins/extensions/ext-component-toastr.css?v={{env('APP_VERSION')}}">
-        <style>
-            @media (max-width: 1199px){
-                .logo-mobile{
-                    opacity:1;
-                    -webkit-transition: opacity 0.5s ease-in-out;
-                    -moz-transition: opacity 0.5s ease-in-out;
-                    -ms-transition: opacity 0.5s ease-in-out;
-                    -o-transition: opacity 0.5s ease-in-out;
-                    transition: opacity 0.5s ease-in-out;
-                }
-                .dropdown-item{
-                    cursor:unset !important;
-                }
-                .dropdown-item.active,
-                .dropdown-item:active,
-                .dropdown-item:hover{
-                    background-color:unset;
-                    color:unset;
-                }
-            }
+    <link href="{{ asset('images/logo.png') }}" rel="icon" type="image/png" />
 
-            @media (min-width: 1200px){
-                .logo-mobile{
-                    opacity:0;
-                    -webkit-transition: opacity 0.5s ease-in-out;
-                    -moz-transition: opacity 0.5s ease-in-out;
-                    -ms-transition: opacity 0.5s ease-in-out;
-                    -o-transition: opacity 0.5s ease-in-out;
-                    transition: opacity 0.5s ease-in-out;
-                }
-            }
-            .navbar-container{
-                display:flex;
-                justify-content: space-between;
-                flex-wrap:nowrap;
-            }
-        </style>
-        @yield('stylesheets')
-    </head>
+	<link rel="stylesheet" href="{{ asset('assets/css/index.css') }}">
+	<link rel="stylesheet" href="{{ asset('assets/css/bulma.css') }}">
+    <link rel="stylesheet" href="{{ asset('others/fontawesome/css/all.min.css') }}">
 
+    <link rel="stylesheet" href="{{ asset('assets/css/app.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
 
-    <body class="vertical-layout vertical-menu-modern navbar-floating footer-static" data-open="click"
-        data-menu="vertical-menu-modern" data-col="">
+	<script src="{{asset('js/tailwindcss.js')}}"></script>
 
-        @include('layouts.navbar')
+</head>
+<body>
+    <div style="min-height: 76vh">
+        @yield('content')
+    </div>
 
-        <div id="section-block"></div>
-        <div class="main-menu menu-fixed menu-light menu-accordion menu-shadow" data-scroll-to-active="true">
-            <div class="navbar-header">
-                <ul class="flex-row nav navbar-nav">
-                    <li class="mr-auto nav-item">
-                        <a class="navbar-brand" href="{{ route('home') }}">
-                            <img src="/app-assets/images/email/logo-214x68.png" alt="" style="height:60px">
-                        </a>
-                    </li>
-                    <li class="nav-item nav-toggle">
-                        <a class="pr-0 nav-link modern-nav-toggle" data-toggle="collapse">
-                            <i class="d-block d-xl-none text-primary toggle-icon font-medium-4" data-feather="x"></i>
-                            <i class="d-none d-xl-block collapse-toggle-icon font-medium-4 text-primary" data-feather="disc" data-ticon="disc"></i>
-                        </a>
-                    </li>
-                </ul>
+	<footer class="relative footer">
+		<div class="container text-center">
+            <div class="flex justify-center m-1 space-x-2">
+                <a href="https://instagram.com/insouciant.idx?igshid=YmMyMTA2M2Y=" type="button" class="">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" class="w-7 h-7" style="color: #1877f2;"><path fill="currentColor" d="M279.14 288l14.22-92.66h-88.91v-60.13c0-25.35 12.42-50.06 52.24-50.06h40.42V6.26S260.43 0 225.36 0c-73.22 0-121.08 44.38-121.08 124.72v70.62H22.89V288h81.39v224h100.17V288z"/></svg>
+                  </a>
+                  <a href="https://instagram.com/insouciant.idx?igshid=YmMyMTA2M2Y=" type="button" class="">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="w-7 h-7" style="color: #c13584;"><path fill="currentColor" d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z"/></svg>
+                  </a>
+                  <a href="https://instagram.com/insouciant.idx?igshid=YmMyMTA2M2Y=" type="button" class="">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="w-7 h-7" style="color: #1da1f2;"><path fill="currentColor" d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
+                  </a>
             </div>
-            <div class="shadow-bottom"></div>
-            <div class="main-menu-content">
-                <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
-                    <li class=" nav-item">
-                        <a class="d-flex align-items-center" href="index.html">
-                            <i data-feather="home"></i>
-                            <span class="menu-title text-truncate" data-i18n="Dashboards">Dashboards</span>
-                            <span class="ml-auto mr-1 badge badge-light-warning badge-pill">2</span>
-                        </a>
-                        <ul class="menu-content">
-                            <li class="active">
-                                <a class="d-flex align-items-center" href="dashboard-analytics.html">
-                                    <i data-feather="circle"></i>
-                                    <span class="menu-item" data-i18n="Analytics">Analytics</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a class="d-flex align-items-center" href="dashboard-ecommerce.html">
-                                    <i data-feather="circle"></i>
-                                    <span class="menu-item" data-i18n="eCommerce">eCommerce</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
+            <div class="mb-4">
+                © 2022 Market'In
             </div>
-        </div>
-        <div class="app-content content ">
-            <div class="content-overlay"></div>
-            <div class="header-navbar-shadow"></div>
-            <div class="content-wrapper">
-                <div class="content-header row">
-                    <div class="mb-2 content-header-left col-md-9 col-12">
-                        <div class="row breadcrumbs-top">
-                            <div class="col-12">
-                                <h2 class="float-left mb-0 content-header-title">
-                                    @yield('title')
-                                </h2>
-                                <div class="breadcrumb-wrapper">
-                                    @yield('breadcrumb')
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="content-body">
-                    @yield('content')
-                </div>
-            </div>
-        </div>
+		</div>
+	</footer>
 
-        <div class="text-left modal fade" id="inlineForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel33" aria-hidden="true" style="display: none;">
-            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 class="modal-title" id="myModalLabel33">Ganti Password</h4>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">×</span>
-                        </button>
-                    </div>
-                    <form method="post" action="{{ route('change-password') }}">
-                        @csrf
-                        <div class="modal-body">
-                            <label>Password Lama: </label>
-                            <div class="form-group">
-                                <input name="old_password" type="password" placeholder="Password Lama" class="form-control">
-                            </div>
-
-                            <label>Password Baru: </label>
-                            <div class="form-group">
-                                <input name="password" type="password" placeholder="Password" class="form-control">
-                            </div>
-
-                            <label>Ulangi Password Baru: </label>
-                            <div class="form-group">
-                                <input name="password_confirmation" type="password" placeholder="Password" class="form-control">
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="submit" class="btn btn-primary waves-effect waves-light">Ganti Password</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-
-        <div class="sidenav-overlay"></div>
-        <div class="drag-target"></div>
-        <footer class="footer footer-static footer-light">
-            <p class="clearfix mb-0">
-                <span class="float-md-right d-block d-md-inline-block mt-25">
-                    COPYRIGHT &copy; {{ date('Y') }} @if(env('WHITE_LABEL') === false)<a class="ml-25" href="https://digitalkonsultindo.co.id" target="_blank">Digital Konsultindo FA</a>@else<a class="ml-25" href="{{ env('APP_URL') }}" target="_blank">{{ env('APP_NAME') }}</a>@endif
-                    <span class="d-none d-sm-inline-block">, All rights Reserved</span>
-                </span>
-            </p>
-        </footer>
-        <button class="btn btn-primary btn-icon scroll-top" type="button">
-            <i data-feather="arrow-up"></i>
-        </button>
-
-
-        <script src="/app-assets/vendors/js/vendors.min.js?v={{env('APP_VERSION')}}"></script>
-        <script src="/app-assets/vendors/js/extensions/js.cookie.min.js?v={{env('APP_VERSION')}}"></script>
-        <script src="/app-assets/js/core/app-menu.js?v={{env('APP_VERSION')}}"></script>
-        <script src="/app-assets/js/core/app.js?v={{env('APP_VERSION')}}"></script>
-        <script src="/app-assets/vendors/js/extensions/toastr.min.js?v={{env('APP_VERSION')}}"></script>
-
-        <script>
-            $(window).on('load', function () {
-                if (feather) {
-                    feather.replace({
-                        width: 14,
-                        height: 14
-                    });
-                }
-            })
-            $(document).ajaxStart(function(){
-                $.blockUI({
-                    message: '<div class="spinner-border text-white" role="status"></div>',
-                    timeout: 1000,
-                    css: {
-                        backgroundColor: 'transparent',
-                        border: '0'
-                    },
-                        overlayCSS: {
-                        opacity: 0.8
-                    }
-                });
-            }).ajaxStop($.unblockUI);
-
-            //AVATAR FUNCTION
-            !function(t,e){function r(r,a){r=r||"",a=a||60;var n,i,o,c,d,f=String(r).toUpperCase().split(" ");return n=1==f.length?f[0]?f[0].charAt(0):"?":f[0].charAt(0)+f[1].charAt(0),t.devicePixelRatio&&(a*=t.devicePixelRatio),i=(("?"==n?72:n.charCodeAt(0))-64)%20,(o=e.createElement("canvas")).width=a,o.height=a,(c=o.getContext("2d")).fillStyle=["#1abc9c","#2ecc71","#3498db","#9b59b6","#34495e","#16a085","#27ae60","#2980b9","#8e44ad","#2c3e50","#f1c40f","#e67e22","#e74c3c","#ecf0f1","#95a5a6","#f39c12","#d35400","#c0392b","#bdc3c7","#7f8c8d"][i-1],c.fillRect(0,0,o.width,o.height),c.font=Math.round(o.width/2)+"px Arial",c.textAlign="center",c.fillStyle="#FFF",c.fillText(n,a/2,a/1.5),d=o.toDataURL(),o=null,d}r.transform=function(){Array.prototype.forEach.call(e.querySelectorAll("img[avatar]"),function(t,e){e=t.getAttribute("avatar"),t.src=r(e,t.getAttribute("width")),t.removeAttribute("avatar"),t.setAttribute("alt",e)})},"function"==typeof define&&define.amd?define(function(){return r}):"undefined"!=typeof exports?("undefined"!=typeof module&&module.exports&&(exports=module.exports=r),exports.LetterAvatar=r):(window.LetterAvatar=r,e.addEventListener("DOMContentLoaded",function(t){r.transform()}))}(window,document);
-
-            @if (session('status'))
-                toastr.success('{{ session('status') }}', 'Success!', {
-                    closeButton: true,
-                    tapToDismiss: false
-                });
-            @endif
-        </script>
-        @yield('scripts')
-    </body>
-
-    @toastr_render
+</body>
 </html>

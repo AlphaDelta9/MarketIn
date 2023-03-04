@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\ProjectDetail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Str;
 
 class ProjectDetailController extends Controller
 {
@@ -21,11 +22,11 @@ class ProjectDetailController extends Controller
                 return view('front.verify', ['projects'=>ProjectDetail::whereNotNull('verified_at')->paginate(6)->withQueryString()]);
                 break;
             case 'Pending':
-                return view('front.verify', ['projects'=>ProjectDetail::whereNull('verified_at')->paginate(6)->withQueryString()]);
+                return view('front.verify', ['projects'=>ProjectDetail::whereNotNull('price')->whereNull('verified_at')->paginate(6)->withQueryString()]);
                 break;
 
             default:
-                return view('front.verify', ['projects'=>ProjectDetail::paginate(6)]);
+                return view('front.verify', ['projects'=>ProjectDetail::whereNotNull('price')->paginate(6)]);
                 break;
         }
     }
@@ -37,7 +38,7 @@ class ProjectDetailController extends Controller
      */
     public function create()
     {
-        //
+        return view('front.complete', ['projects'=>ProjectDetail::whereRelation('project_header','type_name','Iklan')->whereNull('completed_at')->paginate(6)]);
     }
 
     /**
@@ -48,10 +49,14 @@ class ProjectDetailController extends Controller
      */
     public function store(Request $request)
     {
-        ProjectDetail::create([
+        $detail = ProjectDetail::create([
             'project_header_id' => $request->id,
             'user_id' => $request->user()->id
         ]);
+        if($detail->project_header->type_name == 'Iklan'){
+            $detail->accepted_at = Carbon::yesterday();
+            $detail->save();
+        }
         return redirect('project/'.$request->id);
     }
 
@@ -63,7 +68,10 @@ class ProjectDetailController extends Controller
      */
     public function show(ProjectDetail $projectDetail)
     {
+        if(url()->current() == url('assign/'.$projectDetail->id))
         return view('front.assign', ['user'=>$projectDetail->user]);
+        else
+        return view('front.assign', ['user'=>$projectDetail->project_header->user]);
     }
 
     /**
@@ -87,25 +95,29 @@ class ProjectDetailController extends Controller
     public function update(Request $request, ProjectDetail $projectDetail)
     {
         if ($request->isMethod('put')){
-            $projectDetail->accepted_at = Carbon::now();
+            $projectDetail->accepted_at = Carbon::today();
             $projectDetail->save();
-            return redirect('project/'.$projectDetail->project_header_id);
+            return back();
         }elseif ($request->isMethod('patch')){
             $request->validate([
                 'price' => ['required'],
-                // 'file' => ['required','max:512'],
+                'receipt' => ['required','max:512'],
             ]);
             $projectDetail->price = $request->price;
-            // $projectDetail->receipt = base64_encode(file_get_contents($request->file('receipt')));
-            // $projectDetail->type = $request->file('receipt')->getMimeType();
+            $projectDetail->receipt = base64_encode(file_get_contents($request->file('receipt')));
+            $projectDetail->type = $request->file('receipt')->getMimeType();
             $projectDetail->save();
             return redirect('project/'.$projectDetail->project_header_id);
         }else {
             $request->validate([
-                'file' => ['required','max:512'],
+                'file' => ['nullable','max:512'],
+                'status' => ['required'],
             ]);
-            $projectDetail->mime = $request->file('file')->getMimeType();
-            $projectDetail->upload = base64_encode(file_get_contents($request->file('file')));
+            if($request->file('file')){
+                $projectDetail->mime = $request->file('file')->getMimeType();
+                $projectDetail->upload = base64_encode(file_get_contents($request->file('file')));
+            }
+            $projectDetail->overview = $request->status;
             $projectDetail->save();
             return redirect('history');
         }
@@ -123,8 +135,8 @@ class ProjectDetailController extends Controller
             $projectDetail->rejected_at = Carbon::now();
             $projectDetail->save();
         }
-        $projectDetail->delete();
-        return redirect('project/'.$projectDetail->project_header_id);
+        $projectDetail->delete();//$projectDetail->delete()->project_header_id
+        return back();
     }
 
     public function file(ProjectDetail $projectDetail)
@@ -132,22 +144,31 @@ class ProjectDetailController extends Controller
         return response(base64_decode($projectDetail->upload), 200, ['Content-Type' => $projectDetail->mime,]);
     }
 
+    public function receipt(ProjectDetail $projectDetail)
+    {
+        return response(base64_decode($projectDetail->receipt), 200, ['Content-Type' => $projectDetail->type,]);
+    }
+
     public function finalize(Request $request, ProjectDetail $projectDetail)
     {
         if($request->isMethod('post')){
             $projectDetail->completed_at = Carbon::now();
-            $projectDetail->price = $projectDetail->project_header->budget;
             $projectDetail->save();
             return redirect("project/".$projectDetail->project_header->id);
         }
+        elseif($request->isMethod('delete')){
+            $projectDetail->price = null;
+            $projectDetail->save();
+            return back()->withInput();
+        }
         elseif($request->isMethod('patch')){
-            // $request->flash();
             $projectDetail->verified_at = Carbon::now();
             $projectDetail->save();
             return back()->withInput();
         }
         elseif($request->_token == csrf_token()){
-            return view('front.pay', ['project'=>$projectDetail]);
+            return view('front.pay', ['project'=>$projectDetail,'transaction'=>Str::orderedUuid()]);
         }
     }
+
 }

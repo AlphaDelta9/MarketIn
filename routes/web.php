@@ -101,6 +101,7 @@ Route::get('/edit/{projectHeader}', [ProjectHeaderController::class,'edit']);
 Route::put('/edit/{projectHeader}', [ProjectHeaderController::class,'update']);
 Route::post('/download/{projectHeader}/{name}', [ProjectHeaderController::class,'file']);
 Route::get('/search', [ProjectHeaderController::class,'index']);
+Route::get('/iklanin', [ProjectHeaderController::class,'index']);
 
 Route::post('/project/{id}', [ProjectDetailController::class,'store']);
 Route::delete('/project/{projectDetail}', [ProjectDetailController::class,'destroy']);
@@ -109,36 +110,16 @@ Route::patch('/reject/{projectDetail}', [ProjectDetailController::class,'destroy
 Route::post('/upload/{projectDetail}', [ProjectDetailController::class,'update']);
 Route::get('/download/{projectDetail}/{name?}', [ProjectDetailController::class,'file']);
 Route::get('/assign/{projectDetail}', [ProjectDetailController::class,'show']);
+Route::get('/detail/{projectDetail}', [ProjectDetailController::class,'show']);
 Route::post('/complete/{projectDetail}', [ProjectDetailController::class,'finalize']);
 
 Route::get('/pay/{projectDetail}', [ProjectDetailController::class,'finalize']);
 Route::patch('/pay/{projectDetail}', [ProjectDetailController::class,'update']);
 Route::get('/verify', [ProjectDetailController::class,'index']);
-Route::get('/verify/{projectDetail}/{name?}', [ProjectDetailController::class,'']);
+Route::get('/verify/{projectDetail}/{name?}', [ProjectDetailController::class,'receipt']);
 Route::patch('/verify/{projectDetail}', [ProjectDetailController::class,'finalize']);
-
-Route::get('/shop', [ShopController::class, 'index'])->name('shop.all');
-Route::get('/shop/by-hero', [ShopController::class,'index'])->name('shop.by-hero');
-Route::get('/shop/by-hero/{hero}', [ShopController::class,'show'])->name('shop.by-hero.hero');
-
-Route::get('/shop/by-category', [ShopByCategoryController::class,'index'])->name('shop.by-category');
-Route::get('/shop/by-category/{category}', [ShopByCategoryController::class,'show'])->name('shop.by-category.category');
-
-Route::get('/shop/by-benefit', [ShopByBenefitController::class,'index'])->name('shop.by-benefit');
-Route::get('/shop/by-benefit/{benefit}', [ShopByBenefitController::class,'show'])->name('shop.by-benefit.benefit');
-
-Route::get('/product/{slug}', [ShopController::class,'show'])->name('shop.show');
-
-Route::get('/journal', 'JournalController@index')->name('journal');
-Route::get('/journal/{slug}', 'JournalController@show')->name('journal.show');
-
-
-Route::get('/quiz', function () {
-    return view('front.quiz.index');
-})->name('quiz');
-Route::post('/quiz/start', [QuizController::class,'start'])->name('quiz.start');
-
-Route::post('/subscribe/popup', [HomepageController::class,'popup'])->name('subscribe.popup');
+Route::delete('/verify/{projectDetail}', [ProjectDetailController::class,'finalize']);
+Route::get('/complete', [ProjectDetailController::class,'create']);
 
 Route::group(['middleware' => ['auth']], function(){
     // Route::post('/change-password', [ChangePasswordController::class,'update'])->name('change-password');
