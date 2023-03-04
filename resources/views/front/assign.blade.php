@@ -8,14 +8,14 @@
         <div class="container">
             <div>
                 <div class="grid grid-cols-3 gap-x-7">
-                    <div class="h-96 rounded-xl overflow-hidden">
-                        <img src="data:{{$user->mime}};base64,{{$user->picture}}" alt="" class="w-full h-full object-cover object-center">
+                    <div class="overflow-hidden h-96 rounded-xl">
+                        <img src="data:{{$user->mime}};base64,{{$user->picture}}" alt="" class="object-cover object-center w-full h-full">
                     </div>
                     <div class="col-span-2">
-                        <div class="text-2xl font-bold mb-4">{{ $user->name }}</div>
-                        <div class="border-t border-gray-300 space-y-2 pt-6">
+                        <div class="mb-4 text-2xl font-bold">{{ $user->name }}</div>
+                        <div class="pt-6 space-y-2 border-t border-gray-300">
                             <div class="flex">
-                                <div class="font-bold mb-2" style="white-space: pre-line">{{ $user->profile }}</div>
+                                <div class="mb-2 font-bold" style="white-space: pre-line">{{ $user->profile }}</div>
                             </div>
                         </div>
                     </div>

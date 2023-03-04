@@ -8,20 +8,20 @@
         <div class="container">
             <div>
                 <div class="grid grid-cols-2 gap-x-7">
-                    <div class="h-80 rounded-xl overflow-hidden">
-                        <img src="data:{{$project->mime}};base64,{{$project->picture}}" alt="" class="w-full h-full object-cover object-center">
+                    <div class="overflow-hidden h-80 rounded-xl">
+                        <img src="data:{{$project->mime}};base64,{{$project->picture}}" alt="" class="object-cover object-center w-full h-full">
                     </div>
                     <div>
-                        <div class="text-2xl font-bold mb-4">{{ $project->title }} - {{$project->type_name}}</div>
-                        <div class="border-t border-gray-300 space-y-2 pt-6">
-                                <div class="font-bold mb-2" style="white-space: pre-line">{{ $project->description }}</div>
+                        <div class="mb-4 text-2xl font-bold">{{ $project->title }} - {{$project->type_name}}</div>
+                        <div class="pt-6 space-y-2 border-t border-gray-300">
+                                <div class="mb-2 font-bold" style="white-space: pre-line">{{ $project->description }}</div>
                             </div>
                         </div>
                     </div>
                 </div>
                 @auth
                 @if($project->user()->is(auth()->user()))
-                <div class="mt-4 grid grid-cols-2">
+                <div class="grid grid-cols-2 mt-4">
                     <div class="text-base">
                         <p class="">
                             Lokasi: {{ $project->city_name }}
@@ -58,9 +58,9 @@
                                 @if ($detail->accepted_at)
                                 @if($project->type_name != 'Iklan')
                                     @if($detail->completed_at)
-                                    <td class="text-success font-bold">Done</td>
+                                    <td class="font-bold text-success">Done</td>
                                     @else
-                                    <td class="text-warning font-bold">On Progress</td>
+                                    <td class="font-bold text-warning">On Progress</td>
                                     @endif
                                 @endif
                                 <td>
@@ -84,7 +84,7 @@
                                 </td>
                                 @else
                                 @if($project->type_name != 'Iklan')
-                                <td class="text-warning font-bold">Pending</td>
+                                <td class="font-bold text-warning">Pending</td>
                                 @endif
                                 <td class="">
                                     @if (!$detail->accepted_at && !$detail->rejected_at)
@@ -104,7 +104,7 @@
                             </tr>
                             @empty
                             <tr>
-                                <td class="flex-1 font-bold pr-2" style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap"> No users</td>
+                                <td class="flex-1 pr-2 font-bold" style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap"> No users</td>
                             </tr>
                             @endforelse
                         </tbody>

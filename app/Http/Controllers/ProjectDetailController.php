@@ -170,4 +170,5 @@ class ProjectDetailController extends Controller
             return view('front.pay', ['project'=>$projectDetail,'transaction'=>Str::orderedUuid()]);
         }
     }
+
 }
