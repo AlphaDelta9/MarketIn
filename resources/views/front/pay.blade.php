@@ -13,8 +13,8 @@
                     @method('PATCH')
                     <div class="mb-6 space-y-5">
                         <div>
-                            <label for="id" class="block mb-2 text-base">Id Transaksi</label>
-                            <input type="text" id="id" name="id" class="w-full px-5 py-2 rounded-lg" value="{{ $transaction }}" disabled>
+                            <label for="title" class="block mb-2 text-base">Id Transaksi</label>
+                            <input type="text" id="title" name="title" class="w-full px-5 py-2 rounded-lg" value="{{ $transaction }}" disabled>
                         </div>
                         <div>
                             <label for="title" class="block mb-2 text-base">Nama Project</label>
