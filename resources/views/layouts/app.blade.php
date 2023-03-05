@@ -19,7 +19,7 @@
 
 </head>
 <body>
-    <div style="min-height: 76vh">
+    <div style="min-height: 80vh">
         @yield('content')
     </div>
 

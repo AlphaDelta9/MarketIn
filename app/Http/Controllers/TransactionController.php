@@ -13,7 +13,18 @@ class TransactionController extends Controller
      */
     public function index()
     {
-        //
+        request()->flash();
+        switch (request()->filter) {
+            case 'Verified':
+                return view('front.verify', ['projects'=>Transaction::whereRelation('transaction_detail','is_verified','Yes')->paginate(6)->withQueryString()]);
+                break;
+            case 'Pending':
+                return view('front.verify', ['projects'=>Transaction::where('status','Pending')->paginate(6)->withQueryString()]);
+                break;
+            default:
+                return view('front.verify', ['projects'=>Transaction::paginate(6)]);
+                break;
+        }
     }
 
     /**
@@ -23,7 +34,7 @@ class TransactionController extends Controller
      */
     public function create()
     {
-        //
+        return view('front.pay', ['project'=>$projectDetail,'transaction'=>Str::orderedUuid()]);
     }
 
     /**
@@ -34,7 +45,19 @@ class TransactionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'price' => ['required'],
+            'receipt' => ['required','max:512'],
+        ]);
+        Transaction::create([
+            'project_detail_id' => $request->detail_id,
+            'title' => $request->title,
+            'price' => $request->price,
+            'receipt' => base64_encode(file_get_contents($request->file('receipt'))),
+            'type' => $request->file('receipt')->getMimeType(),
+            'status' => 'Pending'
+        ]);
+        return redirect('project/'.ProjectDetail::find($request->detail_id)->project_header_id);
     }
 
     /**
@@ -68,7 +91,16 @@ class TransactionController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $transaction = Transaction::find($id);
+        if ($request->isMethod('put')){
+            $transaction->status = 'Approve';
+            $transaction->transaction_detail->is_verified = 'Yes';
+        }elseif (request()->isMethod('patch')){
+            $transaction->status = 'Reject';
+            $transaction->transaction_detail->is_verified = 'No';
+        }
+        $projectDetail->save();
+        return back();
     }
 
     /**

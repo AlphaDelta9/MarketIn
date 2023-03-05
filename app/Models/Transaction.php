@@ -12,14 +12,14 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class Transaction
- * 
+ *
  * @property int $id
  * @property string $title
  * @property string $status
  * @property int $project_detail_id
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
- * 
+ *
  * @property ProjectDetail $project_detail
  * @property Collection|TransactionDetail[] $transaction_details
  *
@@ -44,8 +44,8 @@ class Transaction extends Model
 		return $this->belongsTo(ProjectDetail::class);
 	}
 
-	public function transaction_details()
+	public function transaction_detail()
 	{
-		return $this->hasMany(TransactionDetail::class);
+		return $this->hasOne(TransactionDetail::class);
 	}
 }
