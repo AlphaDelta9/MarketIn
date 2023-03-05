@@ -10,7 +10,7 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Class Administrator
+ * Class Freelancer
  * 
  * @property int $id
  * @property string $name
@@ -25,9 +25,9 @@ use Illuminate\Database\Eloquent\Model;
  *
  * @package App\Models
  */
-class Administrator extends Model
+class Freelancer extends Model
 {
-	protected $table = 'administrators';
+	protected $table = 'freelancers';
 
 	protected $hidden = [
 		'password',

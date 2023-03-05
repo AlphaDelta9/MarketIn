@@ -8,11 +8,11 @@ namespace App\Models;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Foundation\Auth\User as AuthUser;
+use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class User
- *
+ * 
  * @property int $id
  * @property string $name
  * @property string $email
@@ -25,7 +25,7 @@ use Illuminate\Foundation\Auth\User as AuthUser;
  * @property string|null $remember_token
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
- *
+ * 
  * @property City $city
  * @property Collection|LoginToken[] $login_tokens
  * @property Collection|ProjectDetail[] $project_details
@@ -33,7 +33,7 @@ use Illuminate\Foundation\Auth\User as AuthUser;
  *
  * @package App\Models
  */
-class User extends AuthUser
+class User extends Model
 {
 	protected $table = 'users';
 
