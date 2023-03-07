@@ -154,7 +154,7 @@ class ProjectDetailController extends Controller
         if($request->isMethod('post')){
             $projectDetail->completed_at = Carbon::now();
             $projectDetail->save();
-            return redirect("project/".$projectDetail->project_header->id);
+            return back();
         }
         elseif($request->isMethod('delete')){
             $projectDetail->price = null;

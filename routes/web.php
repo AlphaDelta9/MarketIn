@@ -25,13 +25,13 @@ use App\Http\Controllers\UserController;
 |
 */
 
-Route::get('/', [HomepageController::class,'landing']);
+Route::get('/', [HomepageController::class,'landing'])->middleware('guest');
 Route::get('/home', [HomepageController::class,'index']);
 
-Route::get('/register/{role?}', [UserController::class,'create']);
-Route::post('/register/{role?}', [UserController::class,'store']);
-Route::get('/login', [UserController::class,'index']);
-Route::post('/login', [UserController::class,'login']);
+Route::get('/register/{role?}', [UserController::class,'create'])->middleware('guest');
+Route::post('/register/{role?}', [UserController::class,'store'])->middleware('guest');
+Route::get('/login', [UserController::class,'index'])->middleware('guest');
+Route::post('/login', [UserController::class,'login'])->middleware('guest');
 Route::get('/logout', [UserController::class,'logout']);
 Route::get('/profile/{user?}', [UserController::class,'edit']);
 Route::put('/profile/{user?}', [UserController::class,'update']);

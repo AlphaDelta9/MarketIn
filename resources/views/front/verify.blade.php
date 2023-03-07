@@ -7,7 +7,7 @@
     <section class="py-2">
         <div class="container">
             <form class="space-y-5" action="{{url('verify')}}" method="get">
-                <label for="filter" class="block mb-2 text-sm">Status Project</label>
+                <label for="filter" class="block mb-2 text-sm">Status</label>
                 <select name="filter" class="w-full px-3 py-2 border-b border-gray-400" id="">
                     <option value=""></option>
                     <option value="Pending" @if (old('filter') == 'Pending') selected @endif>Pending</option>
