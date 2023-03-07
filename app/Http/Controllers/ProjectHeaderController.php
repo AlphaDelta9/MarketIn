@@ -20,14 +20,14 @@ class ProjectHeaderController extends Controller
     {
         request()->flash();
         if (auth()->check() && auth()->user()->role){
-            return view('front.index', ['cities'=>City::all(),'types'=>Type::all(),
+            return view('front.material', ['cities'=>City::all(),'types'=>Type::all(),
             'projects'=>ProjectHeader::where('title', 'like', '%'.request()->search.'%')
             ->where('city_name', 'like', '%'.request()->city.'%')
             ->where('type_name', 'like', '%'.request()->type.'%')
             ->where('user_id', auth()->id())->paginate(6)->withQueryString()]);
         }
         elseif (url()->current() == url('search/')){
-            return view('front.index', ['cities'=>City::all(),'types'=>Type::where('name', '!=', 'Iklan')->get(),
+            return view('front.material', ['cities'=>City::all(),'types'=>Type::where('name', '!=', 'Iklan')->get(),
             'projects'=>ProjectHeader::where('title', 'like', '%'.request()->search.'%')
             ->where('city_name', 'like', '%'.request()->city.'%')->where('type_name', '!=', 'Iklan')
             ->where('type_name', 'like', '%'.request()->type.'%')->paginate(6)->withQueryString()]);

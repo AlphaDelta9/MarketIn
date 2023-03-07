@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ProjectDetail;
+use App\Models\Transaction;
 use Illuminate\Http\Request;
 
 class TransactionController extends Controller
@@ -16,13 +18,13 @@ class TransactionController extends Controller
         request()->flash();
         switch (request()->filter) {
             case 'Verified':
-                return view('front.verify', ['projects'=>Transaction::whereRelation('transaction_detail','is_verified','Yes')->paginate(6)->withQueryString()]);
+                return view('front.verify-payment', ['projects'=>Transaction::whereRelation('transaction_detail','is_verified','Yes')->paginate(6)->withQueryString()]);
                 break;
             case 'Pending':
-                return view('front.verify', ['projects'=>Transaction::where('status','Pending')->paginate(6)->withQueryString()]);
+                return view('front.verify-payment', ['projects'=>Transaction::where('status','Pending')->paginate(6)->withQueryString()]);
                 break;
             default:
-                return view('front.verify', ['projects'=>Transaction::paginate(6)]);
+                return view('front.verify-payment', ['projects'=>Transaction::paginate(6)]);
                 break;
         }
     }
@@ -34,7 +36,7 @@ class TransactionController extends Controller
      */
     public function create()
     {
-        return view('front.pay', ['project'=>$projectDetail,'transaction'=>Str::orderedUuid()]);
+        return view('front.pay', ['project'=>ProjectDetail::find(request()->detail_id),'transaction'=>Str::orderedUuid()]);
     }
 
     /**
@@ -99,7 +101,7 @@ class TransactionController extends Controller
             $transaction->status = 'Reject';
             $transaction->transaction_detail->is_verified = 'No';
         }
-        $projectDetail->save();
+        $transaction->save();
         return back();
     }
 

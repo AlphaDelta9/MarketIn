@@ -1,17 +1,9 @@
 <?php
 
-use App\Http\Controllers\Auth\ChangePasswordController;
-use App\Http\Controllers\Auth\LoginController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\PageController;
-use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomepageController;
 use App\Http\Controllers\ProjectDetailController;
 use App\Http\Controllers\ProjectHeaderController;
-use App\Http\Controllers\QuizController;
-use App\Http\Controllers\ShopByBenefitController;
-use App\Http\Controllers\ShopByCategoryController;
-use App\Http\Controllers\ShopController;
 use App\Http\Controllers\UserController;
 
 /*
