@@ -19,14 +19,14 @@ class ProjectDetailController extends Controller
         request()->flash();
         switch (request()->filter) {
             case 'Verified':
-                return view('front.verify', ['projects'=>ProjectDetail::whereNotNull('verified_at')->paginate(6)->withQueryString()]);
+                return view('front.verify-payment', ['projects'=>ProjectDetail::whereNotNull('verified_at')->paginate(6)->withQueryString()]);
                 break;
             case 'Pending':
-                return view('front.verify', ['projects'=>ProjectDetail::whereNotNull('price')->whereNull('verified_at')->paginate(6)->withQueryString()]);
+                return view('front.verify-payment', ['projects'=>ProjectDetail::whereNotNull('price')->whereNull('verified_at')->paginate(6)->withQueryString()]);
                 break;
 
             default:
-                return view('front.verify', ['projects'=>ProjectDetail::whereNotNull('price')->paginate(6)]);
+                return view('front.verify-payment', ['projects'=>ProjectDetail::whereNotNull('price')->paginate(6)]);
                 break;
         }
     }
@@ -38,7 +38,7 @@ class ProjectDetailController extends Controller
      */
     public function create()
     {
-        return view('front.complete', ['projects'=>ProjectDetail::whereRelation('project_header','type_name','Iklan')->whereNull('completed_at')->paginate(6)]);
+        return view('front.verify-advertising', ['projects'=>ProjectDetail::whereRelation('project_header','type_name','Iklan')->whereNull('completed_at')->paginate(6)]);
     }
 
     /**
@@ -69,9 +69,9 @@ class ProjectDetailController extends Controller
     public function show(ProjectDetail $projectDetail)
     {
         if(url()->current() == url('assign/'.$projectDetail->id))
-        return view('front.assign', ['user'=>$projectDetail->user]);
+        return view('front.view-applicant', ['user'=>$projectDetail->user]);
         else
-        return view('front.assign', ['user'=>$projectDetail->project_header->user]);
+        return view('front.view-applicant', ['user'=>$projectDetail->project_header->user]);
     }
 
     /**
