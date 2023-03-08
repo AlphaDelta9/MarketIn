@@ -13,6 +13,7 @@ class AdministratorController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    //untuk page admin
     public function index()
     {
         request()->flash();
@@ -71,6 +72,7 @@ class AdministratorController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    //untuk akses bukti bayar/iklan
     public function show($id)
     {
         if (url()->current() == url('verify/'.$id)){
@@ -101,6 +103,7 @@ class AdministratorController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    //untuk verifikasi iklan/payment
     public function update(Request $request, $id)
     {
         if($request->isMethod('post')){
@@ -123,6 +126,7 @@ class AdministratorController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    //reject bukti iklan/pembayaran
     public function destroy($id)
     {
         if(request()->isMethod('post')){

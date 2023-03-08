@@ -13,6 +13,7 @@ class TransactionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    //untuk daftar transaksi menggunakan status
     public function index()
     {
         request()->flash();
@@ -34,6 +35,7 @@ class TransactionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    //untuk payment page
     public function create()
     {
         return view('front.pay', ['project'=>ProjectDetail::find(request()->detail_id),'transaction'=>Str::orderedUuid()]);
@@ -45,6 +47,7 @@ class TransactionController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+    //untuk buat transaction di database
     public function store(Request $request)
     {
         $request->validate([
@@ -63,41 +66,20 @@ class TransactionController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    //untuk update transaction di database
     public function update(Request $request, $id)
     {
         $transaction = Transaction::find($id);
         if ($request->isMethod('put')){
             $transaction->status = 'Approve';
             $transaction->transaction_detail->is_verified = 'Yes';
-        }elseif (request()->isMethod('patch')){
+        }elseif ($request->isMethod('patch')){
             $transaction->status = 'Reject';
             $transaction->transaction_detail->is_verified = 'No';
         }
@@ -105,14 +87,4 @@ class TransactionController extends Controller
         return back();
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
 }
