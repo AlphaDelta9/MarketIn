@@ -14,19 +14,20 @@ class ProjectDetailController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    //untuk daftar transansaksi admin
     public function index()
     {
         request()->flash();
         switch (request()->filter) {
             case 'Verified':
-                return view('front.verify', ['projects'=>ProjectDetail::whereNotNull('verified_at')->paginate(6)->withQueryString()]);
+                return view('front.verify-payment', ['projects'=>ProjectDetail::whereNotNull('verified_at')->paginate(6)->withQueryString()]);
                 break;
             case 'Pending':
-                return view('front.verify', ['projects'=>ProjectDetail::whereNotNull('price')->whereNull('verified_at')->paginate(6)->withQueryString()]);
+                return view('front.verify-payment', ['projects'=>ProjectDetail::whereNotNull('price')->whereNull('verified_at')->paginate(6)->withQueryString()]);
                 break;
 
             default:
-                return view('front.verify', ['projects'=>ProjectDetail::whereNotNull('price')->paginate(6)]);
+                return view('front.verify-payment', ['projects'=>ProjectDetail::whereNotNull('price')->paginate(6)]);
                 break;
         }
     }
@@ -36,9 +37,10 @@ class ProjectDetailController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    //untuk daftar iklanin admin
     public function create()
     {
-        return view('front.complete', ['projects'=>ProjectDetail::whereRelation('project_header','type_name','Iklan')->whereNull('completed_at')->paginate(6)]);
+        return view('front.verify-advertising', ['projects'=>ProjectDetail::whereRelation('project_header','type_name','Iklan')->whereNull('completed_at')->paginate(6)]);
     }
 
     /**
@@ -47,6 +49,7 @@ class ProjectDetailController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+    //kirim data apply ke database
     public function store(Request $request)
     {
         $detail = ProjectDetail::create([
@@ -66,12 +69,13 @@ class ProjectDetailController extends Controller
      * @param  \App\Models\ProjectDetail  $projectDetail
      * @return \Illuminate\Http\Response
      */
+    //untuk profile freelance
     public function show(ProjectDetail $projectDetail)
     {
         if(url()->current() == url('assign/'.$projectDetail->id))
-        return view('front.assign', ['user'=>$projectDetail->user]);
+        return view('front.view-applicant', ['user'=>$projectDetail->user]);
         else
-        return view('front.assign', ['user'=>$projectDetail->project_header->user]);
+        return view('front.view-applicant', ['user'=>$projectDetail->project_header->user]);
     }
 
     /**
@@ -92,6 +96,7 @@ class ProjectDetailController extends Controller
      * @param  \App\Models\ProjectDetail  $projectDetail
      * @return \Illuminate\Http\Response
      */
+    //update status approve umkm / pembayaran / upload file freelance
     public function update(Request $request, ProjectDetail $projectDetail)
     {
         if ($request->isMethod('put')){
@@ -129,6 +134,7 @@ class ProjectDetailController extends Controller
      * @param  \App\Models\ProjectDetail  $projectDetail
      * @return \Illuminate\Http\Response
      */
+    //cancel apply / reject freelance
     public function destroy(ProjectDetail $projectDetail)
     {
         if (request()->isMethod('patch')){
@@ -139,22 +145,25 @@ class ProjectDetailController extends Controller
         return back();
     }
 
+    //akses file freelance
     public function file(ProjectDetail $projectDetail)
     {
         return response(base64_decode($projectDetail->upload), 200, ['Content-Type' => $projectDetail->mime,]);
     }
 
+    //akses bukti bayar
     public function receipt(ProjectDetail $projectDetail)
     {
         return response(base64_decode($projectDetail->receipt), 200, ['Content-Type' => $projectDetail->type,]);
     }
 
+    //admin verify / umkm payment page
     public function finalize(Request $request, ProjectDetail $projectDetail)
     {
         if($request->isMethod('post')){
             $projectDetail->completed_at = Carbon::now();
             $projectDetail->save();
-            return redirect("project/".$projectDetail->project_header->id);
+            return back();
         }
         elseif($request->isMethod('delete')){
             $projectDetail->price = null;

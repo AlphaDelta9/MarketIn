@@ -56,7 +56,7 @@
                         @error('city')
                         <div class="mt-1 text-base text-danger">{{ $message }}</div>
                         @enderror
-                    </div>-->
+                    </div>
                     <div>
                         <label for="picture" class="block mb-2 text-sm">Picture</label>
                         <input type="file" id="picture" name="picture" accept="image/*"

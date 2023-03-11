@@ -1,17 +1,9 @@
 <?php
 
-use App\Http\Controllers\Auth\ChangePasswordController;
-use App\Http\Controllers\Auth\LoginController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\PageController;
-use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomepageController;
 use App\Http\Controllers\ProjectDetailController;
 use App\Http\Controllers\ProjectHeaderController;
-use App\Http\Controllers\QuizController;
-use App\Http\Controllers\ShopByBenefitController;
-use App\Http\Controllers\ShopByCategoryController;
-use App\Http\Controllers\ShopController;
 use App\Http\Controllers\UserController;
 
 /*
@@ -25,70 +17,13 @@ use App\Http\Controllers\UserController;
 |
 */
 
-// Route::name('page.')->group(function () {
-//     Route::get('', [PageController::class, 'home'])->name('home');
-
-//     Route::name('forum.')->prefix('forum')->group(function () {
-//         Route::get('/', [PageController::class, 'forum'])->name('index');
-//         Route::get('buat', [PageController::class, 'forumCreate'])->name('create');
-//     });
-
-//     Route::middleware('user.auth')->group(function () {
-//         Route::get('login', [PageController::class, 'login'])->name('login');
-//         Route::get('register', [PageController::class, 'register'])->name('register');
-//     });
-
-//     Route::middleware('jwt.auth')->group(function () {
-//         Route::get('riwayat', [PageController::class, 'history'])->name('history');
-//         Route::get('profil', [PageController::class, 'profile'])->name('profile');
-//     });
-
-//     Route::name('project.')->prefix('project')->group(function () {
-//         Route::get('/', [PageController::class, 'project'])->name('index');
-
-//         Route::middleware(['jwt.auth', 'role.auth:pengguna'])->group(function () { // role: pengguna
-//             Route::get('buat', [PageController::class, 'projectCreate'])->name('create');
-//         });
-
-//         Route::prefix('{id}')->group(function () {
-//             Route::get('/', [PageController::class, 'projectDetail'])->name('detail');
-
-// //            Route::name('forum.')->prefix('forum')->group(function () {
-// //                Route::get('/', [PageController::class, 'forum'])->name('index');
-// //                Route::get('buat', [PageController::class, 'forumCreate'])->name('create');
-// //            });
-//         });
-//     });
-
-//     Route::name('users.')->prefix('users')->group(function () {
-//         Route::get('{id}', [PageController::class, 'userDetail'])->name('detail');
-//     });
-// });
-
-// Route::prefix('system')->name('system.')->group(function () {
-//     Route::prefix('auth')->name('auth.')->group(function () {
-//         Route::middleware('user.auth')->group(function () {
-//             Route::post('register', [AuthController::class, 'register'])->name('register');
-//             Route::post('login', [AuthController::class, 'login'])->name('login');
-//         });
-
-//         Route::middleware('jwt.auth')->get('logout', [AuthController::class, 'logout'])->name('logout');
-//     });
-
-// //    Route::name('project.')->prefix('project')->group(function () {
-// //        Route::name('forum.')->prefix('forum')->group(function () {
-// //            Route::post('create', [ForumController::class, 'forumCreate'])->name('create');
-// //        });
-// //    });
-// });
-
-Route::get('/', [HomepageController::class,'landing']);
+Route::get('/', [HomepageController::class,'landing'])->middleware('guest');
 Route::get('/home', [HomepageController::class,'index']);
 
-Route::get('/register/{role?}', [UserController::class,'create']);
-Route::post('/register/{role?}', [UserController::class,'store']);
-Route::get('/login', [UserController::class,'index']);
-Route::post('/login', [UserController::class,'login']);
+Route::get('/register/{role?}', [UserController::class,'create'])->middleware('guest');
+Route::post('/register/{role?}', [UserController::class,'store'])->middleware('guest');
+Route::get('/login', [UserController::class,'index'])->middleware('guest');
+Route::post('/login', [UserController::class,'login'])->middleware('guest');
 Route::get('/logout', [UserController::class,'logout']);
 Route::get('/profile/{user?}', [UserController::class,'edit']);
 Route::put('/profile/{user?}', [UserController::class,'update']);
@@ -120,36 +55,3 @@ Route::get('/verify/{projectDetail}/{name?}', [ProjectDetailController::class,'r
 Route::patch('/verify/{projectDetail}', [ProjectDetailController::class,'finalize']);
 Route::delete('/verify/{projectDetail}', [ProjectDetailController::class,'finalize']);
 Route::get('/complete', [ProjectDetailController::class,'create']);
-
-Route::group(['middleware' => ['auth']], function(){
-    // Route::post('/change-password', [ChangePasswordController::class,'update'])->name('change-password');
-    // Route::get('/logout', [LoginController::class,'logout']);
-    // Route::get('/home', function(){
-    //     return redirect('/admin/journal');
-    // })->name('home');
-    // Route::get('/register', function(){
-    //     return redirect('/login');
-    // })->name('register');
-    // Route::get('/password/reset', function(){
-    //     return redirect('/login');
-    // })->name('password.request');
-});
-
-Route::group(['middleware' => ['auth'],'prefix'=>'admin'], function(){
-    Route::get('/journal', 'Admin\JournalController@index')->name('admin.journal');
-    Route::get('/journal/indexSSP', 'Admin\JournalController@indexSSP')->name('admin.journal.all');
-    Route::get('/journal/create', 'Admin\JournalController@create')->name('admin.journal.create');
-    Route::post('/journal/store', 'Admin\JournalController@store')->name('admin.journal.store');
-    Route::get('/journal/{slug}/edit', 'Admin\JournalController@edit')->name('admin.journal.edit');
-    Route::post('/journal/{slug}/update', 'Admin\JournalController@update')->name('admin.journal.update');
-    Route::get('/journal/{slug}/delete', 'Admin\JournalController@destroy')->name('admin.journal.destroy');
-    Route::post('/journal/image', 'Admin\JournalController@image')->name('admin.journal.image');
-
-    // Route::get('/product', 'Admin\ProductController@index')->name('admin.product');
-    // Route::get('/product/indexSSP', 'Admin\ProductController@indexSSP')->name('admin.product.all');
-    // Route::get('/product/create', 'Admin\ProductController@create')->name('admin.product.create');
-    // Route::post('/product/store', 'Admin\ProductController@store')->name('admin.product.store');
-    // Route::get('/product/{slug}/edit', 'Admin\ProductController@edit')->name('admin.product.edit');
-    // Route::post('/product/{slug}/update', 'Admin\ProductController@update')->name('admin.product.update');
-    // Route::get('/product/{slug}/delete', 'Admin\ProductController@destroy')->name('admin.product.destroy');
-});

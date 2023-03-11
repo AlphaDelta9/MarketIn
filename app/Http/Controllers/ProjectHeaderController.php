@@ -16,18 +16,19 @@ class ProjectHeaderController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    //untuk page daftar proyek
     public function index()
     {
         request()->flash();
         if (auth()->check() && auth()->user()->role){
-            return view('front.index', ['cities'=>City::all(),'types'=>Type::all(),
+            return view('front.material', ['cities'=>City::all(),'types'=>Type::all(),
             'projects'=>ProjectHeader::where('title', 'like', '%'.request()->search.'%')
             ->where('city_name', 'like', '%'.request()->city.'%')
             ->where('type_name', 'like', '%'.request()->type.'%')
             ->where('user_id', auth()->id())->paginate(6)->withQueryString()]);
         }
         elseif (url()->current() == url('search/')){
-            return view('front.index', ['cities'=>City::all(),'types'=>Type::where('name', '!=', 'Iklan')->get(),
+            return view('front.material', ['cities'=>City::all(),'types'=>Type::where('name', '!=', 'Iklan')->get(),
             'projects'=>ProjectHeader::where('title', 'like', '%'.request()->search.'%')
             ->where('city_name', 'like', '%'.request()->city.'%')->where('type_name', '!=', 'Iklan')
             ->where('type_name', 'like', '%'.request()->type.'%')->paginate(6)->withQueryString()]);
@@ -43,6 +44,7 @@ class ProjectHeaderController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    //untuk create project page
     public function create()
     {
         return view('front.create', ['cities'=>City::all()]);
@@ -54,6 +56,7 @@ class ProjectHeaderController extends Controller
      * @param  \App\Http\Requests\Request  $request
      * @return \Illuminate\Http\Response
      */
+    //untuk kirim project ke database
     public function store(Request $request)
     {
         $request->city = Str::title($request->city);
@@ -87,6 +90,7 @@ class ProjectHeaderController extends Controller
      * @param  \App\Models\ProjectHeader  $projectHeader
      * @return \Illuminate\Http\Response
      */
+    //untuk project detail page
     public function show(ProjectHeader $projectHeader)
     {
         return view('front.detail', ['project'=>$projectHeader,'cities'=>City::all()]);
@@ -98,6 +102,7 @@ class ProjectHeaderController extends Controller
      * @param  \App\Models\ProjectHeader  $projectHeader
      * @return \Illuminate\Http\Response
      */
+    //untuk update project page
     public function edit(ProjectHeader $projectHeader)
     {
         return view('front.update', ['project'=>$projectHeader,'cities'=>City::all()]);
@@ -110,6 +115,7 @@ class ProjectHeaderController extends Controller
      * @param  \App\Models\ProjectHeader  $projectHeader
      * @return \Illuminate\Http\Response
      */
+    //untuk update project di database
     public function update(Request $request, ProjectHeader $projectHeader)
     {
         $request->city = Str::title($request->city);
@@ -157,6 +163,7 @@ class ProjectHeaderController extends Controller
         //
     }
 
+    //akses aset iklanin
     public function file(ProjectHeader $projectHeader)
     {
         return response(base64_decode($projectHeader->asset), 200, ['Content-Type' => $projectHeader->type,]);

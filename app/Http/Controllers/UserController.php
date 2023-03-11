@@ -16,6 +16,7 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    //untuk login page
     public function index()
     {
         return view('auth.login');
@@ -26,6 +27,7 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    //untuk register page
     public function create(Request $request)
     {
         return view('auth.register', ['role'=>$request->role,'cities'=>City::all()]);
@@ -37,6 +39,7 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+    //kirim data ke database
     public function store(Request $request)
     {
         $request->validate([
@@ -66,9 +69,10 @@ class UserController extends Controller
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
+    //untuk history page
     public function show(User $user)
     {
-        request()->flash();
+        request()->flash(); //agar input value tetap ada
         if (Auth::user()->role) {
             switch (request()->filter) {
                 case 'Done':
@@ -106,7 +110,7 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        // dd(session()->all());
+        //untuk profile page
         return view('front.profile', ['user'=>Auth::user(),'cities'=>City::all()]);
     }
 
@@ -117,6 +121,7 @@ class UserController extends Controller
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
+    //update user di database
     public function update(Request $request, User $user)
     {
         $request->validate([
@@ -153,6 +158,7 @@ class UserController extends Controller
         //
     }
 
+    //proses login
     public function login(Request $request)
     {
         if (Auth::attempt(
@@ -170,6 +176,7 @@ class UserController extends Controller
         ]);
     }
 
+    //proses logout
     public function logout(Request $request)
     {
         Auth::logout();

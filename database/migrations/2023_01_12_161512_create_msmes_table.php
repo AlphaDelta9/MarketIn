@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTransactionsTable extends Migration
+class CreateMsmesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,15 @@ class CreateTransactionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('transactions', function (Blueprint $table) {
+        Schema::create('msmes', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
-            $table->string('status');
-            $table->foreignId('project_detail_id')->constrained();
+            $table->string('name');
+            $table->string('email')->unique();
+            $table->string('password');
+            $table->string('location');
+            $table->text('description');
+            $table->string('picture');
+            $table->rememberToken();
             $table->timestamps();
         });
     }
@@ -29,6 +33,6 @@ class CreateTransactionsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('transactions');
+        Schema::dropIfExists('msmes');
     }
 }

@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Auth;
 
 class HomepageController extends Controller
 {
+    //untuk home page
     public function index(){
         if (Auth::check()) {
             $user = Auth::user();
@@ -31,6 +32,7 @@ class HomepageController extends Controller
         }
     }
 
+    //untuk guest page
     public function landing()
     {
         return(view('landing'));

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ProjectDetail;
+use App\Models\Transaction;
 use Illuminate\Http\Request;
 
 class TransactionController extends Controller
@@ -11,9 +13,21 @@ class TransactionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    //untuk daftar transaksi menggunakan status
     public function index()
     {
-        //
+        request()->flash();
+        switch (request()->filter) {
+            case 'Verified':
+                return view('front.verify-payment', ['projects'=>Transaction::whereRelation('transaction_detail','is_verified','Yes')->paginate(6)->withQueryString()]);
+                break;
+            case 'Pending':
+                return view('front.verify-payment', ['projects'=>Transaction::where('status','Pending')->paginate(6)->withQueryString()]);
+                break;
+            default:
+                return view('front.verify-payment', ['projects'=>Transaction::paginate(6)]);
+                break;
+        }
     }
 
     /**
@@ -21,9 +35,10 @@ class TransactionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    //untuk payment page
     public function create()
     {
-        //
+        return view('front.pay', ['project'=>ProjectDetail::find(request()->detail_id),'transaction'=>Str::orderedUuid()]);
     }
 
     /**
@@ -32,31 +47,22 @@ class TransactionController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+    //untuk buat transaction di database
     public function store(Request $request)
     {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
+        $request->validate([
+            'price' => ['required'],
+            'receipt' => ['required','max:512'],
+        ]);
+        Transaction::create([
+            'project_detail_id' => $request->detail_id,
+            'title' => $request->title,
+            'price' => $request->price,
+            'receipt' => base64_encode(file_get_contents($request->file('receipt'))),
+            'type' => $request->file('receipt')->getMimeType(),
+            'status' => 'Pending'
+        ]);
+        return redirect('project/'.ProjectDetail::find($request->detail_id)->project_header_id);
     }
 
     /**
@@ -66,19 +72,19 @@ class TransactionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    //untuk update transaction di database
     public function update(Request $request, $id)
     {
-        //
+        $transaction = Transaction::find($id);
+        if ($request->isMethod('put')){
+            $transaction->status = 'Approve';
+            $transaction->transaction_detail->is_verified = 'Yes';
+        }elseif ($request->isMethod('patch')){
+            $transaction->status = 'Reject';
+            $transaction->transaction_detail->is_verified = 'No';
+        }
+        $transaction->save();
+        return back();
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
 }

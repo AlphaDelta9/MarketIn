@@ -10,7 +10,7 @@
 
 	<link rel="stylesheet" href="{{ asset('assets/css/index.css') }}">
 	<link rel="stylesheet" href="{{ asset('assets/css/bulma.css') }}">
-    <link rel="stylesheet" href="{{ asset('others/fontawesome/css/all.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/all.min.css') }}">
 
     <link rel="stylesheet" href="{{ asset('assets/css/app.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
@@ -19,7 +19,7 @@
 
 </head>
 <body>
-    <div style="min-height: 76vh">
+    <div style="min-height: 80vh">
         @yield('content')
     </div>
 
