@@ -110,7 +110,6 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        //untuk profile page
         return view('front.profile', ['user'=>Auth::user(),'cities'=>City::all()]);
     }
 

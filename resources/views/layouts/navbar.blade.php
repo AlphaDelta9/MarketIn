@@ -43,7 +43,7 @@
 
             <a href="{{ url('profile') }}" class="block py-8 px-10
             @if( url()->current() == url('profile') )text-primary @endif">
-                {{auth()->user()->name}}
+                Profile
             </a>
             @else
             <a class="block px-10 py-8 text-primary">

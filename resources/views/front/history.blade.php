@@ -12,7 +12,7 @@
                 <select name="filter" class="w-full px-3 py-2 border-b border-gray-400" id="">
                     <option value=""></option>
                     <option value="Active" @if (old('filter') == 'Active') selected @endif>Active</option>
-                    <option value="Done" @if (old('filter') == 'Done') selected @endif>Done</option>
+                    <option value="Finish" @if (old('filter') == 'Finish') selected @endif>Finish</option>
                 </select>
                 <button class="block ml-auto btn btn-primary" type="submit">Filter</button>
             </form>
@@ -49,7 +49,7 @@
                         @if ($project->deleted_at)
                         <td class="font-bold text-danger">Cancel</td>
                         @elseif ($project->finished_at)
-                        <td class="font-bold text-success">Done</td>
+                        <td class="font-bold text-success">Finish</td>
                         @else
                         <td class="font-bold text-warning">Active</td>
                         @endif
@@ -62,7 +62,7 @@
                         @endif
                         @elseif ($project->accepted_at)
                         @if ($project->completed_at)
-                        <td class="font-bold text-success">Done</td>
+                        <td class="font-bold text-success">Finish</td>
                         @else
                         <td class="font-bold text-warning">On Progress</td>
                         @endif
