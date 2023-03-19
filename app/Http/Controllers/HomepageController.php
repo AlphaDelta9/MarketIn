@@ -35,6 +35,6 @@ class HomepageController extends Controller
     //untuk guest page
     public function landing()
     {
-        return(view('landing'));
+        return view('landing');
     }
 }

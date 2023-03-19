@@ -34,7 +34,7 @@
                         {{-- <td>{{ $project['type'] }}</td> --}}
                         <td><a class="text-primary hover:text-primary-dark" href="{{url('detail/'.$project->id)}}">{{$project->project_header->user->name}}</a> - <a class="text-primary hover:text-primary-dark" href="{{url('assign/'.$project->id)}}">{{ $project->user->name }}</a></td>
                         @if ($project->verified_at)
-                        <td class="font-bold text-success">Done</td>
+                        <td class="font-bold text-success">Finish</td>
                         @else
                         <td class="font-bold text-warning">Pending</td>
                         @endif

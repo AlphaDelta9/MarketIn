@@ -7,9 +7,9 @@
     <section class="py-20">
             <div class="container" id="content-profile">
                 {{-- <div class="tab-title">Profil</div> --}}
-                <div class="grid grid-cols-2 gap-x-7">
-                    <img class="h-full overflow-hidden rounded-xl" src="data:{{$user->mime}};base64,{{$user->picture}}" alt="Picture" srcset="">
-                    <form action="{{url("profile/".$user->id)}}" method="POST" enctype="multipart/form-data">
+                <div class="grid grid-cols-4 gap-x-7">
+                    <img class="overflow-hidden rounded-xl" src="data:{{$user->mime}};base64,{{$user->picture}}" alt="Picture" srcset="">
+                    <form action="{{url("profile/".$user->id)}}" method="POST" enctype="multipart/form-data" class="col-span-3">
                         @csrf
                         @method('PUT')
                         @if(session('message'))
