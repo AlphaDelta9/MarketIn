@@ -17,7 +17,7 @@ class CreateTransactionsTable extends Migration
             $table->id();
             $table->string('title');
             $table->string('status');
-            $table->foreignId('project_detail_id')->constrained();
+            $table->foreignId('project_detail_id');
             $table->timestamps();
         });
     }
