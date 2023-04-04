@@ -12,7 +12,7 @@
         "laravel/sanctum": "^2.11",
         "laravel/tinker": "^2.5",
         "mmo/faker-images": "^0.7.0",
-        "orangehill/iseed": "^3.0",
+        "orangehill/iseed": "3.0.1",
         "reliese/laravel": "^1.1"
     },
     "require-dev": {
