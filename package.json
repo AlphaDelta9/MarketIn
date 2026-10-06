@@ -11,7 +11,7 @@
     },
     "devDependencies": {
         "autoprefixer": "^10.4.0",
-        "axios": "^0.33",
+        "axios": "^0.34",
         "laravel-mix": "^6.0.49",
         "lodash": "^4.18.1",
         "postcss": "^8.5.23",
